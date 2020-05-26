@@ -10,22 +10,20 @@
         <span slot="title" class="submenu-title-wrapper"
           ><a-icon type="star" />我的博客</span
         >
-        <a-menu-item-group title="Item 1">
-          <a-menu-item key="setting:1">
-            Option 1
-          </a-menu-item>
+          <a-menu-item key="person">
+          <a-icon type="edit" />
+            写博客
+            <router-link :to="'createblog'"></router-link>
+        </a-menu-item>
           <a-menu-item key="setting:2">
             Option 2
           </a-menu-item>
-        </a-menu-item-group>
-        <a-menu-item-group title="Item 2">
           <a-menu-item key="setting:3">
             Option 3
           </a-menu-item>
           <a-menu-item key="setting:4">
             Option 4
           </a-menu-item>
-        </a-menu-item-group>
       </a-sub-menu>
       <a-menu-item key="person">
         <a-icon type="setting" />
