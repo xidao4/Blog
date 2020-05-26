@@ -5,10 +5,10 @@
     <a-col :span="16"  :order="2">
     <a-menu v-model="current" id="up_menu" theme="dark" mode="horizontal" >
       <a-menu-item key="main"> <a-icon type="appstore" />首页</a-menu-item>
-      <a-menu-item key="app" > <a-icon type="profile" />我的博客</a-menu-item>
+      <a-menu-item key="app" > <a-icon type="profile" />我的收藏</a-menu-item>
       <a-sub-menu>
         <span slot="title" class="submenu-title-wrapper"
-          ><a-icon type="star" />我的收藏</span
+          ><a-icon type="star" />我的博客</span
         >
         <a-menu-item-group title="Item 1">
           <a-menu-item key="setting:1">
@@ -30,6 +30,7 @@
       <a-menu-item key="person">
         <a-icon type="setting" />
           个人中心
+          <router-link :to="'setting'"></router-link>
       </a-menu-item>
       
     </a-menu>

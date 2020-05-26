@@ -30,5 +30,6 @@ export default {
 }
 #main_content{
     margin: 5% 0 0 0;
+    background: rgba(0, 0, 0, 0.05);
 }
 </style>

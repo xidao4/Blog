@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Layout from '../components/layout/index.vue'
 import Setting from '../views/person_setting.vue'
-
+import Login from '../views/login.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -21,8 +21,13 @@ Vue.use(VueRouter)
         path:'/home',
         name:'home',
         component:Home,
-      },    
-    
+       },
+       {
+        path:'/login',
+        name:'login',
+        component:Login,
+       },    
+      
       ]
   },
   {
