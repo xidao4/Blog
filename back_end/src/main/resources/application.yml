@@ -1,2 +1,18 @@
 server:
-  port: 8081
+  port: 8000
+  datasource:
+    url: jdbc:mysql://localhost:3306/Blog?serverTimezone=CTT&characterEncoding=UTF-8
+    username: root
+    password: Lgl13986678376
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-active: 200
+    max-idle: 20
+    min-idle: 10
+  thymeleaf:
+    cache: false
+  jackson:
+    time-zone: GMT+8
+
+
+mybatis:
+  mapper-locations: classpath:dataImpl/*/*Mapper.xml
