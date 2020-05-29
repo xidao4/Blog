@@ -3,11 +3,11 @@
 <mapper namespace="com.network_blog.back_end.data.passage.PassageMapper">
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Passage">
-        select * from Passage where id=#{id} and isdeleted=0
+        select * from tb_assage where id=#{id} and is_deleted=0
     </select>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.network_blog.back_end.po.Passage">
-        update Passage
+        update tb_passage
         <set>
             <if test="title!=null">
                 title=#{title},
@@ -15,13 +15,21 @@
             <if test="content != null">
                 content = #{content},
             </if>
-
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
         </set>
     </update>
 
     <update id="deleteBatch">
-        update Passage
-        set isdeleted=1 where id in
+        update tb_passage
+        set is_deleted=1 where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
@@ -32,7 +40,8 @@
         <result column="user_id" property="userId"></result>
         <result column="content" property="content"></result>
         <result column="title" property="title"></result>
-        <result column="recent_edit_time" property="RecentEditTime"></result>
+        <result column="is_deleted" property="isDeleted"></result>
+        <result column="recent_edit_time" property="recentEditTime"></result>
         <result column="create_time" property="createTime"></result>
     </resultMap>
 </mapper>

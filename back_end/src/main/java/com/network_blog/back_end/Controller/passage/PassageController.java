@@ -61,7 +61,7 @@ public class PassageController {
 
     }
 
-    @PostMapping("/blogs/delete")
+    @PostMapping("/passages/delete")
     @ResponseBody
     public ResponseVO delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {

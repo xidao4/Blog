@@ -7,7 +7,7 @@ public class PassageVO {
     private String content;
     private Integer userId;
     private String title;
-    private Date RecentEditTime;
+    private Date recentEditTime;
     private Date createTime;
     private Date collectionTime;
 
@@ -44,11 +44,11 @@ public class PassageVO {
     }
 
     public Date getRecentEditTime() {
-        return RecentEditTime;
+        return recentEditTime;
     }
 
     public void setRecentEditTime(Date recentEditTime) {
-        RecentEditTime = recentEditTime;
+        this.recentEditTime = recentEditTime;
     }
 
     public Date getCreateTime() {
