@@ -5,7 +5,11 @@ import com.network_blog.back_end.vo.ResponseVO;
 import com.network_blog.back_end.vo.UserForm;
 import com.network_blog.back_end.vo.UserVO;
 
-public interface UserService {
+/**
+ * @author huwen
+ * @date 2019/3/23
+ */
+public interface AccountService {
 
     /**
      * 注册账号
@@ -33,9 +37,8 @@ public interface UserService {
      * @param id
      * @param password
      * @param username
-     * @param phonenumber
      * @return
      */
-    ResponseVO updateUserInfo(int id, String password, String username, String phonenumber);
+    ResponseVO updateUserInfo(int id, String password, String username);
 
 }

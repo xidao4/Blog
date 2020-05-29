@@ -2,12 +2,19 @@ package com.network_blog.back_end.po;
 import java.util.Date;
 
 public class Comment {
-
+    private Integer id;
     private Integer passageId;
     private Integer userId;
     private String content;
     private Date commentTime;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public Integer getPassageId() {
         return passageId;
     }
