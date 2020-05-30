@@ -7,8 +7,17 @@ public class Passage {
     private String content;
     private Integer userId;
     private String title;
-    private Date RecentEditTime;
+    private Date recentEditTime;
     private Date createTime;
+    private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 
     public Integer getId() {
         return id;
@@ -43,11 +52,11 @@ public class Passage {
     }
 
     public Date getRecentEditTime() {
-        return RecentEditTime;
+        return recentEditTime;
     }
 
     public void setRecentEditTime(Date recentEditTime) {
-        RecentEditTime = recentEditTime;
+        this.recentEditTime = recentEditTime;
     }
 
     public Date getCreateTime() {
