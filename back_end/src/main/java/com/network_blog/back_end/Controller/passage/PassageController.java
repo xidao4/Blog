@@ -9,14 +9,20 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/passages")
 public class PassageController {
     @Autowired
     private PassageService passageService;
 
-    @GetMapping("/passages/save")
+    @GetMapping("/{userid}/list")
     @ResponseBody
-    public ResponseVO save(@RequestParam("blogTitle") String blogTitle,
+    public ResponseVO retrieveUserPassages(@PathVariable int userid){
+        return ResponseVO.buildSuccess(passageService.getUserPassages(userid));
+    }
+
+    @GetMapping("/write")
+    @ResponseBody
+    public ResponseVO write(@RequestParam("blogTitle") String blogTitle,
                            @RequestParam("blogContent") String blogContent){
         if(StringUtils.isEmpty(blogTitle))
             return ResponseVO.buildFailure("请输入文章标题");
@@ -28,14 +34,14 @@ public class PassageController {
         Passage passage=new Passage();
         passage.setTitle(blogTitle);
         passage.setContent(blogContent);
-        String saveBlogRet=passageService.saveBlog(passage);
+        String saveBlogRet=passageService.insertBlog(passage);
         if("success".equals(saveBlogRet))
             return ResponseVO.buildSuccess("添加成功");
         else
             return ResponseVO.buildFailure(saveBlogRet);
     }
 
-    @PostMapping("/passages/update")
+    @PostMapping("/update")
     @ResponseBody
     public ResponseVO update(@RequestParam("blogId") Integer blogId,
                              @RequestParam("blogTitle") String blogTitle,
@@ -61,7 +67,7 @@ public class PassageController {
 
     }
 
-    @PostMapping("/passages/delete")
+    @PostMapping("/delete")
     @ResponseBody
     public ResponseVO delete(@RequestBody Integer[] ids) {
         if (ids.length < 1) {

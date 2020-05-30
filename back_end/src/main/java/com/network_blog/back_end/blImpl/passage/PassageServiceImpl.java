@@ -7,11 +7,24 @@ import com.network_blog.back_end.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PassageServiceImpl implements PassageService {
     @Autowired
     private PassageMapper blogMapper;
 
+
+    /**
+     * 获取并显示文章
+     *
+     * @param userid
+     * @return
+     */
+    @Override
+    public List<Passage> getUserPassages(int userid) {
+        return blogMapper.getUserBlogs(userid);
+    }
 
     /**
      * 文章：增
@@ -20,9 +33,11 @@ public class PassageServiceImpl implements PassageService {
      * @return
      */
     @Override
-    public String saveBlog(Passage blog) {
-
-        return "保存失败";
+    public String insertBlog(Passage blog) {
+        if (blogMapper.insert(blog) > 0) {
+            return "success";
+        }
+        return "failure";
     }
 
     /**
