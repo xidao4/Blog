@@ -4,6 +4,7 @@ import com.network_blog.back_end.bl.passage.PassageService;
 import com.network_blog.back_end.bl.passage.CollectionService;
 import com.network_blog.back_end.po.Collection;
 import com.network_blog.back_end.po.Passage;
+import com.network_blog.back_end.vo.PassageVO;
 import com.network_blog.back_end.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/passages")
@@ -28,7 +30,12 @@ public class PassageController {
     @GetMapping("/list")
     @ResponseBody
     public ResponseVO retrieveUserBlogs(@RequestParam int userId){
-        return ResponseVO.buildSuccess(passageService.getAllBlogsByUserId(userId));
+        try{
+            return ResponseVO.buildSuccess(passageService.getAllBlogsByUserId(userId));
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("获取所写博客列表失败");
+        }
     }
     /**
      * 某用户写完博客后点击保存
