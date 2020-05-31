@@ -4,10 +4,14 @@ import com.network_blog.back_end.bl.passage.PassageService;
 import com.network_blog.back_end.data.passage.PassageMapper;
 import com.network_blog.back_end.po.Passage;
 import com.network_blog.back_end.vo.ResponseVO;
+import com.network_blog.back_end.vo.PassageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PassageServiceImpl implements PassageService {
@@ -16,64 +20,110 @@ public class PassageServiceImpl implements PassageService {
 
 
     /**
-     * 获取并显示文章
+     * 获取某用户自己写的全部文章
      *
-     * @param userid
+     * @param userId
      * @return
      */
     @Override
-    public List<Passage> getUserPassages(int userid) {
-        return blogMapper.getUserBlogs(userid);
+    public List<PassageVO> getAllBlogsByUserId(int userId) {
+        List<Passage> blogs=blogMapper.getAllBlogsByUserId(userId);
+        List<PassageVO> vos=new ArrayList<>();
+        for(Passage blog:blogs){
+            PassageVO vo=new PassageVO();
+            vo.setId(blog.getId());
+            vo.setTitle(blog.getTitle());
+            vo.setUserId(blog.getUserId());
+            vo.setContent(blog.getContent());
+            vo.setCreateTime(blog.getCreateTime());
+            vo.setRecentEditTime(blog.getRecentEditTime());
+            vos.add(vo);
+        }
+        return vos;
     }
 
     /**
-     * 文章：增
+     * 增
      *
-     * @param blog
+     * @param userId
+     * @param title
+     * @param content
+     * @param createTime
      * @return
      */
     @Override
-    public String insertBlog(Passage blog) {
-        if (blogMapper.insert(blog) > 0) {
-            return "success";
+    public ResponseVO insert(int userId, String title, String content, Date createTime) {
+        if(title.equals(""))
+            return ResponseVO.buildFailure("请输入文章标题");
+        if (title.length() > 150)
+            return ResponseVO.buildFailure("标题过长");
+        if (content.equals(""))
+            return ResponseVO.buildFailure("请输入文章内容");
+        try {
+            blogMapper.insert(userId,title,content,createTime);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("保存失败");
         }
-        return "failure";
+        return ResponseVO.buildSuccess(true);
+    }
+
+    /**
+     * 文章：改
+     *
+     * @param id
+     * @param title
+     * @param content
+     * @param updateTime
+     * @return
+     */
+    @Override
+    public ResponseVO updateBlog(int id, String title, String content, Date updateTime) {
+        if(title.equals(""))
+            return ResponseVO.buildFailure("请输入文章标题");
+        if (title.length() > 150)
+            return ResponseVO.buildFailure("标题过长");
+        if (content.equals(""))
+            return ResponseVO.buildFailure("请输入文章内容");
+        try {
+            blogMapper.update(id, title,content, updateTime);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("更新失败");
+        }
+        return ResponseVO.buildSuccess(true);
     }
 
     /**
      * 文章：删
      *
-     * @param ids
+     * @param id
      * @return
      */
     @Override
-    public Boolean deleteBatch(Integer[] ids) {
-        return blogMapper.deleteBatch(ids)>0;
+    public ResponseVO delete(Integer id) {
+        try {
+            blogMapper.delete(id);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("删除失败");
+        }
+        return ResponseVO.buildSuccess(true);
     }
 
-
-    /**
-     * 文章： 改
-     * @param blog
-     * @return
-     */
     @Override
-    public String updateBlog(Passage blog) {
-        Passage blogForUpdate=blogMapper.selectByPrimaryKey(blog.getId());
-        if (blogForUpdate == null) {
-            return "数据不存在";
-        }
-        blogForUpdate.setTitle(blog.getTitle());
-        blogForUpdate.setContent(blog.getContent());
-        if(blogMapper.updateByPrimaryKeySelective(blogForUpdate)>0){
-            return "修改成功";
-        }
-        return "修改失败";
-    }
-
-
-    @Override
-    public ResponseVO SearchPassage() {
-        return null;
+    public List<PassageVO> searchPassages(String key) {
+        List<Passage> passages=blogMapper.selectByKey(key);
+        List<PassageVO> passageVOS=passages.stream().map(p -> {
+            PassageVO passageVO = new PassageVO();
+            passageVO.setId(p.getId());
+            passageVO.setContent(p.getContent());
+            passageVO.setCreateTime(p.getCreateTime());
+            passageVO.setRecentEditTime(p.getRecentEditTime());
+            passageVO.setTitle(p.getTitle());
+            passageVO.setUserId(p.getUserId());
+            return passageVO;
+        }).collect(Collectors.toList());
+        return passageVOS;
     }
 }

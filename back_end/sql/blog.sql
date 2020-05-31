@@ -14,9 +14,8 @@ CREATE TABLE `tb_passage` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '博客表主键id',
   `title` varchar(200) NOT NULL COMMENT '博客标题',
   `content` mediumtext NOT NULL COMMENT '博客内容',
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否删除 0=否 1=是',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  `createTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `updateTime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -43,4 +42,13 @@ CREATE TABLE `tb_User` (
   `password` varchar(200) NOT NULL COMMENT '密码',
   `userName` varchar(200) NOT NULL COMMENT '用户名',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tb_collection`;
+
+CREATE TABLE `tb_collection` (
+  `userId` int(20) NOT NULL COMMENT '用户id',
+  `passageId` int(20) NOT NULL COMMENT '文章id',
+  `collectTime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '收藏时间',
+  PRIMARY KEY (`passageId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

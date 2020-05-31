@@ -5,14 +5,16 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 @Repository
 public interface PassageMapper {
-    int insert(Passage record);
-    Passage selectByPrimaryKey(int blogId);
-    int updateByPrimaryKeySelective(Passage record);
-    int deleteBatch(Integer[] ids);
-    List<Passage> getUserBlogs(@Param("userid") int userid);
+    List<Passage> getAllBlogsByUserId(@Param("userId") int userId);
+    int insert(@Param("id")int id,@Param("title") String title,@Param("content") String content,@Param("createTime") Date createTime);
+    int update(@Param("id")int id,@Param("title") String title,@Param("content") String content,@Param("updateTime") Date updateTime);
+    int delete(@Param("id") Integer id);
+    Passage selectById(@Param("id") int id);
+    List<Passage> selectByKey(@Param("key") String key);
 }
