@@ -37,7 +37,7 @@ public class CollectionServiceImpl implements CollectionService {
         List<Integer> collections=collectionMapper.search(userId);
         List<Passage> passages=new ArrayList<>();
         for(int i=0;i<collections.size();i++){
-            passages.add(passageMapper.selectByPrimaryKey(collections.get(i)));
+            passages.add(passageMapper.selectById(collections.get(i)));
         }
         List<PassageVO> passageVOS=passages.stream().map(p->{
             PassageVO passageVO=new PassageVO();
