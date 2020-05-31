@@ -9,15 +9,13 @@ public class Passage {
     private String title;
     private Date recentEditTime;
     private Date createTime;
-    private boolean isDeleted;
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
+//    private boolean isDeleted;
+//    public boolean isDeleted() {
+//        return isDeleted;
+//    }
+//    public void setDeleted(boolean deleted) {
+//        isDeleted = deleted;
+//    }
 
     public Integer getId() {
         return id;

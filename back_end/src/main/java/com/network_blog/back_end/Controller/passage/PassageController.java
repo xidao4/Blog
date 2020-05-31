@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/admin/passages")
@@ -19,71 +20,61 @@ public class PassageController {
     @Autowired
     private CollectionService collectionService;
 
-    @GetMapping("/{userid}/list")
+    /**
+     * 获取某用户自己写的全部博客
+     * @param userId
+     * @return PassageVO
+     */
+    @GetMapping("/list")
     @ResponseBody
-    public ResponseVO retrieveUserPassages(@PathVariable int userid){
-        return ResponseVO.buildSuccess(passageService.getUserPassages(userid));
+    public ResponseVO retrieveUserBlogs(@RequestParam int userId){
+        return ResponseVO.buildSuccess(passageService.getAllBlogsByUserId(userId));
     }
-
-    @GetMapping("/write")
+    /**
+     * 某用户写完博客后点击保存
+     * @param userId
+     * @param title
+     * @param content
+     * @param createTime
+     * @return
+     */
+    @GetMapping("/save")
     @ResponseBody
-    public ResponseVO write(@RequestParam("blogTitle") String blogTitle,
-                           @RequestParam("blogContent") String blogContent){
-        if(StringUtils.isEmpty(blogTitle))
-            return ResponseVO.buildFailure("请输入文章标题");
-        if (blogTitle.trim().length() > 150)
-            return ResponseVO.buildFailure("标题过长");
-        if (StringUtils.isEmpty(blogContent)) {
-            return ResponseVO.buildFailure("请输入文章内容");
-        }
-        Passage passage=new Passage();
-        passage.setTitle(blogTitle);
-        passage.setContent(blogContent);
-        String saveBlogRet=passageService.insertBlog(passage);
-        if("success".equals(saveBlogRet))
-            return ResponseVO.buildSuccess("添加成功");
-        else
-            return ResponseVO.buildFailure(saveBlogRet);
-    }
+    public ResponseVO save(@RequestParam("userId") Integer userId,
+                           @RequestParam("title") String title,
+                           @RequestParam("content") String content,
+                           @RequestParam("createTime") Date createTime){
+        return passageService.insert(userId,title,content,createTime);
 
+    }
+    /**
+     * 某用户修改自己写的博客
+     * @param id
+     * @param title
+     * @param content
+     * @param updateTime
+     * @return
+     */
     @PostMapping("/update")
     @ResponseBody
-    public ResponseVO update(@RequestParam("blogId") Integer blogId,
-                             @RequestParam("blogTitle") String blogTitle,
-                             @RequestParam("blogContent") String blogContent){
-        if (StringUtils.isEmpty(blogTitle)) {
-            return ResponseVO.buildFailure("请输入文章标题");
-        }
-        if (blogTitle.trim().length() > 150) {
-            return ResponseVO.buildFailure("标题过长");
-        }
-        if (StringUtils.isEmpty(blogContent)) {
-            return ResponseVO.buildFailure("请输入文章内容");
-        }
-        Passage blog=new Passage();
-        blog.setId(blogId);
-        blog.setTitle(blogTitle);
-        blog.setContent(blogContent);
-        String updateBlogRet=passageService.updateBlog(blog);
-        if("success".equals(updateBlogRet))
-            return ResponseVO.buildSuccess("添加成功");
-        else
-            return ResponseVO.buildFailure(updateBlogRet);
+    public ResponseVO update(@RequestParam("id") Integer id,
+                             @RequestParam("title") String title,
+                             @RequestParam("content") String content,
+                             @RequestParam("updateTime") Date updateTime){
+        return passageService.updateBlog(id,title,content,updateTime);
 
     }
-
+    /**
+     * 某用户删除某篇博客
+     * @param id
+     * @return
+     */
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseVO delete(@RequestBody Integer[] ids) {
-        if (ids.length < 1) {
-            return ResponseVO.buildFailure("参数异常！");
-        }
-        if (passageService.deleteBatch(ids)) {
-            return ResponseVO.buildSuccess();
-        } else {
-            return ResponseVO.buildFailure("删除失败");
-        }
+    public ResponseVO delete(@RequestBody Integer id) {
+        return passageService.delete(id);
     }
+
 
     @GetMapping("/{key}/searchPassages")
     public ResponseVO searchPassages(@PathVariable String key){
