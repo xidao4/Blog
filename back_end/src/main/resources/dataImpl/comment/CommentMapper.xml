@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.network_blog.back_end.data.user.CommentMapper">
     <insert id="createComment" parameterType="com.network_blog.back_end.po.Comment" useGeneratedKeys="true" keyProperty="id">
-        insert into Comment(id,passageId,userId,content,commentTime)
+        insert into tb_Comment(id,passageId,userId,content,commentTime)
         values(#(id),#{passageId},#{userId},#{content},#{commentTime})
     </insert>
     <delete id="deleteComment">
-        delete from Comment
+        delete from tb_Comment
         where id=#{id}
     </delete>
     <select id="getCommentByPassageId" resultMap="Comment">
         select *
-        from Comment
+        from tb_Comment
         where passageId=#{passageId}
     </select>
 
