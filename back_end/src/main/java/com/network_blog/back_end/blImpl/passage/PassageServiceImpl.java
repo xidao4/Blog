@@ -4,10 +4,12 @@ import com.network_blog.back_end.bl.passage.PassageService;
 import com.network_blog.back_end.data.passage.PassageMapper;
 import com.network_blog.back_end.po.Passage;
 import com.network_blog.back_end.vo.ResponseVO;
+import com.network_blog.back_end.vo.PassageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PassageServiceImpl implements PassageService {
@@ -73,7 +75,18 @@ public class PassageServiceImpl implements PassageService {
 
 
     @Override
-    public ResponseVO SearchPassage() {
-        return null;
+    public List<PassageVO> searchPassages(String key) {
+        List<Passage> passages=blogMapper.selectByKey(key);
+        List<PassageVO> passageVOS=passages.stream().map(p -> {
+            PassageVO passageVO = new PassageVO();
+            passageVO.setId(p.getId());
+            passageVO.setContent(p.getContent());
+            passageVO.setCreateTime(p.getCreateTime());
+            passageVO.setRecentEditTime(p.getRecentEditTime());
+            passageVO.setTitle(p.getTitle());
+            passageVO.setUserId(p.getUserId());
+            return passageVO;
+        }).collect(Collectors.toList());
+        return passageVOS;
     }
 }

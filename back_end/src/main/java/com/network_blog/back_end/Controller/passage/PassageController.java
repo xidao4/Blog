@@ -1,18 +1,23 @@
-package com.network_blog.back_end.Controller.passage;
+package com.network_blog.back_end.controller.passage;
 
 import com.network_blog.back_end.bl.passage.PassageService;
+import com.network_blog.back_end.bl.passage.CollectionService;
+import com.network_blog.back_end.po.Collection;
 import com.network_blog.back_end.po.Passage;
 import com.network_blog.back_end.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import javax.annotation.Resource;
+
+@RestController
 @RequestMapping("/admin/passages")
 public class PassageController {
     @Autowired
     private PassageService passageService;
+    @Autowired
+    private CollectionService collectionService;
 
     @GetMapping("/{userid}/list")
     @ResponseBody
@@ -78,6 +83,28 @@ public class PassageController {
         } else {
             return ResponseVO.buildFailure("删除失败");
         }
+    }
+
+    @GetMapping("/{key}/searchPassages")
+    public ResponseVO searchPassages(@PathVariable String key){
+        return ResponseVO.buildSuccess(passageService.searchPassages(key));
+    }
+
+    @PostMapping("/createCollection")
+    public ResponseVO createCollection(@RequestBody Collection collection){
+        collectionService.createCollection(collection);
+        return ResponseVO.buildSuccess(true);
+    }
+
+    @PostMapping("/deleteCollection")
+    public ResponseVO deleteCollection(@RequestBody Collection collection){
+        collectionService.deleteCollection(collection);
+        return ResponseVO.buildSuccess(true);
+    }
+
+    @GetMapping("/{userId}/searchCollection")
+    public ResponseVO searchCollection(@PathVariable Integer userId){
+        return ResponseVO.buildSuccess(collectionService.searchCollection(userId));
     }
 
 

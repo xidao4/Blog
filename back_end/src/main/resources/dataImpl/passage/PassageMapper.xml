@@ -3,12 +3,12 @@
 <mapper namespace="com.network_blog.back_end.data.passage.PassageMapper">
 
     <insert id="insert" parameterType="com.network_blog.back_end.po.Passage">
-    insert into tb_passage (id, title, is_deleted, create_time, update_time, blog_content)
+    insert into tb_passage (id, title, is_deleted, create_time, update_time, content)
     values (#{id}, #{title},  #{isDeleted}, #{createTime}, #{updateTime}, #{blogContent})
     </insert>
     
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="Passage">
-        select * from tb_assage where id=#{id} and is_deleted=0
+        select * from tb_passage where id=#{id} and is_deleted=0
     </select>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.network_blog.back_end.po.Passage">
@@ -42,6 +42,13 @@
 
     <select id="getUserBlogs" resultMap="Passage">
         select * from tb_passage where id=#{userid}
+    </select>
+
+    <select id="selectByKey" resultMap="Hotel">
+        select *
+        from tb_passage
+        where title like #{key} OR content like #{key}
+        order by id desc
     </select>
 
     <resultMap id="Passage" type="com.network_blog.back_end.po.Passage">

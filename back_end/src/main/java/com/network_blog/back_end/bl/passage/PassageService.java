@@ -1,6 +1,7 @@
 package com.network_blog.back_end.bl.passage;
 import com.network_blog.back_end.po.Passage;
 import com.network_blog.back_end.vo.ResponseVO;
+import com.network_blog.back_end.vo.PassageVO;
 
 import java.util.List;
 
@@ -32,5 +33,13 @@ public interface PassageService {
      * @return
      */
     String updateBlog(Passage blog);
-    ResponseVO SearchPassage();
+
+    /**
+     * 文章搜索
+     * @param key
+     * @return
+     */
+    List<PassageVO> searchPassages(String key);
+
+
 }

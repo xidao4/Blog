@@ -15,4 +15,5 @@ public interface PassageMapper {
     int updateByPrimaryKeySelective(Passage record);
     int deleteBatch(Integer[] ids);
     List<Passage> getUserBlogs(@Param("userid") int userid);
+    List<Passage> selectByKey(@Param("key") String key);
 }
