@@ -1,4 +1,4 @@
-package com.network_blog.back_end.Controller.comment;
+package com.network_blog.back_end.controller.comment;
 
 import com.network_blog.back_end.bl.comment.CommentService;
 import com.network_blog.back_end.po.Comment;
