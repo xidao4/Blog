@@ -20,6 +20,7 @@
                     { rules: [{ required: true, message: 'Please input your username!' }] },
                     ]"
                     placeholder="Username"
+                    v-model="loginInfo.email"
                 >
                     <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
                 </a-input>
@@ -32,6 +33,7 @@
                     ]"
                     type="password"
                     placeholder="Password"
+                    v-model="loginInfo.password"
                 >
                     <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
                 </a-input>
@@ -54,7 +56,7 @@
                 </a>
                 </a-form-item>
                 <a-form-item>
-                <a-button type="primary" html-type="submit" class="login-form-button">
+                <a-button type="primary" html-type="submit" class="login-form-button" @click="handlelogin">
                     Log in
                 </a-button>
                 </a-form-item>
@@ -161,10 +163,14 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
+
 export default {
     name:'Login',
   data() {
     return {
+      loginInfo:{email:'',password:''},
       visible: false,
       confirmDirty: false,
       autoCompleteResult: [],
@@ -197,6 +203,14 @@ export default {
     this.registerform = this.$form.createForm(this, { name: 'register' });
   },
   methods: {
+      ...mapActions([
+      'login',
+      ]),
+
+    async handlelogin(){
+          await this.login(this.loginInfo)
+          console.log('succed')
+    },
     handleSubmit(e) {
       e.preventDefault();
       this.form.validateFields((err, values) => {
