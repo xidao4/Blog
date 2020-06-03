@@ -9,3 +9,10 @@ export function loginAPI(data){
         data
     })
 }
+export function registerAPI(data){
+    return axios({
+        url:`${api.userPre}/register`,
+        method: 'POST',
+        data
+    })
+}

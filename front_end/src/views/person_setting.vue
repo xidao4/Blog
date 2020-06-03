@@ -19,7 +19,7 @@
         <div class="static_font">邮箱</div>
       </a-col>
       <a-col :span="12">
-        <a-input size="large" class="input" v-model="userName" placeholder="mail">
+        <a-input size="large" class="input" v-model="email" placeholder="mail">
             <a-icon slot="prefix" type="mail" />
             <a-tooltip slot="suffix" title="Extra information">
             <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
@@ -92,6 +92,14 @@
 <script>
 export default {
     name: 'Setting',
+    data() {
+      return {
+        userName:"",
+        email:"",
+        description:"",
+        
+      }
+    },
     methods: {
         onChange(checked) {
             console.log(`a-switch to ${checked}`);
