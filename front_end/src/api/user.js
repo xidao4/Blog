@@ -16,3 +16,9 @@ export function registerAPI(data){
         data
     })
 }
+export function getUserInfoAPI(id){
+    return axios({
+        url: `${api.userPre}/${id}/getUserInfo`,
+        method: 'GET'
+    })
+}
