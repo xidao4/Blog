@@ -19,7 +19,6 @@
             </a-menu-item>
             <a-menu-item key="setting:2">
               Option 2
-              <router-link :to="'details'"></router-link>
             </a-menu-item>
             <a-menu-item key="setting:3">
               Option 3
@@ -50,7 +49,6 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions, mapMutations } from 'vuex'
   export default {
     name:'Header',
     data() {
@@ -58,20 +56,8 @@
         current: ['main'],
       };
     },
-    computed:{
-      ...mapGetters([
-              'searchResult'
-      ])
-    },
     methods: {
-      ...mapMutations([
-      ]),
-      ...mapActions([
-        'searchPassage',
-      ]),
       onSearch(value) {
-        this.searchPassage(value)
-        this.$router.push({name:'searchResult',params:{value:value}})
       },
     },
   };

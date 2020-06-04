@@ -9,9 +9,7 @@
           <a-col :span="7">
             <a-form
                 id="components-form-demo-normal-login"
-                :form="form"
                 class="login-form"
-                @submit="handleSubmit"
             >
                 <a-form-item>
                 <a-input
@@ -205,19 +203,13 @@ export default {
   methods: {
       ...mapActions([
       'login',
+      'register'
       ]),
 
+    
     async handlelogin(){
           await this.login(this.loginInfo)
           console.log('succed')
-    },
-    handleSubmit(e) {
-      e.preventDefault();
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-        }
-      });
     },
     showModal() {
       this.visible = true;
@@ -232,7 +224,7 @@ export default {
     compareToFirstPassword(rule, value, callback) {
       const registerform = this.registerform;
       if (value && value !== registerform.getFieldValue('password')) {
-        callback('Two passwords that you enter is inconsistent!');
+        callback('两次输入密码不同!');
       } else {
         callback();
       }
@@ -244,13 +236,20 @@ export default {
       }
       callback();
     },
-    handleSubmitOfRegister(e) {
+    async handleSubmitOfRegister(e) {
       e.preventDefault();
+      let post_data=false;
+      let registerData;
       this.registerform.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          registerData={email:values.email,userName:values.nickname,password:values.password}
+          console.log('Received values of form: ', registerData);
+          post_data=true;
         }
       });
+      if (post_data) {
+        await this.register(registerData);
+      }
     },
   },
 }
