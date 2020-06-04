@@ -18,5 +18,6 @@
         from tb_collection
         where userId=#{userId}
     </select>
-    
+
+
 </mapper>

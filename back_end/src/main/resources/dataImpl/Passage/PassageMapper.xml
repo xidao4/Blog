@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.network_blog.back_end.data.passage.PassageMapper">
 
-    <select id="getAllBlogsByUserId" resultMap="Passage">
+    <select id="getAllBlogsByUserId" resultMap="com.network_blog.back_end.po.Passage">
         select * from tb_passage where userId=#{userId}
     </select>
 
@@ -13,20 +13,20 @@
 
     <update id="update" parameterType="com.network_blog.back_end.po.Passage">
         update tb_passage
-        set title=#{title},content=#{content},recentEditTime=#{updateTime},
+        set title=#{title},content=#{content},updateTime=#{updateTime},
         where id=#{id}
     </update>
 
-    <delete id="delete" parameterType="java.lang.Integer">
+    <update id="delete" parameterType="java.lang.Integer">
         delete from tb_passage where id = #{id}
-    </delete>
+    </update>
 
     <select id="selectById" parameterType="java.lang.Integer" resultMap="Passage">
         select * from tb_passage where id=#{id}
     </select>
 
 
-    <select id="selectByKey" resultMap="Passage">
+    <select id="selectByKey" resultMap="Hotel">
         select *
         from tb_passage
         where title like #{key} OR content like #{key}
@@ -35,10 +35,11 @@
 
     <resultMap id="Passage" type="com.network_blog.back_end.po.Passage">
         <id column="id" property="id"></id>
-        <result column="userId" property="userId"></result>
+        <result column="user_id" property="userId"></result>
         <result column="content" property="content"></result>
         <result column="title" property="title"></result>
-        <result column="recentEditTime" property="recentEditTime"></result>
-        <result column="createTime" property="createTime"></result>
+        <result column="is_deleted" property="isDeleted"></result>
+        <result column="recent_edit_time" property="recentEditTime"></result>
+        <result column="create_time" property="createTime"></result>
     </resultMap>
 </mapper>
