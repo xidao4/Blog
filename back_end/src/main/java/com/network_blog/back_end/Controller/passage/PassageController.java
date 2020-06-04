@@ -1,4 +1,4 @@
-package com.network_blog.back_end.Controller.passage;
+package com.network_blog.back_end.controller.passage;
 
 import com.network_blog.back_end.bl.passage.PassageService;
 import com.network_blog.back_end.bl.passage.CollectionService;
@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/passages")
+@RequestMapping("/admin/passages")
 public class PassageController {
     @Autowired
     private PassageService passageService;
