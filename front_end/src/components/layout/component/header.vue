@@ -6,7 +6,7 @@
         <a-menu v-model="current" id="up_menu" theme="dark" mode="horizontal" >
           <a-menu-item key="main"> <a-icon type="appstore" />首页</a-menu-item>
           <a-menu-item key="app" > <a-icon type="profile" />我的收藏
-            <router-link :to="'searchResult'"></router-link>
+            <router-link :to="'myCollection'"></router-link>
           </a-menu-item>
           <a-sub-menu>
         <span slot="title" class="submenu-title-wrapper"
