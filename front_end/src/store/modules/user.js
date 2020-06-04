@@ -17,16 +17,19 @@ const user={
         set_userId: (state, data) => {
             state.user_id = data
         },
+        set_token: function (state, token) {
+            state.token = token
+        },
     },
     actions:{
         login: async ({state,dispatch, commit}, userData) => {
             const res = await loginAPI(userData)
             if (res) {
-                //setToken(res.id)
+                setToken(res.id)
                 /* 
-                dispatch('getUserInfo')
-                router.push('/hotel/hotelList') */
+                dispatch('getUserInfo')*/
                 commit('set_userId', res.id)
+                router.push('/createblog')
                 //console.log('success',state.user_id,res)
             }
         },
