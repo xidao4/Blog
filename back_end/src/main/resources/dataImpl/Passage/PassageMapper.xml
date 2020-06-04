@@ -13,7 +13,7 @@
 
     <update id="update" parameterType="com.network_blog.back_end.po.Passage">
         update tb_passage
-        set title=#{title},content=#{content},recentEditTime=#{updateTime},
+        set title=#{title},content=#{content},recentEditTime=#{recentEditTime},
         where id=#{id}
     </update>
 
