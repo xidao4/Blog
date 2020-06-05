@@ -28,7 +28,6 @@ public class PassageController {
      * @return PassageVO
      */
     @GetMapping("/list")
-    @ResponseBody
     public ResponseVO retrieveUserBlogs(@RequestParam int userId){
         try{
             return ResponseVO.buildSuccess(passageService.getAllBlogsByUserId(userId));
@@ -37,6 +36,24 @@ public class PassageController {
             return ResponseVO.buildFailure("获取所写博客列表失败");
         }
     }
+
+    /**
+     * 根据博客的ID获取单篇文章内容
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}/passage")
+    public ResponseVO getBlogById(@PathVariable int id){
+        try{
+            return ResponseVO.buildSuccess(passageService.getBlogById(id));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("获取单篇博客失败");
+        }
+
+    }
+
+
     /**
      * 某用户写完博客后点击保存
      * @param userId
@@ -46,7 +63,6 @@ public class PassageController {
      * @return
      */
     @GetMapping("/save")
-    @ResponseBody
     public ResponseVO save(@RequestParam("userId") Integer userId,
                            @RequestParam("title") String title,
                            @RequestParam("content") String content,
@@ -63,7 +79,6 @@ public class PassageController {
      * @return
      */
     @PostMapping("/update")
-    @ResponseBody
     public ResponseVO update(@RequestParam("id") Integer id,
                              @RequestParam("title") String title,
                              @RequestParam("content") String content,
@@ -77,7 +92,6 @@ public class PassageController {
      * @return
      */
     @PostMapping("/delete")
-    @ResponseBody
     public ResponseVO delete(@RequestBody Integer id) {
         return passageService.delete(id);
     }

@@ -43,6 +43,25 @@ public class PassageServiceImpl implements PassageService {
     }
 
     /**
+     * 获取单篇文章
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public PassageVO getBlogById(int id) {
+        PassageVO vo=new PassageVO();
+        Passage blog=blogMapper.selectById(id);
+        vo.setId(blog.getId());
+        vo.setTitle(blog.getTitle());
+        vo.setUserId(blog.getUserId());
+        vo.setContent(blog.getContent());
+        vo.setCreateTime(blog.getCreateTime());
+        vo.setRecentEditTime(blog.getRecentEditTime());
+        return vo;
+    }
+
+    /**
      * 增
      *
      * @param userId
