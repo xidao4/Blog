@@ -13,7 +13,7 @@ import java.util.List;
 public interface PassageMapper {
     List<Passage> getAllBlogsByUserId(@Param("userId") int userId);
     int insert(@Param("id")int id,@Param("title") String title,@Param("content") String content,@Param("createTime") Date createTime);
-    int update(@Param("id")int id,@Param("title") String title,@Param("content") String content,@Param("updateTime") Date updateTime);
+    int update(@Param("id")int id,@Param("title") String title,@Param("content") String content,@Param("recentEditTime") Date recentEditTime);
     int delete(@Param("id") Integer id);
     Passage selectById(@Param("id") int id);
     List<Passage> selectByKey(@Param("key") String key);
