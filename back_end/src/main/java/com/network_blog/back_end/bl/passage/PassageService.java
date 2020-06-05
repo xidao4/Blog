@@ -13,6 +13,14 @@ public interface PassageService {
      * @return
      */
     List<PassageVO> getAllBlogsByUserId(int userId);
+
+    /**
+     * 获取单篇文章
+     * @param id
+     * @return
+     */
+    PassageVO getBlogById(int id);
+
     /**
      * 增
      * @param userId
