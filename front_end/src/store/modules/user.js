@@ -61,7 +61,7 @@ const user={
             })
         },
         getCollection:async ({commit,state})=>{
-            let res=getCollectionAPI(state.user_id)
+            const res=await getCollectionAPI(state.user_id)
             if(res){
                 commit('set_collection',res)
             }

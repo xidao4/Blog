@@ -9,11 +9,10 @@
                     <a-col class="'userName'" style="text-align:left;margin-left: 20px;"><br><br>
                         <span class="'name'" style="font-size: large;color: darkgray" >Mr.林娟娟</span><br>
                         <span class="'time'" style="font-size: large;color: darkgray">发表于 {{passageDetail.createTime.substring(0,10)}}</span>
-                    </a-col>
-                    <a-col style="text-align: right;margin-right: 200px">
-                        <a-button >收藏</a-button>
+                        <span class="collect" style="text-align: right;margin-left: 400px;font-size: medium;font-style: inherit"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
                     </a-col>
                 </a-row>
+                <br>
                 <h1 class="'title'" style="text-align: left;margin-left: 250px;margin-top: 20px;align-self: auto;font-size: xx-large">{{passageDetail.title}}</h1><br>
                 <a-row class="text" style="text-align:left;margin-right: 300px;margin-left: 250px;font-size: large">
                     &ensp;&ensp;{{passageDetail.content}}
@@ -21,14 +20,10 @@
                 <a-menu  >
                     <a-menu-item key="1" >
                         <a-col style="text-align: left;margin-left: 250px">
-                            <router-link to="reviews">
                                 <a-icon type="user" />评论
-                            </router-link>
+                            <a-button type="primary" style="margin-left: 600px">发表评论</a-button>
                         </a-col>
                     </a-menu-item>
-                    <a-col style="text-align: right;margin-right: 300px">
-                        <a-button type="primary">发表评论</a-button>
-                    </a-col>
                 </a-menu>
             </div>
         </a-layout-content>
@@ -36,7 +31,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapGetters,mapActions} from 'vuex';
     export default {
         name: "details",
         data(){
@@ -49,6 +44,14 @@
               'passageDetail'
           ])
         },
+        methods:{
+            ...mapActions([
+                'addCollection'
+            ]),
+            addtoCollection(id){
+                this.addCollection(id)
+            }
+        }
     }
 </script>
 

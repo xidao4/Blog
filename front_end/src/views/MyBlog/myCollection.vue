@@ -1,15 +1,25 @@
 <template>
     <div class="collection" >
-        <a-list item-layout="horizontal" size="large">
+        <br>
+        <a-list item-layout="horizontal" size="large" v-bind:data-source="collection" style="text-align: left;margin-left: 250px;margin-right: 250px">
             <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
-                <a-list-item-meta>
-                    <a slot="title" @click=jumpToDetails(item.id) style="position:relative;top: 10px;left:45px;font-size: 200%">{{item.title}}</a>
-                    <span  slot="description" style="position:absolute;margin-top:30px;margin-left:40px;color: black;white-space: pre">{{item.details}}}<br><br></span>
-                    <a-row>
-                        <a-col style="color: darkgray">{{item.userId}} 编辑于 {{item.time}}</a-col>
-                        <a-col style="color: darkgray"><a-button @click="deleteCollection(item.id)">取消收藏</a-button></a-col>
+                <row style="text-align: left;margin-left: 100px;margin-right: 200px">
+                    <br>
+                    <a slot="title"  @click="jumpToDetails(item.id)" style="text-align: left;font-size: 200%;color:gray" v-if="item.title.length<10">
+                        {{item.title}}
+                    </a>
+                    <a slot="title"  @click="jumpToDetails(item.id)" style="text-align: left;font-size: 200%;color:gray" v-else>
+                        {{item.title.substring(0,10)}}...
+                    </a>
+                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)" v-if="item.content.length>100">
+                        {{item.content.substring(0,100)}}...
                     </a-row>
-                </a-list-item-meta>
+                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)" v-else>
+                        {{item.content}}
+                    </a-row>
+                    <a-col style="color: darkgray;text-align: left"><br>创建于 {{item.createTime.substring(0,10)}}</a-col>
+                    <a-col style="color: darkgray;text-align: right"><a-button  @click="addtoCollection(item.id) " style="color: #192c3e"><a-icon type="star"></a-icon>取消收藏</a-button></a-col>
+                </row>
             </a-list-item>
         </a-list>
     </div>
@@ -24,12 +34,24 @@
 
             }
         },
+        async created() {
+           await this.getCollection()
+        },
         computed:{
             ...mapGetters([
-                'Collection'
+                'collection'
             ])
+        },
+        methods:{
+            ...mapActions([
+                'getCollection',
+                'getPassage'
+            ]),
+            jumpToDetails(id){
+                this.getPassage(id)
+                this.$router.push({name:'details'})
+            },
         }
-
     }
 </script>
 

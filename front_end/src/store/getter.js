@@ -5,7 +5,8 @@ const getters={
     //user
     //getter能干啥来着。。。
     token: state => state.user.token,
-    userId:state=>state.user.user_id
+    userId:state=>state.user.user_id,
+    collection:state=>state.user.collection,
    
 }
 export default getters
