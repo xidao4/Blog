@@ -6,7 +6,7 @@ import {message} from 'ant-design-vue'
 import {
     searchAPI,
     addCollectionAPI,
-    getCollectionAPI
+    getCollectionAPI, getPassage, getPassageAPI
 } from "../../api/passages";
 const passages={
     state:{
@@ -28,6 +28,12 @@ const passages={
                 commit("set_searchResult",res)
             }
         },
+        getPassage:async ({commit},id)=>{
+            let res=await getPassageAPI(id)
+            if(res){
+                commit('set_passage',res)
+            }
+        }
     }
 
 }

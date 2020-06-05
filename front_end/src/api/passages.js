@@ -9,9 +9,10 @@ export function searchAPI(key){
     })
 }
 
-export function getPassage(id) {
+export function getPassageAPI(id) {
     return axios({
-        url:`${api.passagesPre}/${key}/searchPassages`,
+        url:`${api.passagesPre}/${id}/passage`,
+        method:'GET'
     })
 }
 

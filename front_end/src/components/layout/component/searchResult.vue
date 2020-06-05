@@ -6,9 +6,10 @@
         <a-list item-layout="horizontal" size="large" v-bind:data-source="searchResult" style="text-align: left;margin-left: 250px;margin-right: 250px">
             <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
                 <row style="text-align: left;margin-left: 100px;margin-right: 200px">
-                    <a-row slot="title" style="text-align: left;margin-left:200px;font-size: 200%" @click="jumpToDetails(item.id)">
+                    <br>
+                    <a slot="title"  @click="jumpToDetails(item.id)" style="text-align: left;margin-left:200px;font-size: 200%;color:gray">
                         {{item.title}}
-                    </a-row><br>
+                    </a>
                     <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)">
                         {{item.content.substring(0,100)}}...
                     </a-row>
@@ -37,10 +38,12 @@
         },
         methods:{
             ...mapActions([
-                'addCollection'
+                'addCollection',
+                'getPassage'
             ]),
             jumpToDetails(id){
-                this.$router.push({name:'details',params:{Id:id}})
+                this.getPassage(id)
+                this.$router.push({name:'details'})
             },
             addtoCollection(id){
                 this.addCollection(id)
