@@ -133,7 +133,7 @@ public class PassageServiceImpl implements PassageService {
     @Override
     public List<PassageVO> searchPassages(String key) {
         System.out.println(key);
-        List<Passage> passages=blogMapper.selectByKey(key);
+        List<Passage> passages=blogMapper.selectByKey("%"+key+"%");
         List<PassageVO> passageVOS=passages.stream().map(p -> {
             PassageVO passageVO = new PassageVO();
             passageVO.setId(p.getId());

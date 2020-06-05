@@ -1,4 +1,4 @@
-package com.network_blog.back_end.Controller.user;
+package com.network_blog.back_end.controller.user;
 
 import com.network_blog.back_end.bl.user.AccountService;
 import com.network_blog.back_end.po.User;
