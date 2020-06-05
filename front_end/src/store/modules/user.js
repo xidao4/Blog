@@ -8,10 +8,12 @@ import {
     registerAPI,
     getUserInfoAPI,
 } from '../../api/user.js'
+import {addCollectionAPI, getCollectionAPI} from "../../api/passages";
 
 const user={
     state:{
-        user_id:'',
+        user_id:0,
+        collection:[],
     },
     mutations:{
         set_userId: (state, data) => {
@@ -19,6 +21,9 @@ const user={
         },
         set_token: function (state, token) {
             state.token = token
+        },
+        set_collection:function (state,data) {
+            state.collection=data
         },
     },
     actions:{
@@ -55,6 +60,27 @@ const user={
                 })
             })
         },
+        getCollection:async ({commit,state})=>{
+            let res=getCollectionAPI(state.user_id)
+            if(res){
+                commit('set_collection',res)
+            }
+        },
+        addCollection:async ({dispatch,state},passageId)=>{
+            const data={
+                userId:state.user_id,
+                passageId:passageId,
+                collectTime:new Date()
+            }
+            let res=await addCollectionAPI(data)
+            if(res){
+                dispatch('getCollection')
+                message.success('收藏成功')
+            }
+            else{
+                message.error('收藏失败')
+            }
+        }
     }
 }
 export default user;

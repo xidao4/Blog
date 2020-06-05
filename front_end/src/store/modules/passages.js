@@ -4,16 +4,22 @@ import {getToken, setToken, removeToken} from '@/utils/auth'
 import {resetRouter} from '@/router'
 import {message} from 'ant-design-vue'
 import {
-    searchAPI
+    searchAPI,
+    addCollectionAPI,
+    getCollectionAPI
 } from "../../api/passages";
 const passages={
     state:{
         searchResult:[],
+        passageDetail:[],
     },
     mutations:{
         set_searchResult:function (state,data) {
             state.searchResult=data
-        }
+        },
+        set_passage:function (state,data) {
+            state.passageDetail=data
+        },
     },
     actions:{
         searchPassage:async ({commit},value)=>{
@@ -21,7 +27,7 @@ const passages={
             if(res){
                 commit("set_searchResult",res)
             }
-        }
+        },
     }
 
 }

@@ -1,4 +1,4 @@
-package com.network_blog.back_end.controller.passage;
+package com.network_blog.back_end.Controller.passage;
 
 import com.network_blog.back_end.bl.passage.PassageService;
 import com.network_blog.back_end.bl.passage.CollectionService;
@@ -104,6 +104,5 @@ public class PassageController {
     public ResponseVO searchCollection(@PathVariable Integer userId){
         return ResponseVO.buildSuccess(collectionService.searchCollection(userId));
     }
-
 
 }

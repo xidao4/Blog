@@ -8,3 +8,23 @@ export function searchAPI(key){
         method: 'GET',
     })
 }
+
+export function getPassage(id) {
+    return axios({
+        url:`${api.passagesPre}/${key}/searchPassages`,
+    })
+}
+
+export function addCollectionAPI(data) {
+    return axios({
+        url:`${api.passagesPre}/createCollection`,
+        method:'POST',
+        data
+    })
+}
+export function getCollectionAPI(userId) {
+    return axios({
+        url:`${api.passagesPre}/${userId}/searchCollection`,
+        method: 'GET',
+    })
+}
