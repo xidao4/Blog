@@ -5,7 +5,7 @@ import router from './router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import store from './store'
-
+import '@/permission'
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
 

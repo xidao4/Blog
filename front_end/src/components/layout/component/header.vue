@@ -51,6 +51,7 @@
 
 <script>
   import { mapGetters, mapActions, mapMutations } from 'vuex'
+  import searchResult from "./searchResult";
   export default {
     name:'Header',
     data() {

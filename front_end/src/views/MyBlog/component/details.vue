@@ -36,8 +36,19 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     export default {
-        name: "details"
+        name: "details",
+        data(){
+            return{
+
+            }
+        },
+        computed:{
+          ...mapGetters([
+              'searchResult'
+          ])
+        },
     }
 </script>
 

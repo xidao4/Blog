@@ -200,6 +200,11 @@ export default {
     this.form = this.$form.createForm(this, { name: 'normal_login' });
     this.registerform = this.$form.createForm(this, { name: 'register' });
   },
+  computed: {
+    ...mapGetters([
+      'token'
+    ])
+  },
   methods: {
       ...mapActions([
       'login',
