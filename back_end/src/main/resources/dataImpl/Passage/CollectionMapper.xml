@@ -13,7 +13,7 @@
         where userId=#{userId} and passageId=#{passageId}
     </delete>
 
-    <select id="search">
+    <select id="search" resultType="java.lang.Integer">
         select passageId
         from tb_collection
         where userId=#{userId}

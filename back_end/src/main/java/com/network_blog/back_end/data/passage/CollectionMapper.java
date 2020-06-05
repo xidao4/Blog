@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 
@@ -13,9 +14,9 @@ import java.util.List;
 @Repository
 public interface CollectionMapper {
 
-    int insert(@Param("collection") Collection collection);
+    int insert(Collection collection);
 
-    int delete(@Param("collection") Collection collection);
+    int delete(Collection collection);
 
     List<Integer> search(@Param("userId") Integer userId);
 
