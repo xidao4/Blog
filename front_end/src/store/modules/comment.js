@@ -6,7 +6,9 @@ import {message} from 'ant-design-vue'
 import {getCommentByPassageIdAPI} from "../../api/comment";
 const comment={
     state:{
-        commentList:[]
+        commentList:[
+
+        ],
     },
     mutations:{
         set_commentList:function (state,data) {
@@ -14,8 +16,8 @@ const comment={
         }
     },
     actions:{
-        getCommentList:async ({commit},id)=>{
-            let res=getCommentByPassageIdAPI(id)
+        getCommentList:async ({commit,state},id)=>{
+            let res=await getCommentByPassageIdAPI(id)
             if(res){
                 commit('set_commentList',res)
             }
