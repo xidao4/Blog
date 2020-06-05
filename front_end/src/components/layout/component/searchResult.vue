@@ -45,9 +45,11 @@
         methods:{
             ...mapActions([
                 'addCollection',
-                'getPassage'
+                'getPassage',
+                'getCommentList'
             ]),
             jumpToDetails(id){
+                this.getCommentList(id)
                 this.getPassage(id)
                 this.$router.push({name:'details'})
             },

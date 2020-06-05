@@ -7,6 +7,8 @@ const getters={
     token: state => state.user.token,
     userId:state=>state.user.user_id,
     collection:state=>state.user.collection,
+    //comment
+    commentList:state=>state.comment.commentList
    
 }
 export default getters

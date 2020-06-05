@@ -23,6 +23,26 @@
                                 <a-icon type="user" />评论
                             <a-button type="primary" style="margin-left: 600px">发表评论</a-button>
                         </a-col>
+                        <a-list item-layout="horizontal" size="large" v-bind:data-source="commentList" style="text-align: left;margin-left: 250px;margin-right: 250px">
+                            <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
+                                <row style="text-align: left;margin-left: 100px;margin-right: 200px">
+                                    <br>
+                                    <a-row class="information" style="text-align: left;margin-left: 250px;margin-right: 100px;margin-top: 50px">
+                                        <a-col class="'userLogo'" span="3" >
+                                            <a-icon type="user" style="font-size: x-large"></a-icon>
+                                        </a-col>
+                                        <a-col class="'userName'" style="text-align:left;margin-left: 20px;"><br><br>
+                                            <span class="'name'" style="font-size: large;color: darkgray" >Mr.林娟娟</span><br>
+                                            <span class="'time'" style="font-size: large;color: darkgray">发表于 {{item.commentTime.substring(0,10)}}</span>
+                                            <span class="collect" style="text-align: right;margin-left: 400px;font-size: medium;font-style: inherit"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
+                                        </a-col>
+                                    </a-row>
+                                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)">
+                                        {{item.content}}
+                                    </a-row>
+                                </row>
+                            </a-list-item>
+                        </a-list>
                     </a-menu-item>
                 </a-menu>
             </div>
@@ -41,12 +61,13 @@
         },
         computed:{
           ...mapGetters([
-              'passageDetail'
+              'passageDetail',
+              'commentList'
           ])
         },
         methods:{
             ...mapActions([
-                'addCollection'
+                'addCollection',
             ]),
             addtoCollection(id){
                 this.addCollection(id)

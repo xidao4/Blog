@@ -37,6 +37,8 @@ CREATE TABLE `tb_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert into `tb_comment`(`id`,`passageId`,`userId`,`content`,`commentTime`) values(1,2,1,'天哪！你说的是真的嘛！这头也太大了吧！','2018-11-12 00:31:15');
+
 DROP TABLE IF EXISTS `tb_User`;
 
 CREATE TABLE `tb_user` (

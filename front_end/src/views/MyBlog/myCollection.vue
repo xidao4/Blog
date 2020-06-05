@@ -45,10 +45,12 @@
         methods:{
             ...mapActions([
                 'getCollection',
-                'getPassage'
+                'getPassage',
+                'getCommentList'
             ]),
             jumpToDetails(id){
                 this.getPassage(id)
+                this.getCommentList(id)
                 this.$router.push({name:'details'})
             },
         }
