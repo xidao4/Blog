@@ -16,8 +16,20 @@
 </template>
 
 <script>
+    import {mapGetters,mapMutations,mapActions} from 'vuex';
     export default {
-        name: "myCollection"
+        name: "myCollection",
+        data(){
+            return{
+
+            }
+        },
+        computed:{
+            ...mapGetters([
+                'Collection'
+            ])
+        }
+
     }
 </script>
 
