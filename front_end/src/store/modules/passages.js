@@ -5,8 +5,7 @@ import {resetRouter} from '@/router'
 import {message} from 'ant-design-vue'
 import {
     searchAPI,
-    addCollectionAPI,
-    getCollectionAPI, getPassage, getPassageAPI
+    getPassageAPI
 } from "../../api/passages";
 const passages={
     state:{

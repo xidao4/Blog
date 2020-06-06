@@ -29,3 +29,10 @@ export function getCollectionAPI(userId) {
         method: 'GET',
     })
 }
+export function deleteCollectionAPI(data) {
+    return axios({
+        url:`${api.passagesPre}/deleteCollection`,
+        method:'POST',
+        data
+    })
+}

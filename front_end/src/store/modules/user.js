@@ -8,7 +8,7 @@ import {
     registerAPI,
     getUserInfoAPI,
 } from '../../api/user.js'
-import {addCollectionAPI, getCollectionAPI} from "../../api/passages";
+import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 
 const user={
     state:{
@@ -79,6 +79,21 @@ const user={
             }
             else{
                 message.error('收藏失败')
+            }
+        },
+        deleteCollection:async ({dispatch,state},passageId)=>{
+            const data={
+                userId:state.user_id,
+                passageId:passageId,
+                collectTime:new Date()
+            }
+            let res=await deleteCollectionAPI(data)
+            if(res){
+                dispatch('getCollection')
+                message.success('已取消')
+            }
+            else{
+                message.error('取消失败')
             }
         }
     }
