@@ -39,6 +39,10 @@
                         </row>
                     </a-list-item>
                 </a-list>
+                <a-col style="text-align: left;margin-left: 300px;margin-right: 450px">
+                    <span><a-textarea placeholder="想对作者说些什么？" style="margin-right: 200px" v-model="comment"></a-textarea><br></span>
+                    <span style="margin-left: 510px"><a-button @click="addNewComment(passageDetail.id,userId)"  style="text-align: right">发表评论</a-button></span>
+                </a-col>
             </div>
         </a-layout-content>
     </a-layout>
@@ -50,26 +54,39 @@
         name: "details",
         data(){
             return{
-
+                comment:'',
             }
         },
         computed:{
           ...mapGetters([
               'passageDetail',
               'commentList',
+              'userId'
           ])
         },
         methods:{
             ...mapActions([
                 'addCollection',
-                'getCommentList'
+                'getCommentList',
+                'addComment'
             ]),
             addtoCollection(id){
                 this.addCollection(id)
             },
             getComment(id){
                 this.getCommentList(id)
-            }
+            },
+            addNewComment(id,userid){
+                console.log(this.comment)
+                const comment={
+                    passageId:id,
+                    userId:userid,
+                    content:this.comment,
+                    commentTime:new Date()
+                }
+                this.addComment(comment)
+                this.comment=''
+            },
         }
     }
 </script>
