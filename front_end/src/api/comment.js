@@ -8,3 +8,10 @@ export function getCommentByPassageIdAPI(passageId) {
         method: 'GET',
     })
 }
+export function addCommentAPI(data) {
+    return axios({
+        url:`${api.commentPre}/create`,
+        method: 'POST',
+        data
+    })
+}

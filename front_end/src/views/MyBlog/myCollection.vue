@@ -18,7 +18,7 @@
                         {{item.content}}
                     </a-row>
                     <a-col style="color: darkgray;text-align: left"><br>创建于 {{item.createTime.substring(0,10)}}</a-col>
-                    <a-col style="color: darkgray;text-align: right"><a-button  @click="addtoCollection(item.id) " style="color: #192c3e"><a-icon type="star"></a-icon>取消收藏</a-button></a-col>
+                    <a-col style="color: darkgray;text-align: right"><a-button  @click="delCollection(item.id) " style="color: #192c3e"><a-icon type="star"></a-icon>取消收藏</a-button></a-col>
                 </row>
             </a-list-item>
         </a-list>
@@ -46,13 +46,17 @@
             ...mapActions([
                 'getCollection',
                 'getPassage',
-                'getCommentList'
+                'getCommentList',
+                'deleteCollection'
             ]),
             jumpToDetails(id){
                 this.getPassage(id)
                 this.getCommentList(id)
                 this.$router.push({name:'details'})
             },
+            delCollection(id){
+                this.deleteCollection(id)
+            }
         }
     }
 </script>

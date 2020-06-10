@@ -81,7 +81,7 @@
             <a-switch default-checked @change="onChange" />
       </a-col>
       <a-col :span="14">
-          <a-button shape="round" type="primary" icon="upload" :size="size">
+          <a-button shape="round" type="primary" icon="upload" :size="size" @click="submit">
             提交修改
         </a-button>
       </a-col>
@@ -102,12 +102,19 @@ export default {
         password:"",
       }
     },
+computed: {
+  ...mapGetters([
+            'userId',
+        ])
+  },
+
     async mounted() {
       await this.getInfo()
     },
     methods: {
       ...mapActions([
       'getUserInfo',
+      'updateInfo',
       ]),
       onChange(checked) {
         console.log(`a-switch to ${checked}`);
@@ -119,6 +126,21 @@ export default {
         this.email=userInfo.email;
         this.description="hello world";
         this.password=userInfo.password;
+      },
+      async submit(){
+          const data={
+            userName:this.userName,
+            email:this.name,
+            description:this.description,
+            password:this.password,
+          }
+          const res=await this.updateInfo(data);
+          if(res){
+                message.success('修改成功')
+            }else{
+                message.error('修改失败')
+            }
+            this.getInfo()
       }
     },
 }
