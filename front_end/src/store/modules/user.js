@@ -74,12 +74,14 @@ const user={
             })
         },
         async updateInfo({state,commit},data){
-            const res=await updateInfoAPI(state.userId,data)
+            console.log(state.user_id,data)
+            const res=await updateInfoAPI(state.user_id,data)
             /* if(res){
                 message.success('修改成功')
             }else{
                 message.error('修改失败')
             } */
+
             return res;
         },
         getCollection:async ({commit,state})=>{

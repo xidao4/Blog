@@ -19,7 +19,7 @@
         <div class="static_font">邮箱</div>
       </a-col>
       <a-col :span="12">
-        <a-input size="large" class="input" v-model="email" placeholder="mail">
+        <a-input size="large" class="input" v-model="email" placeholder="mail" disabled>
             <a-icon slot="prefix" type="mail" />
             <a-tooltip slot="suffix" title="Extra information">
             <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
@@ -91,6 +91,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { message } from 'ant-design-vue'
 
 export default {
     name: 'Setting',
@@ -130,7 +131,7 @@ computed: {
       async submit(){
           const data={
             userName:this.userName,
-            email:this.name,
+            //email:this.name,
             description:this.description,
             password:this.password,
           }
