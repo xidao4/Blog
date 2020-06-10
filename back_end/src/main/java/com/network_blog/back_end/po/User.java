@@ -5,6 +5,17 @@ public class User {
     private String email;
     private String password;
     private String userName;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 
     public Integer getId() {
         return id;
