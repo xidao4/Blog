@@ -21,18 +21,22 @@
               Option 2
               <router-link :to="'details'"></router-link>
             </a-menu-item>
-            <a-menu-item key="setting:3">
-              Option 3
-            </a-menu-item>
-            <a-menu-item key="setting:4">
-              Option 4
-            </a-menu-item>
           </a-sub-menu>
-          <a-menu-item key="person">
+          <a-sub-menu>
+        <span slot="title" class="submenu-title-wrapper"
+        >                <a-avatar size="large" >User</a-avatar>
+        </span>
+            <a-menu-item key="person">
             <a-icon type="setting" />
             个人中心
             <router-link :to="'setting'"></router-link>
           </a-menu-item>
+            <a-menu-item key="logout" @click="quit">
+              <a-icon type="logout" />
+              退出登录
+            </a-menu-item>
+          </a-sub-menu>
+          
 
         </a-menu>
       </a-col>
@@ -68,12 +72,18 @@
       ...mapMutations([
       ]),
       ...mapActions([
+        'logout',
         'searchPassage',
       ]),
       onSearch(value) {
         this.searchPassage(value)
         this.$router.push({name:'searchResult',params:{value:value}})
       },
+      async quit() {
+            await this.$store.dispatch('logout')
+            this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+        },
+      
     },
   };
 </script>

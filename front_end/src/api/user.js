@@ -22,3 +22,10 @@ export function getUserInfoAPI(id){
         method: 'GET'
     })
 }
+export function updateInfoAPI(id,data){
+    return axios({
+        url: `${api.userPre}/${id}/userInfo/update`,
+        method: 'POST',
+        data
+    })
+}
