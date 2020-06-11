@@ -36,3 +36,10 @@ export function deleteCollectionAPI(data) {
         data
     })
 }
+export function savePassageAPI(data) {
+    return axios({
+        url:`${api.passagesPre}/save`,
+        method:'POST',
+        data
+    })
+}

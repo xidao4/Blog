@@ -74,7 +74,7 @@ const user={
             })
         },
         async updateInfo({state,commit},data){
-            console.log(state.user_id,data)
+            //console.log(state.user_id,data)
             const res=await updateInfoAPI(state.user_id,data)
             /* if(res){
                 message.success('修改成功')

@@ -62,7 +62,7 @@ public class PassageController {
      * @param createTime
      * @return
      */
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseVO save(@RequestParam("userId") Integer userId,
                            @RequestParam("title") String title,
                            @RequestParam("content") String content,

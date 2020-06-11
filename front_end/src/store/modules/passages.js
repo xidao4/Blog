@@ -5,7 +5,8 @@ import {resetRouter} from '@/router'
 import {message} from 'ant-design-vue'
 import {
     searchAPI,
-    getPassageAPI
+    getPassageAPI,
+    savePassageAPI,
 } from "../../api/passages";
 const passages={
     state:{
@@ -32,6 +33,9 @@ const passages={
             if(res){
                 commit('set_passage',res)
             }
+        },
+        savePassage:async({commit},data)=>{
+            const res=await savePassageAPI(data)
         }
     }
 
