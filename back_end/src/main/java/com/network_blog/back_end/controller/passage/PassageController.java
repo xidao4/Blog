@@ -56,34 +56,30 @@ public class PassageController {
 
     /**
      * 某用户写完博客后点击保存
-     * @param userId
-     * @param title
-     * @param content
-     * @param createTime
+     * @param vo
+     * userId
+     * title
+     * content
+     * createTime
      * @return
      */
     @GetMapping("/save")
-    public ResponseVO save(@RequestParam("userId") Integer userId,
-                           @RequestParam("title") String title,
-                           @RequestParam("content") String content,
-                           @RequestParam("createTime") Date createTime){
-        return passageService.insert(userId,title,content,createTime);
+    public ResponseVO save(@RequestBody PassageVO vo){
+        return passageService.insert(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getCreateTime());
 
     }
     /**
      * 某用户修改自己写的博客
-     * @param id
-     * @param title
-     * @param content
-     * @param updateTime
+     * @param vo
+     * id
+     * title
+     * content
+     * updateTime
      * @return
      */
     @PostMapping("/update")
-    public ResponseVO update(@RequestParam("id") Integer id,
-                             @RequestParam("title") String title,
-                             @RequestParam("content") String content,
-                             @RequestParam("updateTime") Date updateTime){
-        return passageService.updateBlog(id,title,content,updateTime);
+    public ResponseVO update(@RequestBody PassageVO vo){
+        return passageService.updateBlog(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime());
 
     }
     /**
