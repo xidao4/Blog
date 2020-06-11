@@ -35,6 +35,7 @@ const passages={
             }
         },
         savePassage:async({commit},data)=>{
+            console.log("passage",data)
             const res=await savePassageAPI(data)
         }
     }
