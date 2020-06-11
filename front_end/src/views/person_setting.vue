@@ -19,7 +19,7 @@
         <div class="static_font">邮箱</div>
       </a-col>
       <a-col :span="12">
-        <a-input size="large" class="input" v-model="email" placeholder="mail">
+        <a-input size="large" class="input" v-model="email" placeholder="mail" disabled>
             <a-icon slot="prefix" type="mail" />
             <a-tooltip slot="suffix" title="Extra information">
             <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
@@ -81,7 +81,7 @@
             <a-switch default-checked @change="onChange" />
       </a-col>
       <a-col :span="14">
-          <a-button shape="round" type="primary" icon="upload" :size="size">
+          <a-button shape="round" type="primary" icon="upload" :size="size" @click="submit">
             提交修改
         </a-button>
       </a-col>
@@ -91,6 +91,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { message } from 'ant-design-vue'
 
 export default {
     name: 'Setting',
@@ -102,12 +103,19 @@ export default {
         password:"",
       }
     },
+computed: {
+  ...mapGetters([
+            'userId',
+        ])
+  },
+
     async mounted() {
       await this.getInfo()
     },
     methods: {
       ...mapActions([
       'getUserInfo',
+      'updateInfo',
       ]),
       onChange(checked) {
         console.log(`a-switch to ${checked}`);
@@ -119,6 +127,21 @@ export default {
         this.email=userInfo.email;
         this.description="hello world";
         this.password=userInfo.password;
+      },
+      async submit(){
+          const data={
+            userName:this.userName,
+            //email:this.name,
+            description:this.description,
+            password:this.password,
+          }
+          const res=await this.updateInfo(data);
+          if(res){
+                message.success('修改成功')
+            }else{
+                message.error('修改失败')
+            }
+            this.getInfo()
       }
     },
 }

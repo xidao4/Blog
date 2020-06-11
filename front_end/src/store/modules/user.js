@@ -7,8 +7,9 @@ import {
     loginAPI,
     registerAPI,
     getUserInfoAPI,
+    updateInfoAPI,
 } from '../../api/user.js'
-import {addCollectionAPI, getCollectionAPI} from "../../api/passages";
+import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 
 const user={
     state:{
@@ -25,6 +26,13 @@ const user={
         set_collection:function (state,data) {
             state.collection=data
         },
+        reset_state: function (state) {
+            state.token = '',
+                state.userId = '',
+                state.userInfo = {},
+                state.userOrderList = [],
+                state.membership={}
+        },
     },
     actions:{
         login: async ({state,dispatch, commit}, userData) => {
@@ -37,6 +45,11 @@ const user={
                 router.push('/createblog')
                 //console.log('success',state.user_id,res)
             }
+        },
+        logout: async ({commit}) => {
+            removeToken()
+            resetRouter()
+            commit('reset_state')
         },
         register: async ({commit}, data) => {
             //console.log('enter',data)
@@ -60,6 +73,17 @@ const user={
                 })
             })
         },
+        async updateInfo({state,commit},data){
+            console.log(state.user_id,data)
+            const res=await updateInfoAPI(state.user_id,data)
+            /* if(res){
+                message.success('修改成功')
+            }else{
+                message.error('修改失败')
+            } */
+
+            return res;
+        },
         getCollection:async ({commit,state})=>{
             const res=await getCollectionAPI(state.user_id)
             if(res){
@@ -79,6 +103,21 @@ const user={
             }
             else{
                 message.error('收藏失败')
+            }
+        },
+        deleteCollection:async ({dispatch,state},passageId)=>{
+            const data={
+                userId:state.user_id,
+                passageId:passageId,
+                collectTime:new Date()
+            }
+            let res=await deleteCollectionAPI(data)
+            if(res){
+                dispatch('getCollection')
+                message.success('已取消')
+            }
+            else{
+                message.error('取消失败')
             }
         }
     }

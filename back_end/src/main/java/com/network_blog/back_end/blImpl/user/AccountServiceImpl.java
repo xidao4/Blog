@@ -51,9 +51,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResponseVO updateUserInfo(int id, String password, String username) {
+    public ResponseVO updateUserInfo(int id, String password, String username,String description) {
         try {
-            accountMapper.updateAccount(id, password, username);
+            accountMapper.updateAccount(id, password, username,description);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseVO.buildFailure(UPDATE_ERROR);

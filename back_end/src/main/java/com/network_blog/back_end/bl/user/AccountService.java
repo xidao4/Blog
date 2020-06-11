@@ -39,6 +39,6 @@ public interface AccountService {
      * @param username
      * @return
      */
-    ResponseVO updateUserInfo(int id, String password, String username);
+    ResponseVO updateUserInfo(int id, String password, String username,String description);
 
 }

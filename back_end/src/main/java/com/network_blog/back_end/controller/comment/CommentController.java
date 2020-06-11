@@ -31,6 +31,7 @@ public class CommentController {
         if(comments==null){
             return ResponseVO.buildFailure("获取评论失败");
         }
+        System.out.println(passageId);
         return ResponseVO.buildSuccess(comments);
     };
 }

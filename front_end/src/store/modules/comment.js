@@ -3,10 +3,12 @@ import router from '@/router'
 import {getToken, setToken, removeToken} from '@/utils/auth'
 import {resetRouter} from '@/router'
 import {message} from 'ant-design-vue'
-import {getCommentByPassageIdAPI} from "../../api/comment";
+import {addCommentAPI, addCommentByPassageIdAPI, getCommentByPassageIdAPI} from "../../api/comment";
 const comment={
     state:{
-        commentList:[]
+        commentList:[
+
+        ],
     },
     mutations:{
         set_commentList:function (state,data) {
@@ -14,10 +16,20 @@ const comment={
         }
     },
     actions:{
-        getCommentList:async ({commit},id)=>{
-            let res=getCommentByPassageIdAPI(id)
+        getCommentList:async ({commit,state},id)=>{
+            let res=await getCommentByPassageIdAPI(id)
             if(res){
                 commit('set_commentList',res)
+            }
+        },
+        addComment:async ({commit,state,dispatch},data)=>{
+            let res=await addCommentAPI(data)
+            if(res){
+                dispatch('getCommentList',data.passageId)
+                message.success('评论成功')
+            }
+            else{
+                message.error('评论失败')
             }
         }
     },
