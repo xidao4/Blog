@@ -42,5 +42,22 @@ public class AccountController {
     public ResponseVO updateInfo(@RequestBody UserInfoVO userInfoVO, @PathVariable int id){
         return accountService.updateUserInfo(id,userInfoVO.getPassword(),userInfoVO.getUserName(),userInfoVO.getDescription());
     }
+
+    @PostMapping("/addFriendUrl")
+    public ResponseVO addFriendUrl(@RequestBody FriendUrlVO friendUrlVO){
+        return accountService.addFriendUrl(friendUrlVO);
+    }
+
+    @PostMapping("/{id}/deleteFriendUrl")
+    public ResponseVO deleteFriendUrl(@PathVariable Integer id){
+        return accountService.deleteFriendUrl(id);
+    }
+
+    @GetMapping("/{id}/getFriendUrl")
+    public ResponseVO getFriendUrl(@PathVariable Integer id){
+        String url=accountService.getFriendUrl(id);
+        if(url==null) return ResponseVO.buildFailure("FriendUrl not exist!");
+        else return ResponseVO.buildSuccess(url);
+    }
 }
 
