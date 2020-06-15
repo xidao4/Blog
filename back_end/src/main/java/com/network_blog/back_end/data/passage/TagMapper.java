@@ -14,4 +14,6 @@ public interface TagMapper {
     int deleteByTagId(int tagId);
     int insert(Tag tag);
     List<Tag> selectByPassageIdAndTagName(String tagName, int passageId);
+    List<Tag> getPassageIdsByTag(int userId,String tagName);
+    List<Tag> getTagsByUserId(int userId);
 }
