@@ -51,7 +51,7 @@ CREATE TABLE `tb_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into `tb_user`(`id`,`email`,`password`,`userName`,`description`) values(0,'9959@qq.com','4527c9b5fc3955d911b2df21c81f4563','ljy','');
+insert into `tb_user`(`id`,`email`,`password`,`userName`,`description`) values(0,'123456@qq.com','4527c9b5fc3955d911b2df21c81f4563','计网大作业','');
 
 DROP TABLE IF EXISTS `tb_collection`;
 

@@ -36,7 +36,6 @@ public class PassageController {
             return ResponseVO.buildFailure("获取所写博客列表失败");
         }
     }
-
     /**
      * 根据博客的ID获取单篇文章内容
      * @param id
@@ -52,8 +51,6 @@ public class PassageController {
         }
 
     }
-
-
     /**
      * 某用户写完博客后点击保存
      * @param vo
@@ -66,7 +63,6 @@ public class PassageController {
     @PostMapping("/save")
     public ResponseVO save(@RequestBody PassageVO vo){
         return passageService.insert(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getCreateTime(),vo.getStatus());
-
     }
     /**
      * 某用户修改自己写的博客
