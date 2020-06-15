@@ -2,8 +2,8 @@
     <div class="collection" >
         <br>
         <h3 style="text-align: left;margin-left: 250px;color: #2c3e50">"{{this.$route.params.value}}"的搜索结果：</h3>
-        <h3 style="text-align: left;margin-left: 250px;color: #2c3e50">为您搜索到{{searchResult.length}}条结果^ ^</h3>
-        <a-list item-layout="horizontal" size="large" v-bind:data-source="searchResult" style="text-align: left;margin-left: 250px;margin-right: 250px">
+        <h3 style="text-align: left;margin-left: 250px;color: #2c3e50">为您搜索到{{searchResult.length}}条结果^ _ ^</h3>
+        <a-list item-layout="horizontal" size="large" v-bind:data-source="searchResult" style="text-align: left;margin-left: 150px;margin-right: 150px">
             <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
                 <row style="text-align: left;margin-left: 100px;margin-right: 200px">
                     <br>
@@ -13,11 +13,11 @@
                     <a slot="title"  @click="jumpToDetails(item.id)" style="text-align: left;font-size: 200%;color:gray" v-else>
                         {{item.title.substring(0,10)}}...
                     </a>
-                    <span style="color: darkgray;margin-left: 500px"><a-icon type="star" @click="addtoCollection(item.id) " style="color: #192c3e;font-size: x-large"></a-icon></span>
-                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)" v-if="item.content.length>100">
+                    <span style="color: darkgray;margin-left: 730px"><a-icon type="star" @click="addtoCollection(item.id) " style="color: #192c3e;font-size: x-large"></a-icon></span>
+                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis;margin-top: 20px" @click="jumpToDetails(item.id)" v-if="item.content.length>100">
                         {{item.content.substring(0,100)}}...
                     </a-row>
-                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)" v-else>
+                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis;margin-top: 20px" @click="jumpToDetails(item.id)" v-else>
                         {{item.content}}
                     </a-row>
                     <a-col style="color: darkgray;text-align: left"><br>编辑于 {{item.createTime.substring(0,10)}}</a-col>

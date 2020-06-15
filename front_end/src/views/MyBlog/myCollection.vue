@@ -1,7 +1,7 @@
 <template>
     <div class="collection" >
         <br>
-        <a-list item-layout="horizontal" size="large" v-bind:data-source="collection" style="text-align: left;margin-left: 250px;margin-right: 250px">
+        <a-list item-layout="horizontal" size="large" v-bind:data-source="collection" style="text-align: left;margin-left: 150px;margin-right: 150px">
             <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
                 <row style="text-align: left;margin-left: 100px;margin-right: 200px">
                     <br>
@@ -11,14 +11,16 @@
                     <a slot="title"  @click="jumpToDetails(item.id)" style="text-align: left;font-size: 200%;color:gray" v-else>
                         {{item.title.substring(0,10)}}...
                     </a>
-                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)" v-if="item.content.length>100">
+                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis;margin-top: 20px" @click="jumpToDetails(item.id)"  v-if="item.content.length>100">
                         {{item.content.substring(0,100)}}...
                     </a-row>
-                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis" @click="jumpToDetails(item.id)" v-else>
+                    <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis;margin-top: 20px" @click="jumpToDetails(item.id)" v-else>
                         {{item.content}}
                     </a-row>
-                    <a-col style="color: darkgray;text-align: left"><br>创建于 {{item.createTime.substring(0,10)}}</a-col>
-                    <a-col style="color: darkgray;text-align: right"><a-button  @click="delCollection(item.id) " style="color: #192c3e"><a-icon type="star"></a-icon>取消收藏</a-button></a-col>
+                    <a-row style="margin-top: 20px">
+                        <a-col style="color: darkgray;text-align: left" :span="12"><br>创建于 {{item.createTime.substring(0,10)}}</a-col>
+                        <a-col style="color: darkgray;text-align: right;margin-top: 10px" :span="12"><a-button  @click="delCollection(item.id) " style="color: #192c3e"><a-icon type="star"></a-icon>取消收藏</a-button></a-col>
+                    </a-row>
                 </row>
             </a-list-item>
         </a-list>
