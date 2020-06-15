@@ -9,7 +9,8 @@
                     <a-col class="'userName'" style="text-align:left;margin-left: 20px;;margin-top: 5px">
                         <span class="'name'" style="font-size: large;color: darkgray" >Mr.林娟娟</span><br>
                         <span class="'time'" style="font-size: large;color: darkgray">发表于 {{passageDetail.createTime.substring(0,10)}}</span>
-                        <span class="collect" style="text-align: right;margin-left: 620px;font-size: medium;font-style: inherit"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
+                        <span class="collect" style="text-align: right;margin-left: 620px;font-size: medium;font-style: inherit" ><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
+
                     </a-col>
                 </a-row>
                 <br>
@@ -73,17 +74,21 @@
           ...mapGetters([
               'passageDetail',
               'commentList',
-              'userId'
+              'userId',
+              'inCollection'
           ])
         },
         methods:{
             ...mapActions([
                 'addCollection',
                 'getCommentList',
-                'addComment'
+                'addComment',
+                'deleteCollection',
+                'updateInCollection'
             ]),
             addtoCollection(id){
                 this.addCollection(id)
+                this.updateInCollection(id,this.userId)
             },
             getComment(id){
                 this.getCommentList(id)
@@ -99,6 +104,10 @@
                 this.addComment(comment)
                 this.comment=''
             },
+            delCollection(id){
+                this.deleteCollection(id)
+                this.updateInCollection(id,this.userId)
+            }
         }
     }
 </script>

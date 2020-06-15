@@ -46,7 +46,6 @@ public class PassageController {
         try{
             return ResponseVO.buildSuccess(passageService.getBlogById(id));
         }catch (Exception e){
-            System.out.println(e.getMessage());
             return ResponseVO.buildFailure("获取单篇博客失败");
         }
 
@@ -110,8 +109,9 @@ public class PassageController {
         return ResponseVO.buildSuccess(collectionService.searchCollection(userId));
     }
 
-    @GetMapping("/{userId}/{passageId}/isInCollection")
-    public ResponseVO isInCollection(@PathVariable Integer userId,@PathVariable Integer passageId){
+    @GetMapping("/isInCollection")
+    public ResponseVO isInCollection(@RequestParam Integer userId,@RequestParam Integer passageId){
+        System.out.println("here");
         return ResponseVO.buildSuccess(collectionService.isInCollection(userId,passageId));
     }
 

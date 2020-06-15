@@ -7,8 +7,8 @@ import {
     searchAPI,
     getPassageAPI,
     savePassageAPI,
-    getUserBlogsAPI
-
+    getUserBlogsAPI,
+    isInCollectionAPI,
 } from "../../api/passages";
 const passages={
     state:{
@@ -49,6 +49,11 @@ const passages={
             const res=await getUserBlogsAPI(id)
             commit('set_userblogs',res)
             console.log('pa',res)
+            return res
+        },
+        isInCollection:async({state},data)=>{
+            const res=await isInCollectionAPI(data)
+            console.log(res)
             return res
         }
     }

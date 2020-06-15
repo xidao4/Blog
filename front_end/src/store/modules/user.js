@@ -8,6 +8,7 @@ import {
     registerAPI,
     getUserInfoAPI,
     updateInfoAPI,
+    addFriendUrlAPI,
 } from '../../api/user.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 

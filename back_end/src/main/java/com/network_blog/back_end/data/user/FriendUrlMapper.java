@@ -1,5 +1,6 @@
 package com.network_blog.back_end.data.user;
 import com.network_blog.back_end.po.FriendUrl;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ public interface FriendUrlMapper {
 
     int addFriendUrl(FriendUrl friendUrl);
 
-    int deleteFriendUrl(@Param("userId") Integer userId);
+    int deleteFriendUrl(FriendUrl friendUrl);
 
-    String retrieveFriendUrl(@Param("userId") Integer userId);
+    List<String> retrieveFriendUrl(@Param("userId") Integer userId);
 }

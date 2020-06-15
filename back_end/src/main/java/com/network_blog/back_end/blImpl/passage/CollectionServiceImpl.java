@@ -64,8 +64,12 @@ public class CollectionServiceImpl implements CollectionService {
     public Boolean isInCollection(Integer userId, Integer passageId){
         List<Integer> passageIds=collectionMapper.search(userId);
         for(int i=0;i<passageIds.size();i++){
-            if(passageId==passageIds.get(i)) return true;
+            if(passageId==passageIds.get(i)) {
+                System.out.println("true");
+                return true;
+            }
         }
+        System.out.println("false");
         return false;
     }
 }

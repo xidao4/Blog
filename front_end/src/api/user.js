@@ -29,3 +29,10 @@ export function updateInfoAPI(id,data){
         data
     })
 }
+export function addFriendUrlAPI(data){
+    return axios({
+        url: `${api.userPre}/${id}/addFriendUrl`,
+        method: 'POST',
+        data
+    })
+}
