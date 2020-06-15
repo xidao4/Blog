@@ -1,7 +1,7 @@
 <template>
     <a-layout>
         <a-layout-content>
-            <div class="details">
+            <div class="details" id="details">
                 <a-row class="information" style="text-align: left;margin-left: 250px;margin-right: 100px;margin-top: 50px">
                     <a-col class="'userLogo'" span="3" >
                         <img src="../../../assets/icon.jpg" height="100" width="100" />
@@ -92,5 +92,7 @@
 </script>
 
 <style scoped>
-
+    .details{
+        white-space: pre-line;
+    }
 </style>
