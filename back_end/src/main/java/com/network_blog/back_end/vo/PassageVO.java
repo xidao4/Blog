@@ -10,6 +10,7 @@ public class PassageVO {
     private Date recentEditTime;
     private Date createTime;
     private Date collectionTime;
+    private int status;//0草稿 1公开显示 2不公开显示
 
     public Integer getId() {
         return id;
@@ -67,5 +68,11 @@ public class PassageVO {
         this.collectionTime = collectionTime;
     }
 
+    public int getStatus() {
+        return status;
+    }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

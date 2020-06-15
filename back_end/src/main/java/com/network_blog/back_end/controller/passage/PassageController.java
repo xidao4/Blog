@@ -63,10 +63,9 @@ public class PassageController {
      * createTime
      * @return
      */
-
     @PostMapping("/save")
     public ResponseVO save(@RequestBody PassageVO vo){
-        return passageService.insert(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getCreateTime());
+        return passageService.insert(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getCreateTime(),vo.getStatus());
 
     }
     /**
@@ -80,7 +79,7 @@ public class PassageController {
      */
     @PostMapping("/update")
     public ResponseVO update(@RequestBody PassageVO vo){
-        return passageService.updateBlog(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime());
+        return passageService.updateBlog(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime(),vo.getStatus());
 
     }
     /**

@@ -27,18 +27,20 @@ public interface PassageService {
      * @param title
      * @param content
      * @param createTime
+     * @param status
      * @return
      */
-    ResponseVO insert(int userId,String title,String content,Date createTime);
+    ResponseVO insert(int userId,String title,String content,Date createTime,int status);
     /**
      * 改
      * @param id
      * @param title
      * @param content
      * @param updateTime
+     * @param status
      * @return
      */
-    ResponseVO updateBlog(int id, String title, String content, Date updateTime);
+    ResponseVO updateBlog(int id, String title, String content, Date updateTime,int status);
     /**
      * 删
      * @param id

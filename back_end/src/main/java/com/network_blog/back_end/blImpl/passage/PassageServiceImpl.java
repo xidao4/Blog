@@ -68,10 +68,11 @@ public class PassageServiceImpl implements PassageService {
      * @param title
      * @param content
      * @param createTime
+     * @param status
      * @return
      */
     @Override
-    public ResponseVO insert(int userId, String title, String content, Date createTime) {
+    public ResponseVO insert(int userId, String title, String content, Date createTime,int status) {
         if(title.equals(""))
             return ResponseVO.buildFailure("请输入文章标题");
         if (title.length() > 150)
@@ -84,6 +85,7 @@ public class PassageServiceImpl implements PassageService {
             p.setContent(content);
             p.setTitle(title);
             p.setCreateTime(createTime);
+            p.setStatus(status);
             blogMapper.insert(p);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -102,7 +104,7 @@ public class PassageServiceImpl implements PassageService {
      * @return
      */
     @Override
-    public ResponseVO updateBlog(int id, String title, String content, Date updateTime) {
+    public ResponseVO updateBlog(int id, String title, String content, Date updateTime,int status) {
         if(title.equals(""))
             return ResponseVO.buildFailure("请输入文章标题");
         if (title.length() > 150)
@@ -115,6 +117,7 @@ public class PassageServiceImpl implements PassageService {
             p.setContent(content);
             p.setTitle(title);
             p.setRecentEditTime(updateTime);
+            p.setStatus(status);
             blogMapper.update(p);
         } catch (Exception e) {
             System.out.println(e.getMessage());
