@@ -10,7 +10,7 @@ import java.util.List;
 public interface CollectionService {
     /**
      * 建立、删除、查看收藏关系*/
-    void createCollection(Collection collection);
+    ResponseVO createCollection(Collection collection);
 
     void deleteCollection(Collection collection);
 

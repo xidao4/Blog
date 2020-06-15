@@ -101,8 +101,7 @@ public class PassageController {
 
     @PostMapping("/createCollection")
     public ResponseVO createCollection(@RequestBody Collection collection){
-        collectionService.createCollection(collection);
-        return ResponseVO.buildSuccess(true);
+        return collectionService.createCollection(collection);
     }
 
     @PostMapping("/deleteCollection")

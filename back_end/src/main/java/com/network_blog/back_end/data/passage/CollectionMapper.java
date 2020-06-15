@@ -20,4 +20,6 @@ public interface CollectionMapper {
 
     List<Integer> search(@Param("userId") Integer userId);
 
+    int deletePassage(@Param("passageId") Integer passageId);
+
 }

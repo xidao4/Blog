@@ -23,8 +23,15 @@ public class CollectionServiceImpl implements CollectionService {
     private PassageMapper passageMapper;
 
     @Override
-    public void createCollection(Collection collection){
+    public ResponseVO createCollection(Collection collection){
+        List<Integer> collections=collectionMapper.search(collection.getUserId());
+        for(int i=0;i<collections.size();i++){
+            if(collections.get(i)==collection.getPassageId())
+                return ResponseVO.buildFailure("收藏已存在");
+        }
+
         collectionMapper.insert(collection);
+        return ResponseVO.buildSuccess(true);
     }
 
     @Override
