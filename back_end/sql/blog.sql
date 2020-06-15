@@ -28,9 +28,10 @@ CREATE TABLE `tb_tag`(
     `tagId` int(20) NOT NULL COMMENT '标签id',
     `passageId` bigint(20) NOT NULL COMMENT '文章id',
     `tagName` varchar(255) NOT NULL COMMENT '标签名称',
+    `userId` int(20) NOT NULL COMMENT '标签所标文章的作者id',
     PRIMARY KEY(`tagId`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
-insert into `tb_tag`(`tagId`,`passageId`,`tagName`) values(1,2,'测试标签1');
+insert into `tb_tag`(`tagId`,`passageId`,`tagName`,`userId`) values(1,2,'测试标签1',0);
 
 DROP TABLE IF EXISTS `tb_comment`;
 

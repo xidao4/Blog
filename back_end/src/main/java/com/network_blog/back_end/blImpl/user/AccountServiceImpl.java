@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
+
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -71,9 +73,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public String getFriendUrl(Integer userId){
-        String Url=friendUrlMapper.retrieveFriendUrl(userId);
-        return Url;
+    public List<String> getFriendUrl(Integer userId){
+        return friendUrlMapper.retrieveFriendUrl(userId);
     }
 
     @Override
@@ -82,24 +83,26 @@ public class AccountServiceImpl implements AccountService {
         FriendUrl friendUrl=new FriendUrl();
         friendUrl.setUrl(friendUrlVO.getUrl());
         friendUrl.setUserId(friendUrlVO.getUserId());
-        String url=friendUrlMapper.retrieveFriendUrl(userId);
-        if(url==null){
-            return ResponseVO.buildSuccess(friendUrlMapper.addFriendUrl(friendUrl));
+        List<String> urls=friendUrlMapper.retrieveFriendUrl(userId);
+        for(int i=0;i<urls.size();i++){
+            if(urls.get(i).equals(friendUrl.getUrl()))  return ResponseVO.buildFailure("Friendurl already exist!");
+
         }
-        else
-            return ResponseVO.buildFailure("Friendurl already exist!");
+        return ResponseVO.buildSuccess(friendUrlMapper.addFriendUrl(friendUrl));
     }
 
     @Override
-    public ResponseVO deleteFriendUrl(Integer userId){
+    public ResponseVO deleteFriendUrl(FriendUrlVO friendUrlVO){
+        List<String> urls=friendUrlMapper.retrieveFriendUrl(friendUrlVO.getUserId());
         FriendUrl friendUrl=new FriendUrl();
-        String url=friendUrlMapper.retrieveFriendUrl(userId);
-        if(url==null){
-            return ResponseVO.buildFailure("Friendurl not exist!");
-
+        friendUrl.setUserId(friendUrlVO.getUserId());
+        friendUrl.setUrl(friendUrlVO.getUrl());
+        for(int i=0;i<urls.size();i++){
+            if(urls.get(i).equals(friendUrl.getUrl())){
+                return ResponseVO.buildSuccess(friendUrlMapper.deleteFriendUrl(friendUrl));
+            }
         }
-        else
-            return ResponseVO.buildSuccess(friendUrlMapper.deleteFriendUrl(userId));
+        return ResponseVO.buildFailure("Friendurl not exist!");
     }
 }
 

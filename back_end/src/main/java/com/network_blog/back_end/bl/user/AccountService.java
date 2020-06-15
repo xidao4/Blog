@@ -6,6 +6,8 @@ import com.network_blog.back_end.vo.UserForm;
 import com.network_blog.back_end.vo.UserVO;
 import com.network_blog.back_end.vo.FriendUrlVO;
 
+import java.util.List;
+
 /**
  * @author huwen
  * @date 2019/3/23
@@ -42,10 +44,10 @@ public interface AccountService {
      */
     ResponseVO updateUserInfo(int id, String password, String username,String description);
 
-    String getFriendUrl(Integer userId);
+    List<String> getFriendUrl(Integer userId);
 
     ResponseVO addFriendUrl(FriendUrlVO friendUrlVO);
 
-    ResponseVO deleteFriendUrl(Integer userId);
+    ResponseVO deleteFriendUrl(FriendUrlVO friendUrlVO);
 
 }

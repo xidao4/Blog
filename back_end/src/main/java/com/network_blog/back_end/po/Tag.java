@@ -6,6 +6,10 @@ public class Tag {
     private String tagName;
     private Integer passageId;
 
+
+
+    private Integer userId;
+
     public Integer getTagId() {
         return tagId;
     }
@@ -30,4 +34,11 @@ public class Tag {
         this.passageId = passageId;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

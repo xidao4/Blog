@@ -6,6 +6,8 @@ import com.network_blog.back_end.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController()
 @RequestMapping("/api/user")
@@ -55,16 +57,16 @@ public class AccountController {
         return accountService.addFriendUrl(friendUrlVO);
     }
 
-    @PostMapping("/{id}/deleteFriendUrl")
-    public ResponseVO deleteFriendUrl(@PathVariable Integer id){
-        return accountService.deleteFriendUrl(id);
+    @PostMapping("/deleteFriendUrl")
+    public ResponseVO deleteFriendUrl(@RequestBody FriendUrlVO friendUrlVO){
+        return accountService.deleteFriendUrl(friendUrlVO);
     }
 
     @GetMapping("/{id}/getFriendUrl")
     public ResponseVO getFriendUrl(@PathVariable Integer id){
-        String url=accountService.getFriendUrl(id);
-        if(url==null) return ResponseVO.buildFailure("FriendUrl not exist!");
-        else return ResponseVO.buildSuccess(url);
+        List<String> urls=accountService.getFriendUrl(id);
+        if(urls.size()==0) return ResponseVO.buildFailure("FriendUrl not exist!");
+        else return ResponseVO.buildSuccess(urls);
     }
 }
 

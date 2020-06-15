@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.network_blog.back_end.data.user.FriendUrlMapper">
-    <insert id="addFriendUrl" parameterType="com.network_blog.back_end.po.FriendUrl" keyProperty="userId">
+    <insert id="addFriendUrl" parameterType="com.network_blog.back_end.po.FriendUrl">
         insert into tb_friendurl(userId,url)
         values(#{userId},#{url})
     </insert>
-    <delete id="deleteFriendUrl">
-        delete from tb_friendurl where userId=#{userId}
+    <delete id="deleteFriendUrl" parameterType="com.network_blog.back_end.po.FriendUrl">
+        delete from tb_friendurl where userId=#{userId} and url=#{url}
     </delete>
     <select id="retrieveFriendUrl" resultType="com.network_blog.back_end.po.FriendUrl">
         select * from tb_friendurl where userId=#{userId}
