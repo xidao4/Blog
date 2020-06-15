@@ -79,7 +79,12 @@ public class PassageServiceImpl implements PassageService {
         if (content.equals(""))
             return ResponseVO.buildFailure("请输入文章内容");
         try {
-            blogMapper.insert(userId,title,content,createTime);
+            Passage p=new Passage();
+            p.setUserId(userId);
+            p.setContent(content);
+            p.setTitle(title);
+            p.setCreateTime(createTime);
+            blogMapper.insert(p);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseVO.buildFailure("保存失败");
@@ -105,7 +110,12 @@ public class PassageServiceImpl implements PassageService {
         if (content.equals(""))
             return ResponseVO.buildFailure("请输入文章内容");
         try {
-            blogMapper.update(id, title,content, updateTime);
+            Passage p=new Passage();
+            p.setId(id);
+            p.setContent(content);
+            p.setTitle(title);
+            p.setRecentEditTime(updateTime);
+            blogMapper.update(p);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseVO.buildFailure("更新失败");

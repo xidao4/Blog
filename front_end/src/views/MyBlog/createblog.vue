@@ -22,16 +22,16 @@
                 alt="example"
                 src="../../assets/post-bg-re-vs-ng2.jpg"
                 />
-                  <a-input placeholder="标题" allow-clear>
+                  <a-input placeholder="标题" allow-clear v-model="title">
                       <a-icon slot="prefix" type="edit" />
                   </a-input>
-                <a-textarea placeholder="Basic usage" :autosize="{minRows: 9, maxRows: 11}"/>
+                <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="content"/>
                 <template slot="actions">
                 <a-icon key="picture" type="picture" />
                 <a-icon key="delete" type="delete" />
                 <a-icon key="setting" type="setting" />
                 <a-icon key="upload" type="upload" />
-                <a-icon key="save" type="save" />
+                <a-icon key="save" type="save" @click="save"/>
                 </template>
             </a-card>
           </a-col>
@@ -42,12 +42,53 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 export default {
     name:'CreateBlog',
+    data() {
+        return {
+            title:"",
+            content:"",
+        }
+    },
+    computed: {
+    ...mapGetters([
+                'userId',
+            ])
+    },  
     methods: {
+        ...mapActions([
+            'savePassage',
+      ]),
+
         onPanelChange(value, mode) {
         console.log(value, mode);
         },
+        async save(){
+            const passage={
+                userId:this.userId,
+                title:this.title,
+                content:this.content,
+                createTime:this.getTime(),
+            }
+            await this.savePassage(passage);
+        },
+        getTime(){
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = '0' + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = '0' + strDate;
+            }
+            var currentdate = year + '-' + month + '-' + strDate;
+            return currentdate
+        },
+
     },
 }
 </script>
