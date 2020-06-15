@@ -219,9 +219,9 @@ export default {
     showModal() {
       this.visible = true;
     },
-    handleOk(e) {
+    /* handleOk(e) {
       this.visible = false;
-    },
+    }, */
     handleConfirmBlur(e) {
       const value = e.target.value;
       this.confirmDirty = this.confirmDirty || !!value;
@@ -253,7 +253,10 @@ export default {
         }
       });
       if (post_data) {
-        await this.register(registerData);
+        const res=await this.register(registerData);
+        if(res){
+        this.visible = false;
+        }
       }
     },
   },

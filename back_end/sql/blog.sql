@@ -46,7 +46,7 @@ CREATE TABLE `tb_user` (
   `email` varchar(200) NOT NULL COMMENT '邮箱',
   `password` varchar(200) NOT NULL COMMENT '密码',
   `userName` varchar(200) NOT NULL COMMENT '用户名',
-  `description` varchar(200) NOT NULL COMMENT '个人简介',
+  `description` varchar(200) DEFAULT NULL COMMENT '个人简介',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
