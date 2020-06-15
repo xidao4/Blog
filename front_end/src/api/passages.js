@@ -43,3 +43,10 @@ export function savePassageAPI(data) {
         data
     })
 }
+
+export function getUserBlogsAPI(id) {
+    return axios({
+        url:`${api.passagesPre}/${id}/list`,
+        method:'GET'
+    })
+}

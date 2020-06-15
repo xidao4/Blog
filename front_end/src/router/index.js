@@ -8,6 +8,7 @@ import CreateBlog from '../views/MyBlog/createblog.vue'
 import Detail from "../views/MyBlog/component/details.vue";
 import myCollection from "../views/MyBlog/myCollection";
 import searchResult from "../components/layout/component/searchResult";
+import myBlog from '../views/MyBlog/myblog.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
                 path:'/setting',
                 name:'setting',
                 component:Setting,
+            },
+            {
+                path:'/myblog',
+                name:'myblog',
+                component:myBlog,
             },
             {
                 path:'/home',

@@ -7,11 +7,14 @@ import {
     searchAPI,
     getPassageAPI,
     savePassageAPI,
+    getUserBlogsAPI
+
 } from "../../api/passages";
 const passages={
     state:{
         searchResult:[],
         passageDetail:[],
+        userBlogs:[],
     },
     mutations:{
         set_searchResult:function (state,data) {
@@ -20,6 +23,9 @@ const passages={
         set_passage:function (state,data) {
             state.passageDetail=data
         },
+        set_userblogs:function(state,data){
+            state.userBlogs=data
+        }
     },
     actions:{
         searchPassage:async ({commit},value)=>{
@@ -35,8 +41,15 @@ const passages={
             }
         },
         savePassage:async({commit},data)=>{
-            console.log("passage",data)
+            //console.log("passage",data)
             const res=await savePassageAPI(data)
+        },
+        getUserBlogs:async({commit},id)=>{
+            //console.log(id)
+            const res=await getUserBlogsAPI(id)
+            commit('set_userblogs',res)
+            console.log('pa',res)
+            return res
         }
     }
 
