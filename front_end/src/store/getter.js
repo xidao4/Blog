@@ -9,6 +9,6 @@ const getters={
     collection:state=>state.user.collection,
     //comment
     commentList:state=>state.comment.commentList
-   
+
 }
 export default getters
