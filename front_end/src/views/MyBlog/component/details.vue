@@ -104,5 +104,7 @@
 </script>
 
 <style scoped>
-
+    .details{
+        white-space: pre-line;
+    }
 </style>

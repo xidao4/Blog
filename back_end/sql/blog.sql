@@ -32,6 +32,7 @@ CREATE TABLE `tb_comment` (
   `passageId` bigint(20) NOT NULL COMMENT '对应文章Id',
   `userId` bigint(20) NOT NULL COMMENT '评论者Id',
   `content` mediumtext NOT NULL COMMENT '评论内容',
+  `userName` varchar(255) NOT NULL COMMENT '用户id',
   `commentTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '评论时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -45,11 +46,11 @@ CREATE TABLE `tb_user` (
   `email` varchar(200) NOT NULL COMMENT '邮箱',
   `password` varchar(200) NOT NULL COMMENT '密码',
   `userName` varchar(200) NOT NULL COMMENT '用户名',
-  `description` varchar(200) NOT NULL COMMENT '个人简介',
+  `description` varchar(200) DEFAULT NULL COMMENT '个人简介',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into `tb_user`(`id`,`email`,`password`,`userName`,`description`) values(0,'9959@qq.com','123456','ljy','');
+insert into `tb_user`(`id`,`email`,`password`,`userName`,`description`) values(0,'9959@qq.com','4527c9b5fc3955d911b2df21c81f4563','ljy','');
 
 DROP TABLE IF EXISTS `tb_collection`;
 
@@ -57,4 +58,12 @@ CREATE TABLE `tb_collection` (
   `userId` int(20) NOT NULL COMMENT '用户id',
   `passageId` int(20) NOT NULL COMMENT '文章id',
   `collectTime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '收藏时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tb_friendurl`;
+
+CREATE TABLE `tb_friendurl` (
+                                 `userId` int(20) NOT NULL COMMENT '用户id',
+                                 `url` varchar(255) NOT NULL COMMENT '链接',
+                                 PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

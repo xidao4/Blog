@@ -27,8 +27,8 @@ public class PassageController {
      * @param userId
      * @return PassageVO
      */
-    @GetMapping("/list")
-    public ResponseVO retrieveUserBlogs(@RequestParam int userId){
+    @GetMapping("/{userId}/list")
+    public ResponseVO retrieveUserBlogs(@PathVariable int userId){
         try{
             return ResponseVO.buildSuccess(passageService.getAllBlogsByUserId(userId));
         }catch(Exception e){
@@ -101,8 +101,7 @@ public class PassageController {
 
     @PostMapping("/createCollection")
     public ResponseVO createCollection(@RequestBody Collection collection){
-        collectionService.createCollection(collection);
-        return ResponseVO.buildSuccess(true);
+        return collectionService.createCollection(collection);
     }
 
     @PostMapping("/deleteCollection")

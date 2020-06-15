@@ -3,12 +3,16 @@ package com.network_blog.back_end.blImpl.user;
 import com.network_blog.back_end.bl.user.AccountService;
 import com.network_blog.back_end.data.user.AccountMapper;
 import com.network_blog.back_end.po.User;
+import com.network_blog.back_end.vo.FriendUrlVO;
 import com.network_blog.back_end.vo.ResponseVO;
+import com.network_blog.back_end.po.FriendUrl;
+import com.network_blog.back_end.data.user.FriendUrlMapper;
 import com.network_blog.back_end.vo.UserForm;
 import com.network_blog.back_end.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 
 @Service
@@ -16,26 +20,30 @@ public class AccountServiceImpl implements AccountService {
     private final static String ACCOUNT_EXIST = "账号已存在";
     private final static String UPDATE_ERROR = "修改失败";
     private final static String VIP_EXIST = "已是会员";
+    private final static String MD5_STR="tttt";
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private FriendUrlMapper friendUrlMapper;
 
     @Override
     public ResponseVO registerAccount(UserVO userVO) {
         User user = new User();
         BeanUtils.copyProperties(userVO,user);
-        try {
+        user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()+MD5_STR).getBytes()));
+        User user1=accountMapper.getAccountByName(userVO.getEmail());
+        if(user1==null) {
             accountMapper.createNewAccount(user);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ResponseVO.buildFailure(ACCOUNT_EXIST);
+            return ResponseVO.buildSuccess(true);
         }
-        return ResponseVO.buildSuccess();
+        else return ResponseVO.buildFailure(ACCOUNT_EXIST);
+
     }
 
     @Override
     public User login(UserForm userForm) {
         User user = accountMapper.getAccountByName(userForm.getEmail());
-        if (null == user || !user.getPassword().equals(userForm.getPassword())) {
+        if (null == user || !user.getPassword().equals(DigestUtils.md5DigestAsHex((userForm.getPassword()+MD5_STR).getBytes()))) {
             return null;
         }
         return user;
@@ -53,12 +61,45 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public ResponseVO updateUserInfo(int id, String password, String username,String description) {
         try {
+            password=DigestUtils.md5DigestAsHex((password+MD5_STR).getBytes());
             accountMapper.updateAccount(id, password, username,description);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseVO.buildFailure(UPDATE_ERROR);
         }
         return ResponseVO.buildSuccess(true);
+    }
+
+    @Override
+    public String getFriendUrl(Integer userId){
+        String Url=friendUrlMapper.retrieveFriendUrl(userId);
+        return Url;
+    }
+
+    @Override
+    public ResponseVO addFriendUrl(FriendUrlVO friendUrlVO){
+        Integer userId=friendUrlVO.getUserId();
+        FriendUrl friendUrl=new FriendUrl();
+        friendUrl.setUrl(friendUrlVO.getUrl());
+        friendUrl.setUserId(friendUrlVO.getUserId());
+        String url=friendUrlMapper.retrieveFriendUrl(userId);
+        if(url==null){
+            return ResponseVO.buildSuccess(friendUrlMapper.addFriendUrl(friendUrl));
+        }
+        else
+            return ResponseVO.buildFailure("Friendurl already exist!");
+    }
+
+    @Override
+    public ResponseVO deleteFriendUrl(Integer userId){
+        FriendUrl friendUrl=new FriendUrl();
+        String url=friendUrlMapper.retrieveFriendUrl(userId);
+        if(url==null){
+            return ResponseVO.buildFailure("Friendurl not exist!");
+
+        }
+        else
+            return ResponseVO.buildSuccess(friendUrlMapper.deleteFriendUrl(userId));
     }
 }
 
