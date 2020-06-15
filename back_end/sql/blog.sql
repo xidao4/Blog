@@ -9,7 +9,6 @@
 /*Table structure for table `tb_passage` */
 
 DROP TABLE IF EXISTS `tb_passage`;
-
 CREATE TABLE `tb_passage` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '博客表主键id',
   `userId` bigint(20) NOT NULL COMMENT '博客作者id',
@@ -20,11 +19,18 @@ CREATE TABLE `tb_passage` (
   `status` int(11) NOT NULL COMMENT '博客状态 0草稿1公开显示2不公开显示',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 /*Data for the table `tb_passage` */
-
 insert into `tb_passage`(`id`,`userId`,`title`,`content`,`createTime`,`recentEditTime`,`status`) values (2,1,'震惊！某高校寒假居然长达八个月！原因竟然是。。','寒假是指冬季1-2月份期间的假期。
 在中国，学校通常将每个学年分为上、下两个学期。上学期从秋季九月份开始，到农历腊月初十左右，各学校开始放假，至元宵节后寒假结束。而这个时候正处于中国寒冷的冬季，交‘九’之际，被称为寒假。假期一般1个月左右。但在寒冷的中国东北地区及其他高纬度地区，有时多达45天左右，多者甚至会两个月左右。','2017-03-12 00:31:15','2018-11-12 00:31:15',1);
+
+DROP TABLE IF EXISTS `tb_tag`;
+CREATE TABLE `tb_tag`(
+    `tagId` int(20) NOT NULL COMMENT '标签id',
+    `passageId` bigint(20) NOT NULL COMMENT '文章id',
+    `tagName` varchar(255) NOT NULL COMMENT '标签名称',
+    PRIMARY KEY(`tagId`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into `tb_tag`(`tagId`,`passageId`,`tagName`) values(1,2,'测试标签1');
 
 DROP TABLE IF EXISTS `tb_comment`;
 
@@ -70,13 +76,3 @@ CREATE TABLE `tb_friendurl` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `tb_tag`;
-
-CREATE TABLE `tb_tag`(
-    `tagId` int(20) NOT NULL COMMENT '标签id',
-    `passageId` bigint(20) NOT NULL COMMENT '文章id',
-    `tagName` varchar(255) NOT NULL COMMENT '标签名称',
-    PRIMARY KEY('tagId')
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-insert into `tb_tag`(`tagId`,`passageId`,`tagName`) values(1,2,'测试标签1');
