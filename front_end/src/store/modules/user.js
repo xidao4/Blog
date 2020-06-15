@@ -57,6 +57,7 @@ const user={
             if (res) {
                 message.success('注册成功')
             }
+            return res;
         },
         getUserInfo({state,commit}) {
             return new Promise((resolve, reject) => {

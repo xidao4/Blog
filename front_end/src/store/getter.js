@@ -2,6 +2,7 @@ const getters={
     //passages
     searchResult:state=>state.passages.searchResult,
     passageDetail:state=>state.passages.passageDetail,
+    userBlogs:state=>state.passages.userBlogs,
     //user
     //getter能干啥来着。。。
     token: state => state.user.token,

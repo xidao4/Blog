@@ -18,8 +18,8 @@
               <router-link :to="'createblog'"></router-link>
             </a-menu-item>
             <a-menu-item key="setting:2">
-              Option 2
-              <router-link :to="'details'"></router-link>
+              我的博客
+              <router-link :to="'myblog'"></router-link>
             </a-menu-item>
           </a-sub-menu>
           <a-sub-menu>
@@ -36,8 +36,6 @@
               退出登录
             </a-menu-item>
           </a-sub-menu>
-          
-
         </a-menu>
       </a-col>
 

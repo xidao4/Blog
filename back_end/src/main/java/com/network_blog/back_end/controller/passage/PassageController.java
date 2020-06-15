@@ -27,8 +27,8 @@ public class PassageController {
      * @param userId
      * @return PassageVO
      */
-    @GetMapping("/list")
-    public ResponseVO retrieveUserBlogs(@RequestParam int userId){
+    @GetMapping("/{userId}/list")
+    public ResponseVO retrieveUserBlogs(@PathVariable int userId){
         try{
             return ResponseVO.buildSuccess(passageService.getAllBlogsByUserId(userId));
         }catch(Exception e){
@@ -112,6 +112,11 @@ public class PassageController {
     @GetMapping("/{userId}/searchCollection")
     public ResponseVO searchCollection(@PathVariable Integer userId){
         return ResponseVO.buildSuccess(collectionService.searchCollection(userId));
+    }
+
+    @GetMapping("/{userId}/{passageId}/isInCollection")
+    public ResponseVO isInCollection(@PathVariable Integer userId,@PathVariable Integer passageId){
+        return ResponseVO.buildSuccess(collectionService.isInCollection(userId,passageId));
     }
 
 }

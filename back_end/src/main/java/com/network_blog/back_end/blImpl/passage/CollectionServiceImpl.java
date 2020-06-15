@@ -59,4 +59,13 @@ public class CollectionServiceImpl implements CollectionService {
         }).collect(Collectors.toList());
         return passageVOS;
     }
+
+    @Override
+    public Boolean isInCollection(Integer userId, Integer passageId){
+        List<Integer> passageIds=collectionMapper.search(userId);
+        for(int i=0;i<passageIds.size();i++){
+            if(passageId==passageIds.get(i)) return true;
+        }
+        return false;
+    }
 }
