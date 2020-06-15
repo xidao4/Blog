@@ -7,14 +7,14 @@ import {
     searchAPI,
     getPassageAPI,
     savePassageAPI,
-    getUserBlogsAPI
-
+    getUserBlogsAPI, isInCollectionAPI
 } from "../../api/passages";
 const passages={
     state:{
         searchResult:[],
         passageDetail:[],
         userBlogs:[],
+        inCollection:false,
     },
     mutations:{
         set_searchResult:function (state,data) {
@@ -25,6 +25,9 @@ const passages={
         },
         set_userblogs:function(state,data){
             state.userBlogs=data
+        },
+        set_inCollection:function (state,data) {
+            state.inCollection=data
         }
     },
     actions:{
@@ -50,6 +53,10 @@ const passages={
             commit('set_userblogs',res)
             console.log('pa',res)
             return res
+        },
+        updateInCollection:async({commit},passageId,userId)=>{
+            const res=isInCollectionAPI(userId,passageId)
+            commit('set_inCollection',res)
         }
     }
 

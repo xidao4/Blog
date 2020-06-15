@@ -7,10 +7,10 @@
             <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
                 <row style="text-align: left;margin-left: 100px;margin-right: 200px">
                     <br>
-                    <a slot="title"  @click="jumpToDetails(item.id)" style="text-align: left;font-size: 200%;color:gray" v-if="item.title.length<10">
+                    <a slot="title"  @click="jumpToDetails(item.id,userId)" style="text-align: left;font-size: 200%;color:gray" v-if="item.title.length<10">
                         {{item.title}}
                     </a>
-                    <a slot="title"  @click="jumpToDetails(item.id)" style="text-align: left;font-size: 200%;color:gray" v-else>
+                    <a slot="title"  @click="jumpToDetails(item.id,userId)" style="text-align: left;font-size: 200%;color:gray" v-else>
                         {{item.title.substring(0,10)}}...
                     </a>
                     <span style="color: darkgray;margin-left: 730px"><a-icon type="star" @click="addtoCollection(item.id) " style="color: #192c3e;font-size: x-large"></a-icon></span>
@@ -46,11 +46,13 @@
             ...mapActions([
                 'addCollection',
                 'getPassage',
-                'getCommentList'
+                'getCommentList',
+                'updateInCollection'
             ]),
-            jumpToDetails(id){
+            jumpToDetails(id,userid){
                 this.getCommentList(id)
                 this.getPassage(id)
+                this.updateInCollection(id,userid)
                 this.$router.push({name:'details'})
             },
             addtoCollection(id){

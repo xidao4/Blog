@@ -50,3 +50,11 @@ export function getUserBlogsAPI(id) {
         method:'GET'
     })
 }
+
+export function isInCollectionAPI(userId,passageId) {
+    return axios({
+        url:`${api.passagesPre}/isInCollection`,
+        method:'GET',
+        params:{userId:userId,passageId:passageId}
+    })
+}
