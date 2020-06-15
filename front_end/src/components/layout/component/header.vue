@@ -18,6 +18,7 @@
               <router-link :to="'createblog'"></router-link>
             </a-menu-item>
             <a-menu-item key="setting:2">
+              <a-icon type="database" />
               我的博客
               <router-link :to="'myblog'"></router-link>
             </a-menu-item>
