@@ -68,3 +68,15 @@ CREATE TABLE `tb_friendurl` (
                                  `url` varchar(255) NOT NULL COMMENT '链接',
                                  PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `tb_tag`;
+
+CREATE TABLE `tb_tag`(
+    `tagId` int(20) NOT NULL COMMENT '标签id',
+    `passageId` bigint(20) NOT NULL COMMENT '文章id',
+    `tagName` varchar(255) NOT NULL COMMENT '标签名称',
+    PRIMARY KEY('tagId')
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into `tb_tag`(`tagId`,`passageId`,`tagName`) values(1,2,'测试标签1');
