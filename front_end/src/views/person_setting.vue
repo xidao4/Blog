@@ -64,7 +64,7 @@
           </a-col>
           <a-col :span="4" class="wrapper">
           </a-col>
-          <a-col :span="7"class="wrapper">
+          <a-col :span="7" class="wrapper">
               <a-row :style="{height: '40px'}" type="flex" align="middle">
 
               </a-row>
@@ -100,7 +100,7 @@
                   </a-col>
               </a-row>
           </a-col>
-          <a-col :span="3"class="wrapper">
+          <a-col :span="3" class="wrapper">
           </a-col>
       </a-row>
   </div>
