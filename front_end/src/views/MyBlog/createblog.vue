@@ -11,7 +11,7 @@
                     serenity,
                 </p>
                 <p>
-                    这是您的第100篇blog
+                    这是您的第{{userBlogs.length+1}}篇blog
                 </p>
             </div>
           </a-col>
@@ -28,12 +28,17 @@
                 <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="content"/>
                 <template slot="actions">
                 <a-icon key="picture" type="picture" />
-                <a-icon key="delete" type="delete" />
-                <a-icon key="setting" type="setting" />
+                <a-icon key="delete" type="delete" @click="showConfirmDelete"/>
+                <a-icon key="setting" type="setting" @click="showSettings" />
                 <a-icon key="upload" type="upload" />
                 <a-icon key="save" type="save" @click="save"/>
                 </template>
             </a-card>
+            <a-modal v-model="setting_visible" title="为你的博客添加标签" @ok="handleOk">
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            </a-modal>
           </a-col>
           <a-col :span="8" >
                 <a-card title="Friends" style="width: 70%;margin-left:25%">
@@ -91,11 +96,13 @@ export default {
             data,
             title:"",
             content:"",
+            setting_visible:false,
         }
     },
     computed: {
     ...mapGetters([
                 'userId',
+                'userBlogs',
             ])
     },  
     methods: {
@@ -129,6 +136,21 @@ export default {
             var currentdate = year + '-' + month + '-' + strDate;
             return currentdate
         },
+        showConfirmDelete() {
+            var that=this
+            this.$confirm({
+            title: '确定删除这篇博客吗？',
+            content: '确认后，您的内容将丢失',
+            onOk() {
+                that.title='';
+                that.content='';
+            },
+            onCancel() {},
+        });
+        },
+        showSettings(){
+            this.setting_visible=true;
+        }
 
     },
 }
