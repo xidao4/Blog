@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-row type="flex" justify="center">
+        <a-row >
           <a-col :span="4">
               <div :style="{ borderRadius: '4px' }" class="calendar">
                 <a-calendar :fullscreen="false" @panelChange="onPanelChange"  />
@@ -11,11 +11,11 @@
                     serenity,
                 </p>
                 <p>
-                    这是您的第100篇blog
+                    这是您的第{{userBlogs.length+1}}篇blog
                 </p>
             </div>
           </a-col>
-          <a-col :span="16">
+          <a-col :span="12">
             <a-card hoverable class="whole_card">
                 <img
                 slot="cover"
@@ -28,14 +28,49 @@
                 <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="content"/>
                 <template slot="actions">
                 <a-icon key="picture" type="picture" />
-                <a-icon key="delete" type="delete" />
-                <a-icon key="setting" type="setting" />
+                <a-icon key="delete" type="delete" @click="showConfirmDelete"/>
+                <a-icon key="setting" type="setting" @click="showSettings" />
                 <a-icon key="upload" type="upload" />
                 <a-icon key="save" type="save" @click="save"/>
                 </template>
             </a-card>
+            <a-modal v-model="setting_visible" title="为你的博客添加标签" @ok="handleOk">
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            </a-modal>
           </a-col>
-          <a-col :span="4"></a-col>
+          <a-col :span="8" >
+                <a-card title="Friends" style="width: 70%;margin-left:25%">
+                <p>
+                    <a-icon type="github" style="font-size: 30px"></a-icon>
+                </p>
+                <p>
+                    <a-icon type="zhihu" style="font-size: 30px"></a-icon>
+                </p>
+                <!-- <p>
+                    <a-icon type="linkedin" style="font-size: 30px"></a-icon>
+                </p> -->
+                </a-card>
+                <a-card title="tags" style="width: 70%;margin-left:25%;margin-top:5%">
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                </a-card>
+                <a-card title="passages" style="width: 70%;margin-left:25%;margin-top:5%">
+                    <a-list :grid="{ gutter: 16, column: 3 }" :data-source="data">
+                        <a-list-item slot="renderItem" slot-scope="item">
+                        <a-card :title="'num'">
+                            {{item.title}}
+                        </a-card>
+                        </a-list-item>
+                    </a-list>
+                </a-card>
+          </a-col>
         </a-row>
         
     </div>
@@ -43,18 +78,31 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-
+const data = [
+  {
+    title: 'Title 1',
+  },
+  {
+    title: 'Title 2',
+  },
+  {
+    title: 'Title 3',
+  },
+];
 export default {
     name:'CreateBlog',
     data() {
         return {
+            data,
             title:"",
             content:"",
+            setting_visible:false,
         }
     },
     computed: {
     ...mapGetters([
                 'userId',
+                'userBlogs',
             ])
     },  
     methods: {
@@ -88,6 +136,21 @@ export default {
             var currentdate = year + '-' + month + '-' + strDate;
             return currentdate
         },
+        showConfirmDelete() {
+            var that=this
+            this.$confirm({
+            title: '确定删除这篇博客吗？',
+            content: '确认后，您的内容将丢失',
+            onOk() {
+                that.title='';
+                that.content='';
+            },
+            onCancel() {},
+        });
+        },
+        showSettings(){
+            this.setting_visible=true;
+        }
 
     },
 }
@@ -95,8 +158,8 @@ export default {
 
 <style scoped>
 .whole_card{
-width: 700px;
-height: 680px;
+width: 98%;
+height: 100%;
 margin: 0 0 0 10%;
 }
 .calendar{
