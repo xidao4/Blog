@@ -9,7 +9,7 @@ public class Passage {
     private String title;
     private Date recentEditTime;
     private Date createTime;
-
+    private int status;//0草稿 1公开显示 2不公开显示
 
     public Integer getId() {
         return id;
@@ -59,4 +59,11 @@ public class Passage {
         this.createTime = createTime;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

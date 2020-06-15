@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-row type="flex" justify="center">
+        <a-row >
           <a-col :span="4">
               <div :style="{ borderRadius: '4px' }" class="calendar">
                 <a-calendar :fullscreen="false" @panelChange="onPanelChange"  />
@@ -15,7 +15,7 @@
                 </p>
             </div>
           </a-col>
-          <a-col :span="16">
+          <a-col :span="12">
             <a-card hoverable class="whole_card">
                 <img
                 slot="cover"
@@ -35,7 +35,18 @@
                 </template>
             </a-card>
           </a-col>
-          <a-col :span="4"></a-col>
+          <a-col :span="8" >
+                <a-card title="Friends" style="width: 70%;margin-left:25%">
+                <p>
+                    <a-icon type="github" style="font-size: 30px"></a-icon>
+                </p>
+                <p>
+                    <a-icon type="zhihu" style="font-size: 30px"></a-icon>
+                </p>
+                <p>Card content</p>
+                </a-card>
+
+          </a-col>
         </a-row>
         
     </div>
@@ -95,8 +106,8 @@ export default {
 
 <style scoped>
 .whole_card{
-width: 700px;
-height: 680px;
+width: 98%;
+height: 100%;
 margin: 0 0 0 10%;
 }
 .calendar{

@@ -28,7 +28,6 @@ public class AccountController {
         return accountService.registerAccount(userVO);
     }
 
-
     @GetMapping("/{id}/getUserInfo")
     public ResponseVO getUserInfo(@PathVariable int id) {
         User user = accountService.getUserInfo(id);
@@ -36,6 +35,14 @@ public class AccountController {
             return ResponseVO.buildFailure(ACCOUNT_INFO_ERROR);
         }
         return ResponseVO.buildSuccess(user);
+    }
+
+    @GetMapping("/{id}/getUserName")
+    public ResponseVO getUserName(@PathVariable int id){
+        User user=accountService.getUserInfo(id);
+        if(user==null)
+            return ResponseVO.buildFailure(ACCOUNT_INFO_ERROR);
+        return ResponseVO.buildSuccess(user.getUserName());
     }
 
     @PostMapping("/{id}/userInfo/update")
