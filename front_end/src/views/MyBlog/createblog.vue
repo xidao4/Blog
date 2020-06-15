@@ -43,9 +43,28 @@
                 <p>
                     <a-icon type="zhihu" style="font-size: 30px"></a-icon>
                 </p>
-                <p>Card content</p>
+                <!-- <p>
+                    <a-icon type="linkedin" style="font-size: 30px"></a-icon>
+                </p> -->
                 </a-card>
-
+                <a-card title="tags" style="width: 70%;margin-left:25%;margin-top:5%">
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                    <a-tag>Tag 1</a-tag>
+                </a-card>
+                <a-card title="passages" style="width: 70%;margin-left:25%;margin-top:5%">
+                    <a-list :grid="{ gutter: 16, column: 3 }" :data-source="data">
+                        <a-list-item slot="renderItem" slot-scope="item">
+                        <a-card :title="'num'">
+                            {{item.title}}
+                        </a-card>
+                        </a-list-item>
+                    </a-list>
+                </a-card>
           </a-col>
         </a-row>
         
@@ -54,11 +73,22 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-
+const data = [
+  {
+    title: 'Title 1',
+  },
+  {
+    title: 'Title 2',
+  },
+  {
+    title: 'Title 3',
+  },
+];
 export default {
     name:'CreateBlog',
     data() {
         return {
+            data,
             title:"",
             content:"",
         }
