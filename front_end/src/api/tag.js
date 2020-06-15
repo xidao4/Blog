@@ -2,9 +2,9 @@ import { axios } from '../utils/request.js'
 const api = {
     tagsPre: '/api/tags'
 }
-export function getUserInfoAPI(id){
+export function getTagsByUserAPI(id){
     return axios({
-        url: `${api.tagsPre}/${id}/getUserInfo`,
+        url: `${api.tagsPre}/${id}/getTagsByUser`,
         method: 'GET'
     })
 }

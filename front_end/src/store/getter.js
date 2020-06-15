@@ -5,10 +5,10 @@ const getters={
     userBlogs:state=>state.passages.userBlogs,
     inCollection: state=>state.passages.inCollection,
     //user
-    //getter能干啥来着。。。
     token: state => state.user.token,
     userId:state=>state.user.user_id,
     collection:state=>state.user.collection,
+    userTags:state=>state.user.userTags,
     //comment
     commentList:state=>state.comment.commentList
 

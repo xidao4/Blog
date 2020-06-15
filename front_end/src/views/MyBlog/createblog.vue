@@ -108,11 +108,16 @@ export default {
     ...mapGetters([
                 'userId',
                 'userBlogs',
+                'userTags',
             ])
+    },
+    async mounted() {
+        this.getTagsByUser();
     },  
     methods: {
         ...mapActions([
             'savePassage',
+            'getTagsByUser',
       ]),
 
         onPanelChange(value, mode) {

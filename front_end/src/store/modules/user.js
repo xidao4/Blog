@@ -10,12 +10,16 @@ import {
     updateInfoAPI,
     addFriendUrlAPI,
 } from '../../api/user.js'
+import{
+    getTagsByUserAPI,
+}from '../../api/tag.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 
 const user={
     state:{
         user_id:0,
         collection:[],
+        userTags:[],
     },
     mutations:{
         set_userId: (state, data) => {
@@ -34,6 +38,9 @@ const user={
                 state.userOrderList = [],
                 state.membership={}
         },
+        setUserTags:function(state,data){
+            state.userTags=data;
+        }
     },
     actions:{
         login: async ({state,dispatch, commit}, userData) => {
@@ -121,6 +128,11 @@ const user={
             else{
                 message.error('取消失败')
             }
+        },
+        getTagsByUser:async({state,commit})=>{
+            let res=await getTagsByUserAPI(state.user_id);
+            commit('setUserTags',res);
+            console.log('tags',res)
         }
     }
 }
