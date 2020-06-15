@@ -4,6 +4,7 @@ import com.network_blog.back_end.po.User;
 import com.network_blog.back_end.vo.ResponseVO;
 import com.network_blog.back_end.vo.UserForm;
 import com.network_blog.back_end.vo.UserVO;
+import com.network_blog.back_end.vo.FriendUrlVO;
 
 /**
  * @author huwen
@@ -40,5 +41,11 @@ public interface AccountService {
      * @return
      */
     ResponseVO updateUserInfo(int id, String password, String username,String description);
+
+    String getFriendUrl(Integer userId);
+
+    ResponseVO addFriendUrl(FriendUrlVO friendUrlVO);
+
+    ResponseVO deleteFriendUrl(Integer userId);
 
 }

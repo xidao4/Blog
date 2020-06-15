@@ -3,7 +3,10 @@ package com.network_blog.back_end.blImpl.user;
 import com.network_blog.back_end.bl.user.AccountService;
 import com.network_blog.back_end.data.user.AccountMapper;
 import com.network_blog.back_end.po.User;
+import com.network_blog.back_end.vo.FriendUrlVO;
 import com.network_blog.back_end.vo.ResponseVO;
+import com.network_blog.back_end.po.FriendUrl;
+import com.network_blog.back_end.data.user.FriendUrlMapper;
 import com.network_blog.back_end.vo.UserForm;
 import com.network_blog.back_end.vo.UserVO;
 import org.springframework.beans.BeanUtils;
@@ -20,19 +23,21 @@ public class AccountServiceImpl implements AccountService {
     private final static String MD5_STR="tttt";
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private FriendUrlMapper friendUrlMapper;
 
     @Override
     public ResponseVO registerAccount(UserVO userVO) {
         User user = new User();
         BeanUtils.copyProperties(userVO,user);
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()+MD5_STR).getBytes()));
-        try {
+        User user1=accountMapper.getAccountByName(userVO.getEmail());
+        if(user1==null) {
             accountMapper.createNewAccount(user);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ResponseVO.buildFailure(ACCOUNT_EXIST);
+            return ResponseVO.buildSuccess(true);
         }
-        return ResponseVO.buildSuccess();
+        else return ResponseVO.buildFailure(ACCOUNT_EXIST);
+
     }
 
     @Override
@@ -63,6 +68,38 @@ public class AccountServiceImpl implements AccountService {
             return ResponseVO.buildFailure(UPDATE_ERROR);
         }
         return ResponseVO.buildSuccess(true);
+    }
+
+    @Override
+    public String getFriendUrl(Integer userId){
+        String Url=friendUrlMapper.retrieveFriendUrl(userId);
+        return Url;
+    }
+
+    @Override
+    public ResponseVO addFriendUrl(FriendUrlVO friendUrlVO){
+        Integer userId=friendUrlVO.getUserId();
+        FriendUrl friendUrl=new FriendUrl();
+        friendUrl.setUrl(friendUrlVO.getUrl());
+        friendUrl.setUserId(friendUrlVO.getUserId());
+        String url=friendUrlMapper.retrieveFriendUrl(userId);
+        if(url==null){
+            return ResponseVO.buildSuccess(friendUrlMapper.addFriendUrl(friendUrl));
+        }
+        else
+            return ResponseVO.buildFailure("Friendurl already exist!");
+    }
+
+    @Override
+    public ResponseVO deleteFriendUrl(Integer userId){
+        FriendUrl friendUrl=new FriendUrl();
+        String url=friendUrlMapper.retrieveFriendUrl(userId);
+        if(url==null){
+            return ResponseVO.buildFailure("Friendurl not exist!");
+
+        }
+        else
+            return ResponseVO.buildSuccess(friendUrlMapper.deleteFriendUrl(userId));
     }
 }
 
