@@ -115,4 +115,9 @@ public class PassageController {
         return ResponseVO.buildSuccess(collectionService.searchCollection(userId));
     }
 
+    @GetMapping("/{userId}/isInCollection")
+    public ResponseVO isInCollection(@PathVariable Integer userId,@PathVariable Integer passageId){
+        return ResponseVO.buildSuccess(collectionService.isInCollection(userId,passageId));
+    }
+
 }
