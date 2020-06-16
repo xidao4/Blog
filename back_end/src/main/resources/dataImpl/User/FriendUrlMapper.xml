@@ -8,7 +8,7 @@
     <delete id="deleteFriendUrl" parameterType="com.network_blog.back_end.po.FriendUrl">
         delete from tb_friendurl where userId=#{userId} and url=#{url}
     </delete>
-    <select id="retrieveFriendUrl" resultType="com.network_blog.back_end.po.FriendUrl">
-        select * from tb_friendurl where userId=#{userId}
+    <select id="retrieveFriendUrl" resultType="java.lang.String">
+        select url from tb_friendurl where userId=#{userId}
     </select>
 </mapper>

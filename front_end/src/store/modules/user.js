@@ -9,14 +9,26 @@ import {
     getUserInfoAPI,
     updateInfoAPI,
     addFriendUrlAPI,
+    deleteFriendUrlAPI,
+    getFriendUrlAPI
 } from '../../api/user.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI,isInCollectionAPI,} from "../../api/passages";
+import{
+    getTagsByUserAPI,
+}from '../../api/tag.js'
+import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 
 const user={
     state:{
         user_id:0,
         collection:[],
         inCollection:false,
+        friendURL:[],
+        friendURLParams:{
+            userId:"",
+            url:''
+        },
+        userTags:[],
     },
     mutations:{
         set_userId: (state, data) => {
@@ -37,6 +49,15 @@ const user={
         },
         set_inCollection:function(state,data){
             state.inCollection=data
+        },
+        set_friendURL:function (state,data) {
+            state.friendURL=data;
+        },
+        set_friendURLParams:function (state,data) {
+            state.friendURLParams=data;
+        },
+        setUserTags:function(state,data){
+            state.userTags=data;
         }
     },
     actions:{
@@ -127,6 +148,38 @@ const user={
             else{
                 message.error('取消失败')
             }
+        },
+        getFriendUrl:async ({dispatch,state,commit}, data)=>{
+            let res=await getFriendUrlAPI(data)
+            if(res){
+                commit('set_friendURL',res)
+            }
+        },
+        deleteFriendUrl:async ({dispatch,state},data)=>{
+            let res=await deleteFriendUrlAPI(data)
+            console.log(data)
+            if(res){
+                dispatch('getFriendUrl')
+                message.success('已删除')
+            }
+            else{
+                message.error('删除失败')
+            }
+        },
+        addFriendUrl:async ({dispatch,state},data)=>{
+            let res=await addFriendUrlAPI(data)
+            if(res){
+                dispatch('getFriendUrl')
+                message.success('已添加')
+            }
+            else{
+                message.error('添加失败')
+            }
+            },
+        getTagsByUser:async({state,commit})=>{
+            let res=await getTagsByUserAPI(state.user_id);
+            commit('setUserTags',res);
+            console.log('tags',res)
         },
         isInCollection:async({state,commit},data)=>{
             const res=await isInCollectionAPI(data)

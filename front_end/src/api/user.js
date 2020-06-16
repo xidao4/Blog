@@ -31,7 +31,22 @@ export function updateInfoAPI(id,data){
 }
 export function addFriendUrlAPI(data){
     return axios({
-        url: `${api.userPre}/${id}/addFriendUrl`,
+        url: `${api.userPre}/addFriendUrl`,
+        method: 'POST',
+        data
+    })
+}
+
+export function getFriendUrlAPI(id){
+    return axios({
+        url: `${api.userPre}/${id}/getFriendUrl`,
+        method: 'GET'
+    })
+}
+
+export function deleteFriendUrlAPI(data){
+    return axios({
+        url: `${api.userPre}/deleteFriendUrl`,
         method: 'POST',
         data
     })
