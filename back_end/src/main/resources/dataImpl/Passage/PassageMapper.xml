@@ -8,7 +8,7 @@
 
     <insert id="insert" parameterType="com.network_blog.back_end.po.Passage" useGeneratedKeys="true" keyProperty="id">
     insert into tb_passage (title, userId,createTime, content,status)
-    values ( #{title},#{userId}, #{createTime},#{content},#(status))
+    values ( #{title},#{userId}, #{createTime},#{content},#{status})
     </insert>
 
     <update id="update" parameterType="com.network_blog.back_end.po.Passage">

@@ -4,28 +4,36 @@
 
     <insert id="insert" parameterType="com.network_blog.back_end.po.Tag"
     useGeneratedKeys="true" keyProperty="tagId">
-        insert into Tag(passageId,tagName)
-        values (#{passageId},#{tagName})
+        insert into tb_tag(passageId,tagName,userId)
+        values (#{passageId},#{tagName},#{userId})
     </insert>
 
 
     <delete id="deleteByTagId" parameterType="java.lang.Integer">
-        delete from Tag where tagId=#{tagId}
+        delete from tb_tag where tagId=#{tagId}
     </delete>
 
     <select id="getTagsByPassageId" resultMap="Tag" parameterType="java.lang.Integer">
-        select * from Tag where passageId=#{passageId}
+        select * from tb_tag where passageId=#{passageId}
     </select>
 
     <select id="selectByPassageIdAndTagName" resultMap="Tag">
-        select * from Tag where passagelId=#{passageId} and tagName=#{tagName}
+        select * from tb_tag where passageId=#{passageId} and tagName=#{tagName}
     </select>
 
+    <select id="getPassageIdsByTag" resultMap="Tag">
+        select * from tb_tag where userId=#{userId},tagName=#{tagName}
+    </select>
+
+    <select id="getTagsByUserId" resultMap="Tag">
+        select * from tb_tag where userId=#{userId}
+    </select>
 
     <resultMap id="Tag" type="com.network_blog.back_end.po.Tag">
         <id column="tagId" property="tagId"></id>
         <result column="passageId" property="passageId"></result>
         <result column="tagName" property="tagName"></result>
+        <result column="userId" property="userId"></result>
     </resultMap>
 
 

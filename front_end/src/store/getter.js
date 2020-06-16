@@ -3,6 +3,7 @@ const getters={
     searchResult:state=>state.passages.searchResult,
     passageDetail:state=>state.passages.passageDetail,
     userBlogs:state=>state.passages.userBlogs,
+    inCollection: state=>state.passages.inCollection,
     //user
     friendURL:state=>state.user.friendURL,
     friendURLParams:state=>state.user.friendURLParams,
@@ -10,6 +11,7 @@ const getters={
     token: state => state.user.token,
     userId:state=>state.user.user_id,
     collection:state=>state.user.collection,
+    userTags:state=>state.user.userTags,
     //comment
     commentList:state=>state.comment.commentList
 

@@ -43,6 +43,17 @@ const passages={
         savePassage:async({commit},data)=>{
             //console.log("passage",data)
             const res=await savePassageAPI(data)
+            if(res){
+                if(data.status==0){
+                    message.success("暂存成功")
+                }
+                else
+                {
+                message.success("上传成功")
+                }
+            }
+            return res
+            
         },
         getUserBlogs:async({commit},id)=>{
             //console.log(id)

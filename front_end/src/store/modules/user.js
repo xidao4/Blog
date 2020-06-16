@@ -12,6 +12,9 @@ import {
     deleteFriendUrlAPI,
     getFriendUrlAPI
 } from '../../api/user.js'
+import{
+    getTagsByUserAPI,
+}from '../../api/tag.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 
 const user={
@@ -22,7 +25,8 @@ const user={
         friendURLParams:{
             userId:"",
             url:''
-        }
+        },
+        userTags:[],
     },
     mutations:{
         set_userId: (state, data) => {
@@ -47,6 +51,9 @@ const user={
         set_friendURLParams:function (state,data) {
             state.friendURLParams=data;
         },
+        setUserTags:function(state,data){
+            state.userTags=data;
+        }
     },
     actions:{
         login: async ({state,dispatch, commit}, userData) => {
@@ -160,7 +167,11 @@ const user={
             else{
                 message.error('添加失败')
             }
+            },
+        getTagsByUser:async({state,commit})=>{
+            let res=await getTagsByUserAPI(state.user_id);
+            commit('setUserTags',res);
+            console.log('tags',res)
         }
-    }
-}
+}}
 export default user;

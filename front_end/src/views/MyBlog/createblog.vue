@@ -30,14 +30,16 @@
                 <a-icon key="picture" type="picture" />
                 <a-icon key="delete" type="delete" @click="showConfirmDelete"/>
                 <a-icon key="setting" type="setting" @click="showSettings" />
-                <a-icon key="upload" type="upload" />
+                <a-icon key="upload" type="upload" @click="upload"/>
                 <a-icon key="save" type="save" @click="save"/>
                 </template>
             </a-card>
             <a-modal v-model="setting_visible" title="为你的博客添加标签" @ok="handleOk">
             <p>Some contents...</p>
             <p>Some contents...</p>
-            <p>Some contents...</p>
+            <p>是否公开展示博客
+                <a-switch v-model="pub" />
+            </p>
             </a-modal>
           </a-col>
           <a-col :span="8" >
@@ -78,6 +80,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
+import {message} from 'ant-design-vue'
 const data = [
   {
     title: 'Title 1',
@@ -97,17 +100,24 @@ export default {
             title:"",
             content:"",
             setting_visible:false,
+            status:0,
+            pub:true,
         }
     },
     computed: {
     ...mapGetters([
                 'userId',
                 'userBlogs',
+                'userTags',
             ])
+    },
+    async mounted() {
+        this.getTagsByUser();
     },  
     methods: {
         ...mapActions([
             'savePassage',
+            'getTagsByUser',
       ]),
 
         onPanelChange(value, mode) {
@@ -119,8 +129,35 @@ export default {
                 title:this.title,
                 content:this.content,
                 createTime:this.getTime(),
+                status:0,
             }
-            await this.savePassage(passage);
+            const res=await this.savePassage(passage);
+
+             if(res){
+                //this.message.success("暂存成功")
+                //console.log('res',res)
+                this.title='';
+                this.content=''
+            } 
+        },
+        async upload(){
+            var status=1;
+            if(this.pub==false){
+                status=2
+            }
+            const passage={
+                userId:this.userId,
+                title:this.title,
+                content:this.content,
+                createTime:this.getTime(),
+                status:status,
+            }
+            const res=await this.savePassage(passage)
+            if(res){
+                this.title='';
+                this.content=''
+                //this.message.success("上传成功")
+            } 
         },
         getTime(){
             var date = new Date();

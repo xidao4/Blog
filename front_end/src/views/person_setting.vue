@@ -99,7 +99,7 @@
                   </a-col>
               </a-row>
           </a-col>
-          <a-col :span="3"class="wrapper">
+          <a-col :span="3" class="wrapper">
           </a-col>
       </a-row>
       <a-modal v-model="add_visible" title="输入需要添加的友链连接" @ok="handleOk">
