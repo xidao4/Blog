@@ -16,7 +16,6 @@ import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI,isInCollectionAP
 import{
     getTagsByUserAPI,
 }from '../../api/tag.js'
-import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 
 const user={
     state:{
