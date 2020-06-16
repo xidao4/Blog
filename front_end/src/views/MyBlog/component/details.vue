@@ -9,7 +9,8 @@
                     <a-col class="'userName'" style="text-align:left;margin-left: 20px;;margin-top: 5px">
                         <span class="'name'" style="font-size: large;color: darkgray" >Mr.林娟娟</span><br>
                         <span class="'time'" style="font-size: large;color: darkgray">发表于 {{passageDetail.createTime.substring(0,10)}}</span>
-                        <span class="collect" style="text-align: right;margin-left: 620px;font-size: medium;font-style: inherit" ><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
+                        <span class="collect" style="text-align: right;margin-left: 620px;font-size: medium;font-style: inherit" v-if="!inCollection"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
+                        <span class="delCollect" style="text-align: right;margin-left: 620px;font-size: medium;font-style: inherit" v-else><img src="../../../assets/shoucang.png" height="35" width="35" @click="delCollection(passageDetail.id)"/></span>
 
                     </a-col>
                 </a-row>
@@ -78,17 +79,23 @@
               'inCollection'
           ])
         },
+        mounted() {
+            const collect={
+                userId:this.userId,
+                passageId:this.passageDetail.id
+            }
+            this.isInCollection(collect)
+        },
         methods:{
             ...mapActions([
                 'addCollection',
                 'getCommentList',
                 'addComment',
                 'deleteCollection',
-                'updateInCollection'
+                'isInCollection'
             ]),
             addtoCollection(id){
                 this.addCollection(id)
-                this.updateInCollection(id,this.userId)
             },
             getComment(id){
                 this.getCommentList(id)
@@ -106,7 +113,10 @@
             },
             delCollection(id){
                 this.deleteCollection(id)
-                this.updateInCollection(id,this.userId)
+                this.isInCollection(
+                    {userId:this.userId,
+                    passageId:this.passageDetail.id
+                    })
             }
         }
     }

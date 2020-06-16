@@ -65,11 +65,9 @@ public class CollectionServiceImpl implements CollectionService {
         List<Integer> passageIds=collectionMapper.search(userId);
         for(int i=0;i<passageIds.size();i++){
             if(passageId==passageIds.get(i)) {
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
 }

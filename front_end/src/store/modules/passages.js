@@ -8,7 +8,6 @@ import {
     getPassageAPI,
     savePassageAPI,
     getUserBlogsAPI,
-    isInCollectionAPI,
 } from "../../api/passages";
 const passages={
     state:{
@@ -25,7 +24,7 @@ const passages={
         },
         set_userblogs:function(state,data){
             state.userBlogs=data
-        }
+        },
     },
     actions:{
         searchPassage:async ({commit},value)=>{
@@ -51,11 +50,6 @@ const passages={
             console.log('pa',res)
             return res
         },
-        isInCollection:async({state},data)=>{
-            const res=await isInCollectionAPI(data)
-            console.log(res)
-            return res
-        }
     }
 
 }

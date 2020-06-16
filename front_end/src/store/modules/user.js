@@ -10,12 +10,13 @@ import {
     updateInfoAPI,
     addFriendUrlAPI,
 } from '../../api/user.js'
-import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
+import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI,isInCollectionAPI,} from "../../api/passages";
 
 const user={
     state:{
         user_id:0,
         collection:[],
+        inCollection:false,
     },
     mutations:{
         set_userId: (state, data) => {
@@ -34,6 +35,9 @@ const user={
                 state.userOrderList = [],
                 state.membership={}
         },
+        set_inCollection:function(state,data){
+            state.inCollection=data
+        }
     },
     actions:{
         login: async ({state,dispatch, commit}, userData) => {
@@ -92,7 +96,7 @@ const user={
                 commit('set_collection',res)
             }
         },
-        addCollection:async ({dispatch,state},passageId)=>{
+        addCollection:async ({dispatch,state,commit},passageId)=>{
             const data={
                 userId:state.user_id,
                 passageId:passageId,
@@ -101,13 +105,14 @@ const user={
             let res=await addCollectionAPI(data)
             if(res){
                 dispatch('getCollection')
+                commit('set_inCollection',true)
                 message.success('收藏成功')
             }
             else{
                 message.error('收藏失败')
             }
         },
-        deleteCollection:async ({dispatch,state},passageId)=>{
+        deleteCollection:async ({dispatch,state,commit},passageId)=>{
             const data={
                 userId:state.user_id,
                 passageId:passageId,
@@ -116,11 +121,18 @@ const user={
             let res=await deleteCollectionAPI(data)
             if(res){
                 dispatch('getCollection')
+                commit('set_inCollection',false)
                 message.success('已取消')
             }
             else{
                 message.error('取消失败')
             }
+        },
+        isInCollection:async({state,commit},data)=>{
+            const res=await isInCollectionAPI(data)
+            console.log(res)
+            commit('set_inCollection',res)
+            return res
         }
     }
 }

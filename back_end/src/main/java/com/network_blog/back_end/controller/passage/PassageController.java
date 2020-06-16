@@ -111,7 +111,6 @@ public class PassageController {
 
     @GetMapping("/isInCollection")
     public ResponseVO isInCollection(@RequestParam Integer userId,@RequestParam Integer passageId){
-        System.out.println("here");
         return ResponseVO.buildSuccess(collectionService.isInCollection(userId,passageId));
     }
 
