@@ -89,11 +89,11 @@
                           </template>
                           <a-card-meta>
                               <a-avatar
+                                      v-for="Url in this.friendURL"
                                       @click="onThisImage(Url)"
-                                      style="backgroundColor:#87d068"
-                                      icon="user"
+                                      slot="avatar"
+                                      src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                               />
-                              <a-avatar>USER</a-avatar>
                           </a-card-meta>
                       </a-card>
                   </a-col>
@@ -197,9 +197,13 @@ computed: {
       async onThisImage(Url) {
           this.myUrl = Url;
           if (this.state === 0) {
-              window.open(this.myUrl.url)
+              window.open(this.myUrl)
           } else {
-                await this.deleteFriendUrl(this.myUrl);
+              console.log(this.myUrl)
+                await this.deleteFriendUrl(
+                    {url:this.myUrl,
+                     userId:this.userId});
+              location.reload();
           }
           this.state = 0
       },
@@ -216,6 +220,8 @@ computed: {
                         userId: Number(this.userId),
                     }
                     this.addFriendUrl(data);
+                    this.add_visible=false;
+                    location.reload()
                 }
             });
         },

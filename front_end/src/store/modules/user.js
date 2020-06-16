@@ -149,7 +149,8 @@ const user={
             }
         },
         deleteFriendUrl:async ({dispatch,state},data)=>{
-            let res=await addFriendUrlAPI(data)
+            let res=await deleteFriendUrlAPI(data)
+            console.log(data)
             if(res){
                 dispatch('getFriendUrl')
                 message.success('已删除')
