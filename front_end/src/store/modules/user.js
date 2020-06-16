@@ -9,6 +9,8 @@ import {
     getUserInfoAPI,
     updateInfoAPI,
     addFriendUrlAPI,
+    deleteFriendUrlAPI,
+    getFriendUrlAPI
 } from '../../api/user.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI} from "../../api/passages";
 
@@ -16,6 +18,11 @@ const user={
     state:{
         user_id:0,
         collection:[],
+        friendURL:[],
+        friendURLParams:{
+            userId:"",
+            url:''
+        }
     },
     mutations:{
         set_userId: (state, data) => {
@@ -33,6 +40,12 @@ const user={
                 state.userInfo = {},
                 state.userOrderList = [],
                 state.membership={}
+        },
+        set_friendURL:function (state,data) {
+            state.friendURL=data;
+        },
+        set_friendURLParams:function (state,data) {
+            state.friendURLParams=data;
         },
     },
     actions:{
@@ -120,6 +133,32 @@ const user={
             }
             else{
                 message.error('取消失败')
+            }
+        },
+        getFriendUrl:async ({dispatch,state,commit}, data)=>{
+            let res=await getFriendUrlAPI(data)
+            if(res){
+                commit('set_friendURL',res)
+            }
+        },
+        deleteFriendUrl:async ({dispatch,state},data)=>{
+            let res=await addFriendUrlAPI(data)
+            if(res){
+                dispatch('getFriendUrl')
+                message.success('已删除')
+            }
+            else{
+                message.error('删除失败')
+            }
+        },
+        addFriendUrl:async ({dispatch,state},data)=>{
+            let res=await addFriendUrlAPI(data)
+            if(res){
+                dispatch('getFriendUrl')
+                message.success('已添加')
+            }
+            else{
+                message.error('添加失败')
             }
         }
     }

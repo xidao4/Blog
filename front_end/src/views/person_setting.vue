@@ -53,42 +53,9 @@
                       </a-input-password>
                   </a-col>
               </a-row>
-              <a-row :style="{height: '120px'}" type="flex" align="middle">
-                  <a-col :span="15">
-                      <div class="static_font">是否公开展示博客</div>
-                  </a-col>
-                  <a-col :span="9">
-                      <a-switch default-checked @change="onChange" />
-                  </a-col>
-              </a-row>
           </a-col>
           <a-col :span="4" class="wrapper">
-          </a-col>
-          <a-col :span="7"class="wrapper">
-              <a-row :style="{height: '40px'}" type="flex" align="middle">
-
-              </a-row>
-              <a-row :style="{height: '300px'}" type="flex" align="middle">
-                  <a-col :span="24">
-                      <a-card hoverable style="width: 360px">
-                          <img
-                                  slot="cover"
-                                  alt="example"
-                                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                          />
-                          <template slot="actions" class="ant-card-actions">
-                              <a-icon key="setting" type="setting" />
-                              <a-icon key="edit" type="edit" />
-                              <a-icon key="ellipsis" type="ellipsis" />
-                          </template>
-                          <a-card-meta title="Card title" description="This is the description">
-                              <a-avatar
-                                      slot="avatar"
-                                      src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                              />
-                          </a-card-meta>
-                      </a-card>
-                  </a-col>
+              <a-row :style="{height: '340px'}" type="flex" align="middle">
               </a-row>
               <a-row :style="{height: '400px'}" type="flex" align="middle">
                   <a-col :span="3">
@@ -100,9 +67,51 @@
                   </a-col>
               </a-row>
           </a-col>
+          <a-col :span="7"class="wrapper">
+              <a-row :style="{height: '80px'}" type="flex" align="middle">
+                  <a-col :span="3">
+                  </a-col>
+                  <a-col :span="14">
+                      <div class="static_font" :span="14" style="padding-bottom: 20px;">这里是您的友链</div>
+                  </a-col>
+              </a-row>
+              <a-row :style="{height: '300px'}" type="flex" align="middle">
+                  <a-col :span="24">
+                      <a-card hoverable style="width: 360px">
+                          <img
+                                  slot="cover"
+                                  alt="example"
+                                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                          />
+                          <template slot="actions" class="ant-card-actions">
+                              <a-icon key="edit" type="edit" @click="add"/>
+                              <a-icon key="delete" type="delete" @click="del"/>
+                          </template>
+                          <a-card-meta>
+                              <a-avatar
+                                      @click="onThisImage(Url)"
+                                      style="backgroundColor:#87d068"
+                                      icon="user"
+                              />
+                              <a-avatar>USER</a-avatar>
+                          </a-card-meta>
+                      </a-card>
+                  </a-col>
+              </a-row>
+          </a-col>
           <a-col :span="3"class="wrapper">
           </a-col>
       </a-row>
+      <a-modal v-model="add_visible" title="输入需要添加的友链连接" @ok="handleOk">
+          <a-form :form="form" style="margin-top: 30px" v-bind="formItemLayout">
+              <a-form-item label="链接名">
+                  <a-input
+                          placeholder="请填写友链链接"
+                          v-decorator="['url', { rules: [{ required: true, message: '请填写友链链接' }] }]"
+                  />
+              </a-form-item>
+          </a-form>
+      </a-modal>
   </div>
 </template>
 
@@ -118,21 +127,46 @@ export default {
         email:"",
         description:"",
         password:"",
+        myUrl:{
+            userId:"",
+            url:''
+        },
+        state:0,
+        add_visible:false,
+        formItemLayout: {
+              labelCol: {
+                  xs: { span: 12 },
+                  sm: { span: 6 },
+              },
+              wrapperCol: {
+                  xs: { span: 24 },
+                  sm: { span: 16 },
+              },
+        },
       }
+    },
+    beforeCreate() {
+        this.form = this.$form.createForm(this, { name: 'addFriendURLModal' });
     },
 computed: {
   ...mapGetters([
             'userId',
+            'friendURL'
         ])
   },
 
     async mounted() {
       await this.getInfo()
+        await this.getFriendUrl(this.userId)
+        console.log(this.friendURL)
     },
     methods: {
       ...mapActions([
       'getUserInfo',
       'updateInfo',
+          'getFriendUrl',
+          'deleteFriendUrl',
+          'addFriendUrl'
       ]),
       onChange(checked) {
         console.log(`a-switch to ${checked}`);
@@ -159,8 +193,37 @@ computed: {
                 message.error('修改失败')
             }
             this.getInfo()
-      }
-    },
+      },
+      async onThisImage(Url) {
+          this.myUrl = Url;
+          if (this.state === 0) {
+              window.open(this.myUrl.url)
+          } else {
+                await this.deleteFriendUrl(this.myUrl);
+          }
+          this.state = 0
+      },
+
+      add(){
+          this.add_visible=true
+      },
+        handleOk(e) {
+            e.preventDefault();
+            this.form.validateFieldsAndScroll((err, values) => {
+                if (!err) {
+                    const data = {
+                        url: this.form.getFieldValue('url'),
+                        userId: Number(this.userId),
+                    }
+                    this.addFriendUrl(data);
+                }
+            });
+        },
+      del(){
+          this.state=1;
+          message.success("请点击需要删除的友链图标")
+      },
+    }
 }
 </script>
 
