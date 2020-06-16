@@ -17,6 +17,7 @@ public class CommentController {
 
     @PostMapping("/create")
     public ResponseVO createComment(@RequestBody Comment comment){
+        System.out.println(comment.getUserName());
         return commentService.createComment(comment);
     };
 

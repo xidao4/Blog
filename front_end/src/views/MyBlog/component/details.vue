@@ -8,9 +8,9 @@
                     </a-col>
                     <a-col class="'userName'" style="text-align:left;margin-left: 20px;;margin-top: 5px">
                         <span class="'name'" style="font-size: large;color: darkgray" >Mr.林娟娟</span><br>
-                        <span class="'time'" style="font-size: large;color: darkgray">发表于 {{passageDetail.createTime.substring(0,10)}}</span>
-                        <span class="collect" style="text-align: right;margin-left: 620px;font-size: medium;font-style: inherit" v-if="!inCollection"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
-                        <span class="delCollect" style="text-align: right;margin-left: 620px;font-size: medium;font-style: inherit" v-else><img src="../../../assets/shoucang.png" height="35" width="35" @click="delCollection(passageDetail.id)"/></span>
+                        <span class="'time'" style="font-size: large;color: darkgray">发表于 {{passageDetail.createTime.substring(0,10)}} {{passageDetail.createTime.substring(11,19)}}</span>
+                        <span class="collect" style="text-align: right;margin-left: 500px;font-size: medium;font-style: inherit" v-if="!inCollection"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
+                        <span class="delCollect" style="text-align: right;margin-left: 500px;font-size: medium;font-style: inherit" v-else><img src="../../../assets/shoucang.png" height="35" width="35" @click="delCollection(passageDetail.id)"/></span>
 
                     </a-col>
                 </a-row>
@@ -33,7 +33,7 @@
                             <a-row class="information" style="text-align: left">
                                 <a-col class="'userName'" style="text-align:left;">
                                     <span><a-icon type="user" style="font-size:300%"></a-icon></span>
-                                    <span class="'name'" style="font-size: medium;color: darkgray" >Mr.林娟娟</span>
+                                    <span class="'name'" style="font-size: medium;color: darkgray" >{{item.userName}}</span>
                                     <span class="'time'" style="font-size: medium;color: darkgray;margin-left: 20px">{{item.commentTime.substring(0,10)}}  {{item.commentTime.substring(11,19)}}
                             </span>
                                 </a-col>
@@ -53,7 +53,7 @@
                     </a-row>
                     <a-row style="margin-top: 30px">
                         <a-col :span="24">
-                            <span><a-button @click="addNewComment(passageDetail.id,userId)"  style="text-align: right;margin-left: 420px">发表评论</a-button></span>
+                            <span><a-button @click="addNewComment(passageDetail.id,userId,userName)"  style="text-align: right;margin-left: 420px">发表评论</a-button></span>
                         </a-col>
                     </a-row>
                 </a-col>
@@ -76,7 +76,8 @@
               'passageDetail',
               'commentList',
               'userId',
-              'inCollection'
+              'inCollection',
+              'userName'
           ])
         },
         mounted() {
@@ -100,11 +101,12 @@
             getComment(id){
                 this.getCommentList(id)
             },
-            addNewComment(id,userid){
+            addNewComment(id,userid,username){
                 console.log(this.comment)
                 const comment={
                     passageId:id,
                     userId:userid,
+                    userName:username,
                     content:this.comment,
                     commentTime:new Date()
                 }

@@ -7,6 +7,7 @@ public class CommentVO {
     private Integer passageId;
     private Integer userId;
     private String content;
+    private String userName;
     private Date commentTime;
 
     public Integer getId() {
@@ -49,4 +50,11 @@ public class CommentVO {
         this.commentTime = commentTime;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

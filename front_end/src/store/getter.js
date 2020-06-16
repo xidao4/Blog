@@ -9,6 +9,7 @@ const getters={
     //getter能干啥来着。。。
     token: state => state.user.token,
     userId:state=>state.user.user_id,
+    userName:state=>state.user.userName,
     collection:state=>state.user.collection,
     userTags:state=>state.user.userTags,
     inCollection: state=>state.user.inCollection,

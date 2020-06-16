@@ -20,6 +20,7 @@ import{
 const user={
     state:{
         user_id:0,
+        userName:'',
         collection:[],
         inCollection:false,
         friendURL:[],
@@ -57,6 +58,10 @@ const user={
         },
         setUserTags:function(state,data){
             state.userTags=data;
+        },
+        set_userName:function (state,data) {
+            state.userName=data
+
         }
     },
     actions:{
@@ -67,6 +72,7 @@ const user={
                 /* 
                 dispatch('getUserInfo')*/
                 commit('set_userId', res.id)
+                commit('set_userName',res.userName)
                 router.push('/createblog')
                 //console.log('success',state.user_id,res)
             }
