@@ -9,12 +9,12 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class CORSConfig {
     private static String[] originsVal = new String[]{
-            "localhost:8080",
-            "127.0.0.1:8080",
+            "localhost:8081",
+            "127.0.0.1:8081",
             "127.0.0.1",
             "localhost",
             "172.19.144.143",
-            "172.19.144.143:8080"
+            "172.19.144.143:8081"
     };
 
     @Bean
