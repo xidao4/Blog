@@ -9,6 +9,7 @@ import {
     savePassageAPI,
     getUserBlogsAPI,
 } from "../../api/passages";
+import {getUserNameAPI} from "../../api/user";
 const passages={
     state:{
         searchResult:[],
@@ -36,6 +37,9 @@ const passages={
         getPassage:async ({commit},id)=>{
             let res=await getPassageAPI(id)
             if(res){
+                let userId=res.userId
+                let name=await getUserNameAPI(userId)
+                res.userName=name
                 commit('set_passage',res)
             }
         },

@@ -22,7 +22,7 @@
     </select>
 
     <select id="getPassageIdsByTag" resultMap="Tag">
-        select * from tb_tag where userId=#{userId},tagName=#{tagName}
+        select * from tb_tag where userId=#{userId} and tagName=#{tagName}
     </select>
 
     <select id="getTagsByUserId" resultMap="Tag">

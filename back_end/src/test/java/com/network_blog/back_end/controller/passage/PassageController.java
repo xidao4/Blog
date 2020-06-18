@@ -51,7 +51,7 @@ public class PassageController {
                            @RequestParam("title") String title,
                            @RequestParam("content") String content,
                            @RequestParam("createTime") Date createTime){
-        return passageService.insert(userId,title,content,createTime);
+        return passageService.insert(userId,title,content,createTime,1);
 
     }
     /**
@@ -68,7 +68,7 @@ public class PassageController {
                              @RequestParam("title") String title,
                              @RequestParam("content") String content,
                              @RequestParam("updateTime") Date updateTime){
-        return passageService.updateBlog(id,title,content,updateTime);
+        return passageService.updateBlog(id,title,content,updateTime,1);
 
     }
     /**
