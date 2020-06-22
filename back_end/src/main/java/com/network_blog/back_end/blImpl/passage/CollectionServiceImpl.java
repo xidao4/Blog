@@ -97,6 +97,7 @@ public class CollectionServiceImpl implements CollectionService {
             passageVO.setStatus(p.getStatus());
             return passageVO;
         }).collect(Collectors.toList());
-        return passageVOS;
+        if(passageVOS.size()<=3) return passageVOS;
+        else return passageVOS.subList(0,3);
     }
 }
