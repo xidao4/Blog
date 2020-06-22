@@ -15,3 +15,10 @@ export function addCommentAPI(data) {
         data
     })
 }
+
+export function deleteCommentAPI(id) {
+    return axios({
+        url:`${api.commentPre}/${id}/delete`,
+        method: 'POST',
+    })
+}

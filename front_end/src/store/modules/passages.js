@@ -7,7 +7,7 @@ import {
     searchAPI,
     getPassageAPI,
     savePassageAPI,
-    getUserBlogsAPI,
+    getUserBlogsAPI, deletePassageAPI,
 } from "../../api/passages";
 import {getUserNameAPI} from "../../api/user";
 import {getTagsByPassageAPI} from "../../api/tag";
@@ -74,6 +74,15 @@ const passages={
             const res=await getTagsByPassageAPI(id)
             console.log(res)
             commit('set_tags',res)
+        },
+        delPassage:async({commit},id)=>{
+            const res=await deletePassageAPI(id)
+            if(res){
+                message.success("已删除")
+            }
+            else{
+                message.error("删除失败")
+            }
         }
     }
 

@@ -4,7 +4,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/Blog_db?serverTimezone=CTT&characterEncoding=UTF-8
     username: root
+<<<<<<< HEAD
     password: 12345678
+=======
+    password: root
+>>>>>>> d657cbbeb82796486f387ccaba5789544813172f
     driver-class-name: com.mysql.cj.jdbc.Driver
     max-active: 200
     max-idle: 20
