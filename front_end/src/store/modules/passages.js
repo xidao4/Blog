@@ -72,6 +72,7 @@ const passages={
         },
         getPassageTags:async({commit},id)=>{
             const res=await getTagsByPassageAPI(id)
+            console.log(res)
             commit('set_tags',res)
         }
     }

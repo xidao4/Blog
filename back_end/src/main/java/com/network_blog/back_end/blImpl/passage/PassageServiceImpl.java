@@ -38,6 +38,8 @@ public class PassageServiceImpl implements PassageService {
             vo.setCreateTime(blog.getCreateTime());
             vo.setRecentEditTime(blog.getRecentEditTime());
             vo.setUrl(blog.getUrl());
+            vo.setCollectionNum(blog.getCollectionNum());
+            vo.setStatus(blog.getStatus());
             vos.add(vo);
         }
         return vos;
@@ -76,6 +78,8 @@ public class PassageServiceImpl implements PassageService {
         vo.setCreateTime(blog.getCreateTime());
         vo.setRecentEditTime(blog.getRecentEditTime());
         vo.setUrl(blog.getUrl());
+        vo.setStatus(blog.getStatus());
+        vo.setCollectionNum(blog.getCollectionNum());
         return vo;
     }
 
@@ -176,6 +180,9 @@ public class PassageServiceImpl implements PassageService {
             passageVO.setRecentEditTime(p.getRecentEditTime());
             passageVO.setTitle(p.getTitle());
             passageVO.setUserId(p.getUserId());
+            passageVO.setCollectionNum(p.getCollectionNum());
+            passageVO.setStatus(p.getStatus());
+            passageVO.setUrl(p.getUrl());
             return passageVO;
         }).collect(Collectors.toList());
         return passageVOS;

@@ -46,6 +46,7 @@ public class TagServiceImpl implements TagService {
             pvo.setUserId(p.getUserId());
             pvo.setRecentEditTime(p.getRecentEditTime());
             pvo.setCreateTime(p.getCreateTime());
+            pvo.setCollectionNum(p.getCollectionNum());
             vos.add(pvo);
         }
         return vos;

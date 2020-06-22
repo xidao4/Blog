@@ -24,4 +24,6 @@ public interface CollectionMapper {
 
     List<Integer> getAllCollectionPassages();
 
+    List<Collection> getCollections(@Param("userId") Integer userId);
+
 }
