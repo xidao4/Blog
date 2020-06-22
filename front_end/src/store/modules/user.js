@@ -10,11 +10,12 @@ import {
     updateInfoAPI,
     addFriendUrlAPI,
     deleteFriendUrlAPI,
-    getFriendUrlAPI
+    getFriendUrlAPI,
 } from '../../api/user.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI,isInCollectionAPI,} from "../../api/passages";
 import{
     getTagsByUserAPI,
+    saveTagAPI,
 }from '../../api/tag.js'
 
 const user={
@@ -194,6 +195,13 @@ const user={
             console.log(res)
             commit('set_inCollection',res)
             return res
+        },
+        saveTag:async({dispatch,commit},data)=>{
+            console.log('here',data);
+            const res=await saveTagAPI(data);
+            if(res){
+                await dispatch('getTagsByUser');
+            }
         }
     }
 }

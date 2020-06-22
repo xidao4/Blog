@@ -7,7 +7,10 @@ import {
     searchAPI,
     getPassageAPI,
     savePassageAPI,
-    getUserBlogsAPI, deletePassageAPI,
+    updatePassageAPI,
+    getUserBlogsAPI,
+    getMostPopularPassagesAPI,
+    deletePassageAPI,
 } from "../../api/passages";
 import {getUserNameAPI} from "../../api/user";
 import {getTagsByPassageAPI} from "../../api/tag";
@@ -63,6 +66,16 @@ const passages={
             return res
             
         },
+        updatePassage:async({commit},data)=>{
+            //console.log("passage",data)
+            const res=await updatePassageAPI(data)
+            if(res){
+                    message.success("更新成功")
+               
+            }
+            return res
+            
+        },
         getUserBlogs:async({commit},id)=>{
             //console.log(id)
             const res=await getUserBlogsAPI(id)
@@ -72,8 +85,13 @@ const passages={
         },
         getPassageTags:async({commit},id)=>{
             const res=await getTagsByPassageAPI(id)
-            console.log(res)
+            //console.log(res)
             commit('set_tags',res)
+        },
+        getMostPopularPassages:async({commit},id)=>{
+            const res=await getMostPopularPassagesAPI(id)
+            console.log(res)
+            return res;
         },
         delPassage:async({commit},id)=>{
             const res=await deletePassageAPI(id)

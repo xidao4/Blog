@@ -9,6 +9,13 @@ export function getTagsByUserAPI(id){
     })
 }
 
+export function saveTagAPI(data){
+    return axios({
+        url: `${api.tagsPre}/saveTag`,
+        method: 'POST',
+        data
+    })
+}
 export function getTagsByPassageAPI(id) {
     return axios({
         url:`${api.tagsPre}/${id}/list`,

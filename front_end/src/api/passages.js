@@ -43,6 +43,13 @@ export function savePassageAPI(data) {
         data
     })
 }
+export function updatePassageAPI(data) {
+    return axios({
+        url:`${api.passagesPre}/update`,
+        method:'POST',
+        data
+    })
+}
 export function deletePassageAPI(id) {
     return axios({
         url:`${api.passagesPre}/${id}/delete`,
@@ -61,5 +68,12 @@ export function isInCollectionAPI(data) {
         url:`${api.passagesPre}/isInCollection`,
         method:'GET',
         params:{userId:data.userId,passageId:data.passageId}
+    })
+}
+
+export function getMostPopularPassagesAPI(id) {
+    return axios({
+        url:`${api.passagesPre}/${id}/getMostPopularPassages`,
+        method:'GET'
     })
 }
