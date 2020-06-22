@@ -13,10 +13,17 @@
                         <span class="delCollect" style="text-align: right;margin-left: 570px;font-size: medium;font-style: inherit" v-else><img src="../../../assets/shoucang.png" height="35" width="35" @click="delCollection(passageDetail.id)"/></span>
                     </a-col>
                 </a-row>
-                <br>
-                <h1 class="'title'" style="text-align: left;margin-left: 250px;margin-top: 20px;align-self: auto;font-size:25px">{{passageDetail.title}}</h1>
-                <a-row class="text" style="text-align:left;margin-right: 300px;margin-left: 250px;font-size: large">
-                    &ensp;&ensp;{{passageDetail.content}}
+                <h1 class="'title'" style="text-align: left;margin-left: 250px;align-self: auto;font-size:25px;margin-top: 30px">{{passageDetail.title}}</h1>
+                <a-row class="tag" style="text-align: left;margin-left: 250px;margin-top: 20px">
+                    <template v-for="tag in this.tags">
+                        <a-tag style="font-size: medium" color="black">{{tag.tagName}}</a-tag>
+                    </template>
+                </a-row>
+                <a-row class="text" style="text-align:left;margin-right: 300px;margin-left: 250px;font-size: large;margin-top: 20px">
+                    <a-col span="8">
+                        <img :src="passageDetail.url" height="230px" width="200px"></img>
+                    </a-col>
+                    <a-col> &ensp;&ensp;{{passageDetail.content}}</a-col>
                 </a-row><br><br>
 
 
@@ -75,7 +82,8 @@
               'commentList',
               'userId',
               'inCollection',
-              'userName'
+              'userName',
+              'tags'
           ])
         },
         mounted() {
@@ -84,6 +92,8 @@
                 passageId:this.passageDetail.id
             }
             this.isInCollection(collect)
+            this.getPassageTags(this.passageDetail.id)
+            console.log(this.tags)
         },
         methods:{
             ...mapActions([
@@ -91,7 +101,8 @@
                 'getCommentList',
                 'addComment',
                 'deleteCollection',
-                'isInCollection'
+                'isInCollection',
+                'getPassageTags'
             ]),
             addtoCollection(id){
                 this.addCollection(id)
