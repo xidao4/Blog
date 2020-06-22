@@ -7,13 +7,13 @@
     </select>
 
     <insert id="insert" parameterType="com.network_blog.back_end.po.Passage" useGeneratedKeys="true" keyProperty="id">
-    insert into tb_passage (title, userId,createTime, content,status)
-    values ( #{title},#{userId}, #{createTime},#{content},#{status})
+    insert into tb_passage (title, userId,createTime, content,status,url)
+    values ( #{title},#{userId}, #{createTime},#{content},#{status},#{url})
     </insert>
 
     <update id="update" parameterType="com.network_blog.back_end.po.Passage">
         update tb_passage
-        set title=#{title},content=#{content},recentEditTime=#{recentEditTime},status=#{status}
+        set title=#{title},content=#{content},recentEditTime=#{recentEditTime},status=#{status},url=#{url}
         where id=#{id}
     </update>
 
@@ -42,5 +42,6 @@
         <result column="createTime" property="createTime"></result>
         <result column="userName" property="userName"></result>
         <result column="status" property="status"></result>
+        <result column="url" property="url"></result>
     </resultMap>
 </mapper>
