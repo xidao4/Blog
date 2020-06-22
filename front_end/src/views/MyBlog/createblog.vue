@@ -20,7 +20,7 @@
                 <img
                 slot="cover"
                 alt="example"
-                src="../../assets/post-bg-re-vs-ng2.jpg"
+                :src="myUrl"
                 />
                   <a-input placeholder="标题" allow-clear v-model="title">
                       <a-icon slot="prefix" type="edit" />
@@ -156,7 +156,7 @@ export default {
             picVisible:false,
             client:null,
             previewImage: '',
-            myUrl:'',
+            myUrl:'https://pinru.oss-cn-shanghai.aliyuncs.com/network_blog/post-bg-rwd.jpg',
             uploaded:false,
         }
     },
