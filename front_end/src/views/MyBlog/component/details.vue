@@ -16,12 +16,12 @@
                 <h1 class="'title'" style="text-align: left;margin-left: 250px;align-self: auto;font-size:25px;margin-top: 30px">{{passageDetail.title}}</h1>
                 <a-row class="tag" style="text-align: left;margin-left: 250px;margin-top: 20px">
                     <template v-for="tag in this.tags">
-                        <a-tag style="font-size: medium" color="black">{{tag.tagName}}</a-tag>
+                        <a-tag style="font-size: medium" color="#abc2e8">{{tag.tagName}}</a-tag>
                     </template>
                 </a-row>
                 <a-row class="text" style="text-align:left;margin-right: 300px;margin-left: 250px;font-size: large;margin-top: 20px">
-                    <a-col span="8">
-                        <img :src="passageDetail.url" height="230px" width="200px"></img>
+                    <a-col span="6">
+                        <img :src="passageDetail.url" height="200px" width="200px"></img>
                     </a-col>
                     <a-col> &ensp;&ensp;{{passageDetail.content}}</a-col>
                 </a-row><br><br>
@@ -86,14 +86,13 @@
               'tags'
           ])
         },
-        mounted() {
-            const collect={
-                userId:this.userId,
-                passageId:this.passageDetail.id
+        async mounted() {
+            const collect = {
+                userId: this.userId,
+                passageId: this.passageDetail.id
             }
             this.isInCollection(collect)
-            this.getPassageTags(this.passageDetail.id)
-            console.log(this.tags)
+            await this.getPassageTags(this.passageDetail.id)
         },
         methods:{
             ...mapActions([
