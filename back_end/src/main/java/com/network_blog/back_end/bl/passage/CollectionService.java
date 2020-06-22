@@ -19,4 +19,6 @@ public interface CollectionService {
 
     Boolean isInCollection(Integer userId, Integer passageId);
 
+    List<PassageVO> getMostPopularPassages(Integer userId);
+
 }

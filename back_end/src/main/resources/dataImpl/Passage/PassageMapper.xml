@@ -33,6 +33,23 @@
         order by id desc
     </select>
 
+    <update id="addCollection">
+        update tb_passage
+        set collectionNum=collectionNum+1
+        where id=#{id}
+    </update>
+
+    <update id="deleteCollection">
+        update tb_passage
+        set collectionNum=collectionNum-1
+        where id=#{id}
+    </update>
+
+    <select id="getAllBlogsOrderByCollectionNum" resultMap="Passage">
+        select * from tb_passage where userId=#{userId}
+        order by collectionNum desc
+    </select>
+
     <resultMap id="Passage" type="com.network_blog.back_end.po.Passage">
         <id column="id" property="id"></id>
         <result column="userId" property="userId"></result>

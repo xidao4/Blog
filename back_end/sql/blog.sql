@@ -18,6 +18,7 @@ CREATE TABLE `tb_passage` (
   `recentEditTime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `status` int(11) NOT NULL COMMENT '博客状态 0草稿1公开显示2不公开显示',
   `url` varchar(255) COMMENT '博客封面',
+  `collectionNum` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*Data for the table `tb_passage` */
@@ -73,8 +74,7 @@ DROP TABLE IF EXISTS `tb_friendurl`;
 
 CREATE TABLE `tb_friendurl` (
                                  `userId` int(20) NOT NULL COMMENT '用户id',
-                                 `url` varchar(255) NOT NULL COMMENT '链接',
-                                 PRIMARY KEY (`userId`)
+                                 `url` varchar(255) NOT NULL COMMENT '链接' 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

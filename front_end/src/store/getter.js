@@ -3,6 +3,7 @@ const getters={
     searchResult:state=>state.passages.searchResult,
     passageDetail:state=>state.passages.passageDetail,
     userBlogs:state=>state.passages.userBlogs,
+    tags:state=>state.passages.tags,
     //user
     friendURL:state=>state.user.friendURL,
     friendURLParams:state=>state.user.friendURLParams,

@@ -24,5 +24,10 @@
         from tb_collection
         where userId=#{userId}
     </select>
+
+    <select id="getAllCollectionPassages" resultType="java.lang.Integer">
+        select passageId
+        from tb_collection
+    </select>
     
 </mapper>
