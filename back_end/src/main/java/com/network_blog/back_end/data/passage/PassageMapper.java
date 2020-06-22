@@ -17,4 +17,7 @@ public interface PassageMapper {
     int delete(@Param("id") Integer id);
     Passage selectById(@Param("id") int id);
     List<Passage> selectByKey(@Param("key") String key);
+    int addCollection(@Param("id") Integer id);
+    int deleteCollection(@Param("id") Integer id);
+    List<Passage> getAllBlogsOrderByCollectionNum(@Param("userId") int userId);
 }

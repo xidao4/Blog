@@ -22,4 +22,8 @@ public interface CollectionMapper {
 
     int deletePassage(@Param("passageId") Integer passageId);
 
+    List<Integer> getAllCollectionPassages();
+
+    List<Collection> getCollections(@Param("userId") Integer userId);
+
 }

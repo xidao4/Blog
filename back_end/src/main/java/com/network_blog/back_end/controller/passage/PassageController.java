@@ -36,6 +36,21 @@ public class PassageController {
             return ResponseVO.buildFailure("获取所写博客列表失败");
         }
     }
+
+    /**
+     * 获取某用户所有的写作日期
+     * @param userId
+     * @return  写作日期List
+     */
+    @GetMapping("/{userId}/listCreateTime")
+    public ResponseVO listCreateDate(@PathVariable int userId){
+        try{
+            return ResponseVO.buildSuccess(passageService.getCreateTimeByUserId(userId));
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("获取写作日期列表失败");
+        }
+    }
     /**
      * 根据博客的ID获取单篇文章内容
      * @param id
@@ -112,6 +127,11 @@ public class PassageController {
     @GetMapping("/isInCollection")
     public ResponseVO isInCollection(@RequestParam Integer userId,@RequestParam Integer passageId){
         return ResponseVO.buildSuccess(collectionService.isInCollection(userId,passageId));
+    }
+
+    @GetMapping("{userId}/getMostPopularPassages")
+    public ResponseVO getMostPopularPassages(@PathVariable Integer userId){
+        return ResponseVO.buildSuccess(collectionService.getMostPopularPassages(userId));
     }
 
 }

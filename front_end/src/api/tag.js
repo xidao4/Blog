@@ -16,3 +16,9 @@ export function saveTagAPI(data){
         data
     })
 }
+export function getTagsByPassageAPI(id) {
+    return axios({
+        url:`${api.tagsPre}/${id}/list`,
+        method:'GET'
+    })
+}

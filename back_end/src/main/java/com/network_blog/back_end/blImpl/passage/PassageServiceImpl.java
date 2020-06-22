@@ -38,9 +38,27 @@ public class PassageServiceImpl implements PassageService {
             vo.setCreateTime(blog.getCreateTime());
             vo.setRecentEditTime(blog.getRecentEditTime());
             vo.setUrl(blog.getUrl());
+            vo.setCollectionNum(blog.getCollectionNum());
+            vo.setStatus(blog.getStatus());
             vos.add(vo);
         }
         return vos;
+    }
+
+    /**
+     * 获取某用户所有的写作日期
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Date> getCreateTimeByUserId(int userId) {
+        List<Passage> blogs=blogMapper.getAllBlogsByUserId(userId);
+        List<Date> times=new ArrayList<>();
+        for(Passage blog:blogs){
+            times.add(blog.getCreateTime());
+        }
+        return times;
     }
 
     /**
@@ -60,6 +78,8 @@ public class PassageServiceImpl implements PassageService {
         vo.setCreateTime(blog.getCreateTime());
         vo.setRecentEditTime(blog.getRecentEditTime());
         vo.setUrl(blog.getUrl());
+        vo.setStatus(blog.getStatus());
+        vo.setCollectionNum(blog.getCollectionNum());
         return vo;
     }
 
@@ -160,6 +180,9 @@ public class PassageServiceImpl implements PassageService {
             passageVO.setRecentEditTime(p.getRecentEditTime());
             passageVO.setTitle(p.getTitle());
             passageVO.setUserId(p.getUserId());
+            passageVO.setCollectionNum(p.getCollectionNum());
+            passageVO.setStatus(p.getStatus());
+            passageVO.setUrl(p.getUrl());
             return passageVO;
         }).collect(Collectors.toList());
         return passageVOS;

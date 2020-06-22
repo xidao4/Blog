@@ -108,10 +108,10 @@
                         </a-tag>
                     </template>
                 </a-card>
-                <a-card title="passages" style="width: 70%;margin-left:25%;margin-top:5%">
-                    <a-list :grid="{ gutter: 16, column: 3 }" :data-source="data">
-                        <a-list-item slot="renderItem" slot-scope="item">
-                        <a-card :title="'num'">
+                <a-card title="最受欢迎的文章" style="width: 70%;margin-left:25%;margin-top:5%">
+                    <a-list :grid="{ gutter: 16, column: 3 }" :data-source="popular">
+                        <a-list-item slot="renderItem" slot-scope="item,index">
+                        <a-card :title="index+1">
                             {{item.title}}
                         </a-card>
                         </a-list-item>
@@ -128,22 +128,11 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import {message} from 'ant-design-vue'
 import OSS from 'ali-oss'
 
-const data = [
-  {
-    title: 'Title 1',
-  },
-  {
-    title: 'Title 2',
-  },
-  {
-    title: 'Title 3',
-  },
-];
+
 export default {
     name:'CreateBlog',
     data() {
         return {
-            data,
             title:"",
             content:"",
             setting_visible:false,
@@ -158,6 +147,7 @@ export default {
             previewImage: '',
             myUrl:'https://pinru.oss-cn-shanghai.aliyuncs.com/network_blog/post-bg-rwd.jpg',
             uploaded:false,
+            popular:[],
         }
     },
     created() {
@@ -177,15 +167,18 @@ export default {
             ])
     },
     async mounted() {
+        await this.getUserBlogs(this.userId);
         await this.getTagsByUser();
         await this.setChecked();
+        await this.setpopuplar();
     },  
     methods: {
         ...mapActions([
             'savePassage',
             'getTagsByUser',
             'getUserBlogs',
-            'saveTag'
+            'saveTag',
+            'getMostPopularPassages',
       ]),
 
         onPanelChange(value, mode) {
@@ -197,6 +190,11 @@ export default {
             for (let index = 0; index < this.tags.length; index++) {
                 this.checked.push(false);
             }
+        },
+        async setpopuplar(){
+            const res=await this.getMostPopularPassages(this.userId);
+            this.popular=res;
+            console.log(this.popular)
         },
         async save(){
             const passage={
@@ -225,8 +223,8 @@ export default {
                     }
                     await this.saveTag(tagData);
                 }
-                
             }
+            await this.getUserBlogs(this.userId);
         },
         async upload(){
             var status=1;
@@ -243,10 +241,23 @@ export default {
             }
             const res=await this.savePassage(passage)
             if(res){
+                //this.message.success("暂存成功")
+                //console.log('res',res)
                 this.title='';
                 this.content=''
-                //this.message.success("上传成功")
+                await this.getUserBlogs(this.userId);
             }
+            for (let index = 0; index < this.checked.length; index++) {
+                if(this.checked[index]){
+                    let tagData={
+                        tagName:this.tags[index],
+                        passageId:this.userBlogs[this.userBlogs.length-1].id,
+                        userId:this.userId
+                    }
+                    await this.saveTag(tagData);
+                }
+            }
+                    await this.getUserBlogs(this.userId);
         },
         getTime(){
             var date = new Date();
