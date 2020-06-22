@@ -8,3 +8,11 @@ export function getTagsByUserAPI(id){
         method: 'GET'
     })
 }
+
+export function saveTagAPI(data){
+    return axios({
+        url: `${api.tagsPre}/saveTag`,
+        method: 'POST',
+        data
+    })
+}

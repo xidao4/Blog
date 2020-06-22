@@ -184,6 +184,8 @@ export default {
         ...mapActions([
             'savePassage',
             'getTagsByUser',
+            'getUserBlogs',
+            'saveTag'
       ]),
 
         onPanelChange(value, mode) {
@@ -203,6 +205,7 @@ export default {
                 content:this.content,
                 createTime:this.getTime(),
                 status:0,
+                url:this.myUrl,
             }
             const res=await this.savePassage(passage);
 
@@ -211,7 +214,19 @@ export default {
                 //console.log('res',res)
                 this.title='';
                 this.content=''
-            } 
+                await this.getUserBlogs(this.userId);
+            }
+            for (let index = 0; index < this.checked.length; index++) {
+                if(this.checked[index]){
+                    let tagData={
+                        tagName:this.tags[index],
+                        passageId:this.userBlogs[this.userBlogs.length-1].id,
+                        userId:this.userId
+                    }
+                    await this.saveTag(tagData);
+                }
+                
+            }
         },
         async upload(){
             var status=1;
@@ -224,13 +239,14 @@ export default {
                 content:this.content,
                 createTime:this.getTime(),
                 status:status,
+                url:this.myUrl,
             }
             const res=await this.savePassage(passage)
             if(res){
                 this.title='';
                 this.content=''
                 //this.message.success("上传成功")
-            } 
+            }
         },
         getTime(){
             var date = new Date();
@@ -285,6 +301,7 @@ export default {
                 inputVisible: false,
                 inputValue: '',
             });
+            this.checked.push(true);
         },
         showPic(){
             this.picVisible=true;
