@@ -54,7 +54,21 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> getTagsByUserId(Integer userId) {
-        return tagMapper.getTagsByUserId(userId);
+        List<Tag> tags=tagMapper.getTagsByUserId(userId);
+        List<Tag> distinct_tags=new ArrayList<>();
+        for(Tag tag:tags){
+            boolean isDistinct=true;
+            for(Tag distinct_tag:distinct_tags){
+                if(tag.getTagName().equals(distinct_tag.getTagName())){
+                    isDistinct=false;
+                    break;
+                }
+            }
+            if(isDistinct){
+                distinct_tags.add(tag);
+            }
+        }
+        return distinct_tags;
     }
 
     @Override
