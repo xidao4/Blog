@@ -3,7 +3,7 @@ import router from '@/router'
 import {getToken, setToken, removeToken} from '@/utils/auth'
 import {resetRouter} from '@/router'
 import {message} from 'ant-design-vue'
-import {addCommentAPI, addCommentByPassageIdAPI, getCommentByPassageIdAPI} from "../../api/comment";
+import {addCommentAPI, addCommentByPassageIdAPI, deleteCommentAPI, getCommentByPassageIdAPI} from "../../api/comment";
 const comment={
     state:{
         commentList:[
@@ -30,6 +30,17 @@ const comment={
             }
             else{
                 message.error('评论失败')
+            }
+        },
+        deleteComment:async ({commit,dispatch,state},id)=>{
+            let passageId=state.commentList[0].passageId
+            let res=await deleteCommentAPI(id)
+            if(res){
+                dispatch('getCommentList',passageId)
+                message.success("已删除")
+            }
+            else{
+                message.error("删除失败")
             }
         }
     },

@@ -92,13 +92,9 @@ public class PassageController {
         return passageService.updateBlog(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime(),vo.getStatus(),vo.getUrl());
 
     }
-    /**
-     * 某用户删除某篇博客
-     * @param id
-     * @return
-     */
-    @PostMapping("/delete")
-    public ResponseVO delete(@RequestBody Integer id) {
+    @GetMapping("/{id}/delete")
+    public ResponseVO delete(@PathVariable Integer id) {
+        System.out.println("here");
         return passageService.delete(id);
     }
 
