@@ -50,8 +50,9 @@ public class PassageController {
     public ResponseVO save(@RequestParam("userId") Integer userId,
                            @RequestParam("title") String title,
                            @RequestParam("content") String content,
-                           @RequestParam("createTime") Date createTime){
-        return passageService.insert(userId,title,content,createTime,1);
+                           @RequestParam("createTime") Date createTime,
+                           @RequestParam("url") String url){
+        return passageService.insert(userId,title,content,createTime,1,url);
 
     }
     /**
@@ -67,8 +68,9 @@ public class PassageController {
     public ResponseVO update(@RequestParam("id") Integer id,
                              @RequestParam("title") String title,
                              @RequestParam("content") String content,
-                             @RequestParam("updateTime") Date updateTime){
-        return passageService.updateBlog(id,title,content,updateTime,1);
+                             @RequestParam("updateTime") Date updateTime,
+                             @RequestParam("url") String url){
+        return passageService.updateBlog(id,title,content,updateTime,1,url);
 
     }
     /**

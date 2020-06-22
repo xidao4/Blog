@@ -28,9 +28,10 @@ public interface PassageService {
      * @param content
      * @param createTime
      * @param status
+     * @param url
      * @return
      */
-    ResponseVO insert(int userId,String title,String content,Date createTime,int status);
+    ResponseVO insert(int userId,String title,String content,Date createTime,int status,String url);
     /**
      * 改
      * @param id
@@ -38,9 +39,10 @@ public interface PassageService {
      * @param content
      * @param updateTime
      * @param status
+     * @param url
      * @return
      */
-    ResponseVO updateBlog(int id, String title, String content, Date updateTime,int status);
+    ResponseVO updateBlog(int id, String title, String content, Date updateTime,int status,String url);
     /**
      * 删
      * @param id

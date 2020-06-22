@@ -61,7 +61,7 @@ public class PassageController {
      */
     @PostMapping("/save")
     public ResponseVO save(@RequestBody PassageVO vo){
-        return passageService.insert(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getCreateTime(),vo.getStatus());
+        return passageService.insert(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getCreateTime(),vo.getStatus(),vo.getUrl());
     }
     /**
      * 某用户修改自己写的博客
@@ -74,7 +74,7 @@ public class PassageController {
      */
     @PostMapping("/update")
     public ResponseVO update(@RequestBody PassageVO vo){
-        return passageService.updateBlog(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime(),vo.getStatus());
+        return passageService.updateBlog(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime(),vo.getStatus(),vo.getUrl());
 
     }
     /**

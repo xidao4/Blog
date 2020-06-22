@@ -11,6 +11,15 @@ public class PassageVO {
     private Date createTime;
     private Date collectionTime;
     private int status;//0草稿 1公开显示 2不公开显示
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public Integer getId() {
         return id;

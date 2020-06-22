@@ -27,7 +27,7 @@
                   </a-input>
                 <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="content"/>
                 <template slot="actions">
-                <a-icon key="picture" type="picture" />
+                <a-icon key="picture" type="picture" @click="showPic" />
                 <a-icon key="delete" type="delete" @click="showConfirmDelete"/>
                 <a-icon key="setting" type="setting" @click="showSettings" />
                 <a-icon key="upload" type="upload" @click="upload"/>
@@ -65,6 +65,24 @@
                     <a-switch v-model="pub" />
                     </p>
             </a-modal>
+            <a-modal v-model="picVisible" title="选择封面图片">
+                <a-upload
+                    list-type="picture-card"
+                    @change="handleChange1"
+                    :customRequest="beginUpload"
+                    :show-upload-list="false"
+            >
+                <img alt="example" style="width: 100%" v-if="uploaded" :src="previewImage" />
+                <div v-else>
+                    <a-icon type="plus" />
+                    <div class="ant-upload-text">
+                        Upload
+                    </div>
+                </div>
+            </a-upload>
+
+            </a-modal>
+
           </a-col>
           <a-col :span="8" >
                 <a-card title="Friends" style="width: 70%;margin-left:25%">
@@ -79,7 +97,7 @@
                 </p> -->
                 </a-card>
                 <a-card title="tags" style="width: 70%;margin-left:25%;margin-top:5%">
-                    <template v-for="(tag, index) in userTags">
+                    <template v-for="(tag) in userTags">
                         <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
                             <a-tag :key="tag">
                             {{ `${tag.slice(0, 20)}...` }}
@@ -108,6 +126,8 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import {message} from 'ant-design-vue'
+import OSS from 'ali-oss'
+
 const data = [
   {
     title: 'Title 1',
@@ -133,8 +153,22 @@ export default {
             checked:[],
             inputVisible: false,
             inputValue: '',
+            picVisible:false,
+            client:null,
+            previewImage: '',
+            myUrl:'',
+            uploaded:false,
         }
     },
+    created() {
+            this.client = new OSS({
+            region: 'oss-cn-shanghai',
+            accessKeyId: 'LTAI4G8SS461QJNzW59evna6',
+            accessKeySecret: '0rNlfgSesE8YCB1jqqRYZYxrr1ZMh5',
+            bucket: 'pinru',
+            secure: false
+            })
+        },
     computed: {
     ...mapGetters([
                 'userId',
@@ -252,7 +286,51 @@ export default {
                 inputValue: '',
             });
         },
+        showPic(){
+            this.picVisible=true;
+        },
+        getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+            //console.log(file.thumbUrl)
+            });
+        },
+        async handleChange1(info) {
+                info.file.status='done'
+                this.uploaded=true;
+                this.previewImage=await this.getBase64(info.file.originFileObj);
+                console.log('info',info,this.uploaded,this.previewImage)
+                //this.fileList = fileList;
+                //this.myUrl=fileList[0].thumbUrl;
 
+        },
+        async ossUpload (filename, file) {
+                let _this = this
+                try {
+                    let result = await _this.client.multipartUpload(filename, file, {
+                    progress: async function (p, checkpoint) {
+                        _this.checkpoint = checkpoint
+                        _this.percentage = p * 100
+                    },
+                    checkpoint: _this.checkpoint
+                    })
+                    console.log(result)
+                    _this.myUrl='https://pinru.oss-cn-shanghai.aliyuncs.com'+result.name;
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+        async beginUpload (file) {
+            let _this = this
+            let filename = file.file.name
+            filename ='/network_blog/'+ filename.split('.')[0] +  '.' + filename.split('.')[1]
+            _this.file = file
+            _this.filename = filename
+            _this.ossUpload(filename, file.file)
+        },
     },
 }
 </script>
