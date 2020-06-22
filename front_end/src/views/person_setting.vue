@@ -91,9 +91,11 @@
                               <a-avatar
                                       v-for="Url in this.friendURL"
                                       @click="onThisImage(Url)"
+                                      size="large"
                                       slot="avatar"
-                                      src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                              />
+                                      style="color: white;background-color: #E4E6E9;font-size: 25px;margin-right: 30px">
+                                  {{Url.substring(12,16)}}
+                              </a-avatar>
                           </a-card-meta>
                       </a-card>
                   </a-col>
