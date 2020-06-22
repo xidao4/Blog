@@ -44,6 +44,22 @@ public class PassageServiceImpl implements PassageService {
     }
 
     /**
+     * 获取某用户所有的写作日期
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Date> getCreateTimeByUserId(int userId) {
+        List<Passage> blogs=blogMapper.getAllBlogsByUserId(userId);
+        List<Date> times=new ArrayList<>();
+        for(Passage blog:blogs){
+            times.add(blog.getCreateTime());
+        }
+        return times;
+    }
+
+    /**
      * 获取单篇文章
      *
      * @param id
