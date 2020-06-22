@@ -29,14 +29,16 @@ public class CollectionServiceImpl implements CollectionService {
             if(collections.get(i)==collection.getPassageId())
                 return ResponseVO.buildFailure("收藏已存在");
         }
-
         collectionMapper.insert(collection);
+        passageMapper.addCollection(collection.getPassageId());
         return ResponseVO.buildSuccess(true);
     }
 
     @Override
     public void deleteCollection(Collection collection){
+
         collectionMapper.delete(collection);
+        passageMapper.deleteCollection(collection.getPassageId());
     }
 
     @Override
@@ -69,5 +71,22 @@ public class CollectionServiceImpl implements CollectionService {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<PassageVO> getMostPopularPassages(Integer userId){
+        List<Passage> passages=passageMapper.getAllBlogsOrderByCollectionNum(userId);
+        List<PassageVO> passageVOS=passages.stream().map(p->{
+            PassageVO passageVO=new PassageVO();
+            passageVO.setUserId(p.getUserId());
+            passageVO.setTitle(p.getTitle());
+            passageVO.setRecentEditTime(p.getRecentEditTime());
+            passageVO.setCreateTime(p.getCreateTime());
+            passageVO.setContent(p.getContent());
+            passageVO.setId(p.getId());
+            passageVO.setCollectionTime(p.getCreateTime());
+            return passageVO;
+        }).collect(Collectors.toList());
+        return passageVOS;
     }
 }

@@ -15,6 +15,13 @@ public interface PassageService {
     List<PassageVO> getAllBlogsByUserId(int userId);
 
     /**
+     *获取某用户所有的写作日期
+     * @param userId
+     * @return
+     */
+    List<Date> getCreateTimeByUserId(int userId);
+
+    /**
      * 获取单篇文章
      * @param id
      * @return
