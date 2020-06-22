@@ -10,11 +10,13 @@ import {
     getUserBlogsAPI,
 } from "../../api/passages";
 import {getUserNameAPI} from "../../api/user";
+import {getTagsByPassageAPI} from "../../api/tag";
 const passages={
     state:{
         searchResult:[],
         passageDetail:[],
         userBlogs:[],
+        tags:[],
     },
     mutations:{
         set_searchResult:function (state,data) {
@@ -26,6 +28,9 @@ const passages={
         set_userblogs:function(state,data){
             state.userBlogs=data
         },
+        set_tags:function (state,data) {
+            state.tags=data
+        }
     },
     actions:{
         searchPassage:async ({commit},value)=>{
@@ -65,6 +70,10 @@ const passages={
             console.log('pa',res)
             return res
         },
+        getPassageTags:async({commit},id)=>{
+            const res=await getTagsByPassageAPI(id)
+            commit('set_tags',res)
+        }
     }
 
 }
