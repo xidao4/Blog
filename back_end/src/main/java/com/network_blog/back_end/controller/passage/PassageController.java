@@ -114,4 +114,9 @@ public class PassageController {
         return ResponseVO.buildSuccess(collectionService.isInCollection(userId,passageId));
     }
 
+    @GetMapping("{userId}/getMostPopularPassages")
+    public ResponseVO getMostPopularPassages(@PathVariable Integer userId){
+        return ResponseVO.buildSuccess(collectionService.getMostPopularPassages(userId));
+    }
+
 }
