@@ -183,6 +183,9 @@ const user={
             },
         getTagsByUser:async({state,commit})=>{
             let res=await getTagsByUserAPI(state.user_id);
+            for (let index = 0; index < res.length; index++) {
+                res[index] = res[index].tagName;
+            }
             commit('setUserTags',res);
             console.log('tags',res)
         },

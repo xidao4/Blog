@@ -7,7 +7,7 @@
                         <img src="../../../assets/icon.jpg" height="70" width="70" />
                     </a-col>
                     <a-col class="'userName'" style="text-align:left;margin-left: 20px;;margin-top: 5px">
-                        <span class="'name'" style="font-size: large;color: darkgray" >Mr.林娟娟</span><br>
+                        <span class="'name'" style="font-size: large;color: darkgray" >{{passageDetail.userName}}</span><br>
                         <span class="'time'" style="font-size: large;color: darkgray">发表于 {{passageDetail.createTime.substring(0,10)}} {{passageDetail.createTime.substring(11,19)}}</span>
                         <span class="collect" style="text-align: right;margin-left: 500px;font-size: medium;font-style: inherit" v-if="!inCollection"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
                         <span class="delCollect" style="text-align: right;margin-left: 500px;font-size: medium;font-style: inherit" v-else><img src="../../../assets/shoucang.png" height="35" width="35" @click="delCollection(passageDetail.id)"/></span>

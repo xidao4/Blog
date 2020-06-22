@@ -34,12 +34,36 @@
                 <a-icon key="save" type="save" @click="save"/>
                 </template>
             </a-card>
-            <a-modal v-model="setting_visible" title="为你的博客添加标签" @ok="handleOk">
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>是否公开展示博客
-                <a-switch v-model="pub" />
-            </p>
+            <a-modal v-model="setting_visible" title="为你的博客添加标签">
+                    <template v-for="(tag, index) in tags">
+                        <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
+                            <a-checkable-tag v-model="checked[index]" :key="tag">
+                                {{ `${tag.slice(0, 20)}...` }}
+                            </a-checkable-tag>
+                        </a-tooltip>
+                        <a-checkable-tag v-else v-model="checked[index]" :key="tag" >
+                            {{ tag }}
+                        </a-checkable-tag>
+                    </template>
+                    <p>
+                            <a-input
+                            v-if="inputVisible"
+                            ref="input"
+                            type="text"
+                            size="small"
+                            :style="{ width: '78px' }"
+                            :value="inputValue"
+                            @change="handleInputChange"
+                            @blur="handleInputConfirm"
+                            @keyup.enter="handleInputConfirm"
+                            />
+                            <a-tag v-else style="background: #fff; borderStyle: dashed;" @click="showInput">
+                            <a-icon type="plus" /> New Tag
+                            </a-tag>
+                    </p>
+                    <p>是否公开展示博客
+                    <a-switch v-model="pub" />
+                    </p>
             </a-modal>
           </a-col>
           <a-col :span="8" >
@@ -55,13 +79,16 @@
                 </p> -->
                 </a-card>
                 <a-card title="tags" style="width: 70%;margin-left:25%;margin-top:5%">
-                    <a-tag>Tag 1</a-tag>
-                    <a-tag>Tag 1</a-tag>
-                    <a-tag>Tag 1</a-tag>
-                    <a-tag>Tag 1</a-tag>
-                    <a-tag>Tag 1</a-tag>
-                    <a-tag>Tag 1</a-tag>
-                    <a-tag>Tag 1</a-tag>
+                    <template v-for="(tag, index) in userTags">
+                        <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
+                            <a-tag :key="tag">
+                            {{ `${tag.slice(0, 20)}...` }}
+                            </a-tag>
+                        </a-tooltip>
+                        <a-tag v-else :key="tag" >
+                            {{ tag }}
+                        </a-tag>
+                    </template>
                 </a-card>
                 <a-card title="passages" style="width: 70%;margin-left:25%;margin-top:5%">
                     <a-list :grid="{ gutter: 16, column: 3 }" :data-source="data">
@@ -102,6 +129,10 @@ export default {
             setting_visible:false,
             status:0,
             pub:true,
+            tags:[],
+            checked:[],
+            inputVisible: false,
+            inputValue: '',
         }
     },
     computed: {
@@ -112,7 +143,8 @@ export default {
             ])
     },
     async mounted() {
-        this.getTagsByUser();
+        await this.getTagsByUser();
+        await this.setChecked();
     },  
     methods: {
         ...mapActions([
@@ -122,6 +154,13 @@ export default {
 
         onPanelChange(value, mode) {
         console.log(value, mode);
+        },
+        setChecked(){
+            //this.checked=this.userTags;
+            this.tags=this.userTags;
+            for (let index = 0; index < this.tags.length; index++) {
+                this.checked.push(false);
+            }
         },
         async save(){
             const passage={
@@ -186,8 +225,33 @@ export default {
         });
         },
         showSettings(){
+            console.log('sett',this.checked)
             this.setting_visible=true;
-        }
+        },
+        showInput() {
+            this.inputVisible = true;
+            this.$nextTick(function() {
+                this.$refs.input.focus();
+            });
+        },
+
+        handleInputChange(e) {
+            this.inputValue = e.target.value;
+        },
+
+        handleInputConfirm() {
+            const inputValue = this.inputValue;
+            let tags = this.tags;
+            if (inputValue && tags.indexOf(inputValue) === -1) {
+                tags = [...tags, inputValue];
+            }
+            console.log(tags);
+            Object.assign(this, {
+                tags,
+                inputVisible: false,
+                inputValue: '',
+            });
+        },
 
     },
 }
