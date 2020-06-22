@@ -10,6 +10,7 @@ import {
     updatePassageAPI,
     getUserBlogsAPI,
     getMostPopularPassagesAPI,
+    deletePassageAPI,
 } from "../../api/passages";
 import {getUserNameAPI} from "../../api/user";
 import {getTagsByPassageAPI} from "../../api/tag";
@@ -91,6 +92,15 @@ const passages={
             const res=await getMostPopularPassagesAPI(id)
             console.log(res)
             return res;
+        },
+        delPassage:async({commit},id)=>{
+            const res=await deletePassageAPI(id)
+            if(res){
+                message.success("已删除")
+            }
+            else{
+                message.error("删除失败")
+            }
         }
     }
 

@@ -9,8 +9,16 @@
                     <a-col class="'userName'" style="text-align:left;margin-left: 20px;;margin-top: 5px">
                         <span class="'name'" style="font-size: large;color: darkgray" >{{passageDetail.userName}}</span><br>
                         <span class="'time'" style="font-size: large;color: darkgray">发表于 {{passageDetail.createTime.substring(0,10)}} {{passageDetail.createTime.substring(11,19)}}</span>
-                        <span class="collect" style="text-align: right;margin-left: 570px;font-size: medium;font-style: inherit" v-if="!inCollection"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
-                        <span class="delCollect" style="text-align: right;margin-left: 570px;font-size: medium;font-style: inherit" v-else><img src="../../../assets/shoucang.png" height="35" width="35" @click="delCollection(passageDetail.id)"/></span>
+                        <span class="collect" style="text-align: right;margin-left: 500px;font-size: medium;font-style: inherit" v-if="!inCollection"><a-icon type="star" key="star" @click="addtoCollection(passageDetail.id) " style="font-size: xx-large;color:black"/> </span>
+                        <span class="delCollect" style="text-align: right;margin-left: 500px;font-size: medium;font-style: inherit" v-else><img src="../../../assets/shoucang.png" height="35" width="35" @click="delCollection(passageDetail.id)"/></span>
+                        <span v-if="userId==passageDetail.userId"><a-popconfirm
+                                title="确定想删除博客吗？"
+                                @confirm="deletePassage(passageDetail.id)"
+                                okText="确定"
+                                cancelText="取消"
+                        >
+                            <a-icon type="delete" style="font-size: xx-large;margin-left: 30px"></a-icon>
+                        </a-popconfirm></span>
                     </a-col>
                 </a-row>
                 <h1 class="'title'" style="text-align: left;margin-left: 250px;align-self: auto;font-size:25px;margin-top: 30px">{{passageDetail.title}}</h1>
@@ -20,7 +28,7 @@
                     </template>
                 </a-row>
                 <a-row class="text" style="text-align:left;margin-right: 300px;margin-left: 250px;font-size: large;margin-top: 20px">
-                    <a-col span="6">
+                    <a-col span="7">
                         <img :src="passageDetail.url" height="200px" width="200px"></img>
                     </a-col>
                     <a-col> &ensp;&ensp;{{passageDetail.content}}</a-col>
@@ -39,11 +47,13 @@
                     <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
                         <row style="text-align: left;margin-left: 100px;margin-right: 200px">
                             <a-row class="information" style="text-align: left">
-                                <a-col class="'userName'" style="text-align:left;">
+                                <a-col class="'userName'" style="text-align:left;" span="9">
                                     <span><a-icon type="user" style="font-size:250%;margin-right: 5px"></a-icon></span>
                                     <span class="'name'" style="font-size: medium;color: darkgray" >{{item.userName}}</span>
-                                    <span class="'time'" style="font-size: medium;color: darkgray;margin-left: 20px">{{item.commentTime.substring(0,10)}}  {{item.commentTime.substring(11,19)}}
-                            </span>
+                                    <span class="'time'" style="font-size: medium;color: darkgray;margin-left: 20px">{{item.commentTime.substring(0,10)}}  {{item.commentTime.substring(11,19)}}</span>
+                                </a-col>
+                                <a-col v-if="userId==passageDetail.userId" style="margin-left: 700px;font-size: x-large">
+                                    <a-icon type="delete" @click="delComment(item.id)"></a-icon>
                                 </a-col>
                             </a-row>
                             <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis;margin-top: 10px" @click="jumpToDetails(item.id)">
@@ -101,7 +111,9 @@
                 'addComment',
                 'deleteCollection',
                 'isInCollection',
-                'getPassageTags'
+                'getPassageTags',
+                'delPassage',
+                'deleteComment'
             ]),
             addtoCollection(id){
                 this.addCollection(id)
@@ -127,7 +139,13 @@
                     {userId:this.userId,
                     passageId:this.passageDetail.id
                     })
-            }
+            },
+            deletePassage(id){
+                this.delPassage(id)
+            },
+            delComment(id){
+                this.deleteComment(id)
+            },
         }
     }
 </script>

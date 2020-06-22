@@ -50,6 +50,13 @@ export function updatePassageAPI(data) {
         data
     })
 }
+export function deletePassageAPI(id) {
+    return axios({
+        url:`${api.passagesPre}/${id}/delete`,
+        method:'GET'
+    })
+}
+
 export function getUserBlogsAPI(id) {
     return axios({
         url:`${api.passagesPre}/${id}/list`,
