@@ -60,5 +60,6 @@
         <result column="userName" property="userName"></result>
         <result column="status" property="status"></result>
         <result column="url" property="url"></result>
+        <result column="collectionNum" property="collectionNum"></result>
     </resultMap>
 </mapper>

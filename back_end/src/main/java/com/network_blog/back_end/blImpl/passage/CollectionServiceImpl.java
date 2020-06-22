@@ -36,7 +36,6 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     public void deleteCollection(Collection collection){
-
         collectionMapper.delete(collection);
         passageMapper.deleteCollection(collection.getPassageId());
     }
@@ -48,6 +47,7 @@ public class CollectionServiceImpl implements CollectionService {
         for(int i=0;i<collections.size();i++){
             passages.add(passageMapper.selectById(collections.get(i)));
         }
+        List<Collection> collectionList=collectionMapper.getCollections(userId);
         List<PassageVO> passageVOS=passages.stream().map(p->{
             PassageVO passageVO=new PassageVO();
             passageVO.setUserId(p.getUserId());
@@ -56,7 +56,15 @@ public class CollectionServiceImpl implements CollectionService {
             passageVO.setCreateTime(p.getCreateTime());
             passageVO.setContent(p.getContent());
             passageVO.setId(p.getId());
-            passageVO.setCollectionTime(p.getCreateTime());
+            passageVO.setCollectionNum(p.getCollectionNum());
+            for(int i=0;i<collectionList.size();i++){
+                if(passageVO.getId()==collectionList.get(i).getPassageId()){
+                    passageVO.setCollectionTime(collectionList.get(i).getCollectTime());
+                    break;
+                }
+            }
+            passageVO.setUrl(p.getUrl());
+            passageVO.setStatus(p.getStatus());
             return passageVO;
         }).collect(Collectors.toList());
         return passageVOS;
@@ -84,7 +92,9 @@ public class CollectionServiceImpl implements CollectionService {
             passageVO.setCreateTime(p.getCreateTime());
             passageVO.setContent(p.getContent());
             passageVO.setId(p.getId());
-            passageVO.setCollectionTime(p.getCreateTime());
+            passageVO.setCollectionNum(p.getCollectionNum());
+            passageVO.setUrl(p.getUrl());
+            passageVO.setStatus(p.getStatus());
             return passageVO;
         }).collect(Collectors.toList());
         return passageVOS;

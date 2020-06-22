@@ -11,6 +11,16 @@ public class Passage {
     private Date createTime;
     private int status;//0草稿 1公开显示 2不公开显示
     private String url;
+    private int collectionNum;
+
+
+    public int getCollectionNum() {
+        return collectionNum;
+    }
+
+    public void setCollectionNum(int collectionNum) {
+        this.collectionNum = collectionNum;
+    }
 
     public String getUrl() {
         return url;
