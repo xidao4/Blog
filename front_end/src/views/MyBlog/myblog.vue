@@ -3,7 +3,7 @@
         <br>
         <a-list item-layout="horizontal" size="large" v-bind:data-source="userBlogs" style="text-align: left;margin-left: 150px;margin-right: 150px">
             <a-list-item slot="renderItem" slot-scope="item" key="item.id" >
-                <a-row style="text-align: left;margin-left: 150px;margin-right: 150px;">
+                <row style="text-align: left;margin-left: 150px;margin-right: 150px;">
                     <br>
                     <a slot="title" @click="jumpToDetails(item.id)" style="text-align: left;font-size: 200%;color:#2e2e2e" v-if="item.title.length<13">
                         {{item.title}}
@@ -42,7 +42,7 @@
                     <a-row>
                         <hr style="width: 100%;margin-top: 20px">
                     </a-row>
-                </a-row>
+                </row>
             </a-list-item>
         </a-list>
     </div>
