@@ -32,7 +32,7 @@
                                 </a-input>
                                 <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="item.content"/>
                             </a-modal>
-                        
+
                         </a-col>
                         <a-col  style="color: darkgray;text-align: right;padding-right:10px;margin-top: 10px" :span="6"  >
                             <a-button v-if="!inCollections[item.id]"  @click="addtoCollection(item.id) " style="color: #192c3e"><a-icon type="star"></a-icon>收藏</a-button>
