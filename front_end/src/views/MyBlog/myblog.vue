@@ -25,12 +25,12 @@
                     <a-row>
                         <a-col style="color: darkgray;text-align: left" :span="12"><br>创建于 {{item.createTime.substring(0,10)}}</a-col>
                         <a-col style="color: darkgray;text-align: right;padding-right:10px;margin-top: 10px" :span="6">
-                            <a-button v-if="item.status==0" @click="showEdit" style="color: #192c3e"><a-icon type="edit"></a-icon>编辑</a-button>
-                            <a-modal v-model="editVisible" title="继续编辑" @ok="save(item)">
-                                <a-input placeholder="标题" allow-clear v-model="item.title">
+                            <a-button v-if="item.status==0" @click="showEdit(item)" style="color: #192c3e"><a-icon type="edit"></a-icon>编辑</a-button>
+                            <a-modal v-model="editVisible" title="继续编辑" @ok="save(tempItem)">
+                                <a-input placeholder="标题" allow-clear v-model="tempItem.title">
                                     <a-icon slot="prefix" type="edit" />
                                 </a-input>
-                                <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="item.content"/>
+                                <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="tempItem.content"/>
                             </a-modal>
 
                         </a-col>
@@ -56,6 +56,7 @@
             return{
                 inCollections:{},
                 editVisible:false,
+                tempItem:{},
             }
         },
         async mounted() {
@@ -115,8 +116,9 @@
                 console.log('collect',this.inCollections)
                 await this.getUserBlogs(this.userId)
             },
-            showEdit(){
+            showEdit(item){
                 this.editVisible=true;
+                this.tempItem=item;
             },
             async save(passage){
             //passage[RecentEditTime]=this.getTime()
