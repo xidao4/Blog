@@ -1,7 +1,9 @@
 package com.network_blog.back_end.blImpl.passage;
 
+import com.network_blog.back_end.bl.comment.CommentService;
 import com.network_blog.back_end.bl.passage.PassageService;
 import com.network_blog.back_end.data.passage.PassageMapper;
+import com.network_blog.back_end.po.Comment;
 import com.network_blog.back_end.po.Passage;
 import com.network_blog.back_end.vo.ResponseVO;
 import com.network_blog.back_end.vo.PassageVO;
@@ -17,7 +19,8 @@ import java.util.stream.Collectors;
 public class PassageServiceImpl implements PassageService {
     @Autowired
     private PassageMapper blogMapper;
-
+    @Autowired
+    private CommentService commentService;
 
     /**
      * 获取某用户自己写的全部文章
@@ -164,8 +167,18 @@ public class PassageServiceImpl implements PassageService {
             blogMapper.delete(id);
         }catch(Exception e){
             System.out.println(e.getMessage());
-            return ResponseVO.buildFailure("删除失败");
+            return ResponseVO.buildFailure("删除博客失败");
         }
+        try{
+            List<Comment> comments=commentService.getCommentByPassageId(id);
+            for(Comment c:comments){
+                commentService.deleteComment(c.getId());
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseVO.buildFailure("删除评论失败");
+        }
+        //删除某篇博客时，删除收藏表的内容
         return ResponseVO.buildSuccess(true);
     }
 
