@@ -41,7 +41,7 @@ public interface PassageService {
     ResponseVO insert(int userId,String title,String content,Date createTime,int status,String url);
     /**
      * 改
-     * @param id
+     * @param id 博客的编号
      * @param title
      * @param content
      * @param updateTime

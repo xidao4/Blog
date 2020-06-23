@@ -136,8 +136,9 @@ public class PassageServiceImpl implements PassageService {
         if (content.equals(""))
             return ResponseVO.buildFailure("请输入文章内容");
         try {
-            Passage p=new Passage();
-            p.setId(id);
+            Passage p=blogMapper.selectById(id);
+            System.out.println("id"+id);
+            System.out.println("content"+content);
             p.setContent(content);
             p.setTitle(title);
             p.setRecentEditTime(updateTime);

@@ -89,7 +89,7 @@ public class PassageController {
      */
     @PostMapping("/update")
     public ResponseVO update(@RequestBody PassageVO vo){
-        return passageService.updateBlog(vo.getUserId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime(),vo.getStatus(),vo.getUrl());
+        return passageService.updateBlog(vo.getId(),vo.getTitle(),vo.getContent(),vo.getRecentEditTime(),vo.getStatus(),vo.getUrl());
 
     }
     @GetMapping("/{id}/delete")
