@@ -4,6 +4,7 @@ const getters={
     passageDetail:state=>state.passages.passageDetail,
     userBlogs:state=>state.passages.userBlogs,
     tags:state=>state.passages.tags,
+    listCreateTime:state=>state.passages.listCreateTime,
     //user
     friendURL:state=>state.user.friendURL,
     friendURLParams:state=>state.user.friendURLParams,

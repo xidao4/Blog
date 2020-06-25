@@ -77,3 +77,10 @@ export function getMostPopularPassagesAPI(id) {
         method:'GET'
     })
 }
+
+export function listCreateTimeAPI(id){
+    return axios({
+        url:`${api.passagesPre}/${id}/listCreateTime`,
+        method:'GET'
+    })
+}

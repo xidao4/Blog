@@ -11,6 +11,7 @@ import {
     getUserBlogsAPI,
     getMostPopularPassagesAPI,
     deletePassageAPI,
+    listCreateTimeAPI,
 } from "../../api/passages";
 import {getUserNameAPI} from "../../api/user";
 import {getTagsByPassageAPI} from "../../api/tag";
@@ -20,6 +21,7 @@ const passages={
         passageDetail:[],
         userBlogs:[],
         tags:[],
+        listCreateTime:[],
     },
     mutations:{
         set_searchResult:function (state,data) {
@@ -33,6 +35,9 @@ const passages={
         },
         set_tags:function (state,data) {
             state.tags=data
+        },
+        set_listCreateTime:function(state,data){
+            state.listCreateTime=data
         }
     },
     actions:{
@@ -101,6 +106,12 @@ const passages={
             else{
                 message.error("删除失败")
             }
+        },
+        listCreateTime:async ({commit},id)=>{
+            const dates=await listCreateTimeAPI(id)
+            console.log(dates)
+            commit('set_listCreateTime',dates);
+            return dates;
         }
     }
 

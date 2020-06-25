@@ -3,12 +3,13 @@
         <a-row >
           <a-col :span="4">
               <div :style="{ borderRadius: '4px' }" class="calendar">
-                <a-calendar :fullscreen="false" @panelChange="onPanelChange"  />
+                <a-calendar :fullscreen="false" @panelChange="onPanelChange"
+                />
             </div>
             <div class="personal_info">
                 <a-avatar size="large" icon="user" />
                 <p>
-                    serenity,
+                    {{userName}}
                 </p>
                 <p>
                     这是您的第{{userBlogs.length+1}}篇blog
@@ -34,7 +35,7 @@
                 <a-icon key="save" type="save" @click="save"/>
                 </template>
             </a-card>
-            <a-modal v-model="setting_visible" title="为你的博客添加标签">
+            <a-modal v-model="setting_visible" title="为你的博客添加标签" @ok="close_setting">
                     <template v-for="(tag, index) in tags">
                         <a-tooltip v-if="tag.length > 20" :key="tag" :title="tag">
                             <a-checkable-tag v-model="checked[index]" :key="tag">
@@ -65,7 +66,7 @@
                     <a-switch v-model="pub" />
                     </p>
             </a-modal>
-            <a-modal v-model="picVisible" title="选择封面图片">
+            <a-modal v-model="picVisible" title="选择封面图片" @ok="closePic">
                 <a-upload
                     list-type="picture-card"
                     @change="handleChange1"
@@ -86,15 +87,16 @@
           </a-col>
           <a-col :span="8" >
                 <a-card title="Friends" style="width: 70%;margin-left:25%">
-                <p>
-                    <a-icon type="github" style="font-size: 30px"></a-icon>
-                </p>
-                <p>
-                    <a-icon type="zhihu" style="font-size: 30px"></a-icon>
-                </p>
-                <!-- <p>
-                    <a-icon type="linkedin" style="font-size: 30px"></a-icon>
-                </p> -->
+                          <a-card-meta>
+                              <a-avatar
+                                      v-for="Url in this.friendURL"
+                                      @click="onThisImage(Url)"
+                                      size="large"
+                                      slot="avatar"
+                                      style="color: white;background-color: #E4E6E9;font-size: 25px;margin-right: 30px">
+                                  {{Url.substring(11,16)}}
+                              </a-avatar>
+                          </a-card-meta>
                 </a-card>
                 <a-card title="tags" style="width: 70%;margin-left:25%;margin-top:5%">
                     <template v-for="(tag) in userTags">
@@ -111,9 +113,13 @@
                 <a-card title="最受欢迎的文章" style="width: 70%;margin-left:25%;margin-top:5%">
                     <a-list :grid="{ gutter: 16, column: 3 }" :data-source="popular">
                         <a-list-item slot="renderItem" slot-scope="item,index">
-                        <a-card :title="index+1">
+                        <a-card :title="index+1" v-if="item.title.length<5">
                             {{item.title}}
                         </a-card>
+                        <a-card :title="index+1" v-else>
+                            {{item.title.substring(0,6)}}
+                        </a-card>
+                        
                         </a-list-item>
                     </a-list>
                 </a-card>
@@ -164,6 +170,8 @@ export default {
                 'userId',
                 'userBlogs',
                 'userTags',
+                'userName',
+                'friendURL',
             ])
     },
     async mounted() {
@@ -171,6 +179,9 @@ export default {
         await this.getTagsByUser();
         await this.setChecked();
         await this.setpopuplar();
+        await this.listCreateTime(this.userId);
+        await this.getFriendUrl(this.userId)
+        //console.log(this.friendURL)
     },  
     methods: {
         ...mapActions([
@@ -179,8 +190,22 @@ export default {
             'getUserBlogs',
             'saveTag',
             'getMostPopularPassages',
+            'listCreateTime',
+            'getFriendUrl',
       ]),
-
+        async onThisImage(Url) {
+          this.myUrl = Url;
+          if (this.state === 0) {
+              window.open(this.myUrl)
+          } else {
+              console.log(this.myUrl)
+                await this.deleteFriendUrl(
+                    {url:this.myUrl,
+                     userId:this.userId});
+              location.reload();
+          }
+          this.state = 0
+      },
         onPanelChange(value, mode) {
         console.log(value, mode);
         },
@@ -359,6 +384,12 @@ export default {
             _this.filename = filename
             _this.ossUpload(filename, file.file)
         },
+        close_setting(){
+            this.setting_visible=false;
+        },
+        closePic(){
+            this.picVisible=false;
+        }
     },
 }
 </script>

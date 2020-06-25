@@ -13,7 +13,7 @@
                     </a>
                     <a-row style="text-align: left;font-size: 120%;overflow:hidden;text-overflow:ellipsis;margin-top: 20px" @click="jumpToDetails(item.id)" >
                         <a-col span="5">
-                            <img src="../../assets/post-bg-swift.jpg" height="100" width="120"/>
+                            <img :src="item.url" height="100" width="120"/>
                         </a-col>
                         <a-col  v-if="item.content.length>150">
                             <span>    {{item.content.substring(0,150)}}...</span>
