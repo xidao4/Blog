@@ -4,7 +4,9 @@
       <a-col :span="4 " :order="1"><div class="logo"></div></a-col>
       <a-col :span="16"  :order="2">
         <a-menu v-model="current" id="up_menu" theme="dark" mode="horizontal" >
-          <a-menu-item key="main"> <a-icon type="appstore" />首页</a-menu-item>
+          <a-menu-item key="main"> <a-icon type="appstore" />首页
+            <router-link :to="'/'"></router-link>
+          </a-menu-item>
           <a-menu-item key="app" > <a-icon type="profile" />我的收藏
             <router-link :to="'myCollection'"></router-link>
           </a-menu-item>

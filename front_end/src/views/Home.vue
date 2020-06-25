@@ -72,7 +72,7 @@
             <a-row>
                 <a-col :span="1"></a-col>
                 <a-col :span="7" style="margin-left: 60px;">
-                    <a-card hoverable style="width: 360px;">
+                    <a-card hoverable style="width: 360px;" @click="jumpToDetails1()">
                         <img
                                 slot="cover"
                                 alt="example"
@@ -84,7 +84,7 @@
                     </a-card>
                 </a-col>
                 <a-col :span="7">
-                    <a-card hoverable style="width: 360px;margin-top: 100px">
+                    <a-card hoverable style="width: 360px;margin-top: 100px" @click="jumpToDetails2()">
                         <img
                                 slot="cover"
                                 alt="example"
@@ -96,7 +96,7 @@
                     </a-card>
                 </a-col>
                 <a-col :span="7">
-                    <a-card hoverable style="width: 360px;margin-top: 200px">
+                    <a-card hoverable style="width: 360px;margin-top: 200px" @click="jumpToDetails3()">
                         <img
                                 slot="cover"
                                 alt="example"
@@ -135,24 +135,42 @@ export default {
             'passageList'
         ])
     },
-    mounted(){
-        this.getRandomPassages();
-        this.list=this.passageList;
+    async mounted() {
+        await this.getRandomPassages();
+        this.list = this.passageList;
         let i = 0;
         for (i = 0; i < this.list.length; i++) {
-            if(this.list[i].content.length>50){
-                this.list[i].content=this.list[i].content.substring(0,50);
+            if (this.list[i].content.length > 50) {
+                this.list[i].content = this.list[i].content.substring(0, 50);
             }
-            if(this.list[i].title.length>10){
-                this.list[i].title=this.list[i].title.substring(0,10);
+            if (this.list[i].title.length > 10) {
+                this.list[i].title = this.list[i].title.substring(0, 10);
             }
         }
+        console.log('aaaa')
         console.log(this.list)
     },
     methods: {
         ...mapActions([
-            'getRandomPassages'
+            'getRandomPassages',
+            'getPassage',
+            'getCommentList'
         ]),
+        async jumpToDetails2() {
+            await this.getPassage(this.list[1].id)
+            await this.getCommentList(this.list[1].id)
+            await this.$router.push({name: 'details'})
+        },
+        async jumpToDetails1() {
+            await this.getPassage(this.list[0].id)
+            await this.getCommentList(this.list[0].id)
+            await this.$router.push({name: 'details'})
+        },
+        async jumpToDetails3() {
+            await this.getPassage(this.list[2].id)
+            await this.getCommentList(this.list[2].id)
+            await this.$router.push({name: 'details'})
+        },
     },
     components: {
     }
