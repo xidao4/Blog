@@ -154,6 +154,7 @@ export default {
             myUrl:'https://pinru.oss-cn-shanghai.aliyuncs.com/network_blog/post-bg-rwd.jpg',
             uploaded:false,
             popular:[],
+            state:0,
         }
     },
     created() {

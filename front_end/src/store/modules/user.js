@@ -11,6 +11,7 @@ import {
     addFriendUrlAPI,
     deleteFriendUrlAPI,
     getFriendUrlAPI,
+    uploadAvatarAPI,
 } from '../../api/user.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI,isInCollectionAPI,} from "../../api/passages";
 import{
@@ -202,7 +203,13 @@ const user={
             if(res){
                 await dispatch('getTagsByUser');
             }
-        }
+        },
+        uploadAvatar:async({state},url)=>{
+            const res=await uploadAvatarAPI(state.user_id,url);
+            if(res){
+                message.success("上传成功")
+            }
+        },
     }
 }
 export default user;

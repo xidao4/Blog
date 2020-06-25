@@ -53,6 +53,47 @@
                       </a-input-password>
                   </a-col>
               </a-row>
+        <a-row :style="{height: '120px'}" type="flex" align="middle">
+                  <a-col :span="6">
+                      <div class="static_font">上传头像</div>
+                  </a-col>
+                  <a-col :span="18">
+                      <a-button shape="round" type="dashed" icon="upload" :size="size" @click="modifyAvatar">
+                          上传头像
+                      </a-button>
+                  </a-col>
+              </a-row>
+
+
+<a-modal
+            :visible="modifyAvatarVisible"
+            title="上传头像"
+            cancelText="取消"
+            okText="确定"
+            @cancel="handleCancel"
+            @ok="handleSubmit"
+    >
+        <a-upload
+                    list-type="picture-card"
+                    @change="handleChange1"
+                    :customRequest="beginUpload"
+                    :show-upload-list="false"
+            >
+                <img alt="example" style="width: 100%" v-if="uploaded" :src="previewImage" />
+                <div v-else>
+                    <a-icon type="plus" />
+                    <div class="ant-upload-text">
+                        Upload
+                    </div>
+                </div>
+            </a-upload>
+        <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+            <img alt="example" style="width: 100%" :src="previewImage" />
+        </a-modal>
+
+    </a-modal>
+
+
           </a-col>
           <a-col :span="4" class="wrapper">
               <a-row :style="{height: '340px'}" type="flex" align="middle">
@@ -120,6 +161,17 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { message } from 'ant-design-vue'
+import OSS from 'ali-oss'
+
+function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+            //console.log(file.thumbUrl)
+        });
+    }
 
 export default {
     name: 'Setting',
@@ -134,6 +186,12 @@ export default {
             url:''
         },
         state:0,
+        previewVisible: false,
+        uploaded: false,
+        previewImage: '',
+        myUrl:'',
+        client:null,
+        modifyAvatarVisible:false,
         add_visible:false,
         formItemLayout: {
               labelCol: {
@@ -150,6 +208,15 @@ export default {
     beforeCreate() {
         this.form = this.$form.createForm(this, { name: 'addFriendURLModal' });
     },
+    created() {
+            this.client = new OSS({
+            region: 'oss-cn-shanghai',
+            accessKeyId: 'LTAI4G8SS461QJNzW59evna6',
+            accessKeySecret: '0rNlfgSesE8YCB1jqqRYZYxrr1ZMh5',
+            bucket: 'pinru',
+            secure: false
+            })
+        },
 computed: {
   ...mapGetters([
             'userId',
@@ -168,7 +235,8 @@ computed: {
       'updateInfo',
           'getFriendUrl',
           'deleteFriendUrl',
-          'addFriendUrl'
+          'addFriendUrl',
+        'uploadAvatar',
       ]),
       onChange(checked) {
         console.log(`a-switch to ${checked}`);
@@ -179,15 +247,16 @@ computed: {
         this.userName=userInfo.userName;
         this.email=userInfo.email;
         this.description="hello world";
-        this.password=userInfo.password;
+        //this.password=userInfo.password;
       },
       async submit(){
           const data={
             userName:this.userName,
             //email:this.name,
             description:this.description,
-            password:this.password,
+            //password:this.password,
           }
+          if(this.password!="") data.password=this.password;
           const res=await this.updateInfo(data);
           if(res){
                 message.success('修改成功')
@@ -231,6 +300,74 @@ computed: {
           this.state=1;
           message.success("请点击需要删除的友链图标")
       },
+      modifyAvatar(){
+          this.modifyAvatarVisible=true;
+      },
+
+        async handleSubmit(e){
+                e.preventDefault();
+                /* const data={
+                    user_id:this.userId,
+                    avatar_url:this.myUrl
+                } */
+                console.log('myurl',this.myUrl)
+                //await this.set_modifyAvatarModal(data)
+                this.modifyAvatarVisible=false;
+                await this.uploadAvatar(this.myUrl)
+
+            },
+            handleCancel() {
+                this.previewVisible = false;
+                this.modifyAvatarVisible=false;
+            },
+            /* async handlePreview(file) {
+                if (!file.url && !file.preview) {
+                    file.preview = await getBase64(file.originFileObj);
+                    this.myUrl=file.thumbUrl;
+
+                }
+                this.myUrl=file.thumbUrl;
+                this.previewImage = file.url || file.preview;
+                this.previewVisible = true;
+            }, */
+            async handleChange1(info) {
+                info.file.status='done'
+                this.uploaded=true;
+                this.previewImage=await getBase64(info.file.originFileObj);
+                console.log('info',info,this.uploaded,this.previewImage)
+                //this.fileList = fileList;
+                //this.myUrl=fileList[0].thumbUrl;
+
+            },
+
+
+            async ossUpload (filename, file) {
+                let _this = this
+                try {
+                    let result = await _this.client.multipartUpload(filename, file, {
+                    progress: async function (p, checkpoint) {
+                        _this.checkpoint = checkpoint
+                        _this.percentage = p * 100
+                    },
+                    checkpoint: _this.checkpoint
+                    })
+                    console.log(result)
+                    _this.myUrl='https://pinru.oss-cn-shanghai.aliyuncs.com'+result.name;
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            async beginUpload (file) {
+                let _this = this
+                let filename = file.file.name
+                filename ='/network_blog/'+ filename.split('.')[0] +  '.' + filename.split('.')[1]
+                _this.file = file
+                _this.filename = filename
+                _this.ossUpload(filename, file.file)
+                //await _this.handlePreview(file.file)
+                },
+
+
     }
 }
 </script>
