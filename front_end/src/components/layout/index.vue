@@ -25,7 +25,7 @@ export default {
   position: fixed;
   width: 100%;
   height: 10%;
-  background: rgba(0, 0, 0, 0.65);
+  background: #0E141E;
   margin: 0% 0% 2% 0%;
 }
 #main_content{

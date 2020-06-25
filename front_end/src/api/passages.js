@@ -84,3 +84,10 @@ export function listCreateTimeAPI(id){
         method:'GET'
     })
 }
+
+export function getRandomPassagesAPI(){
+    return axios({
+        url:`${api.passagesPre}/getRandomPassages`,
+        method:'GET'
+    })
+}

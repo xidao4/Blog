@@ -11,7 +11,7 @@ import {
     getUserBlogsAPI,
     getMostPopularPassagesAPI,
     deletePassageAPI,
-    listCreateTimeAPI,
+    listCreateTimeAPI, getRandomPassagesAPI,
 } from "../../api/passages";
 import {getUserNameAPI} from "../../api/user";
 import {getTagsByPassageAPI} from "../../api/tag";
@@ -22,6 +22,7 @@ const passages={
         userBlogs:[],
         tags:[],
         listCreateTime:[],
+        passageList:[]
     },
     mutations:{
         set_searchResult:function (state,data) {
@@ -38,7 +39,10 @@ const passages={
         },
         set_listCreateTime:function(state,data){
             state.listCreateTime=data
-        }
+        },
+        set_passageList:function(state,data){
+            state.passageList=data
+        },
     },
     actions:{
         searchPassage:async ({commit},value)=>{
@@ -112,7 +116,12 @@ const passages={
             console.log(dates)
             commit('set_listCreateTime',dates);
             return dates;
-        }
+        },
+        getRandomPassages:async ({commit})=>{
+            const res=await getRandomPassagesAPI()
+            console.log(res)
+            commit('set_passageList',res);
+        },
     }
 
 }
