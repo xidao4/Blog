@@ -15,6 +15,7 @@ const getters={
     collection:state=>state.user.collection,
     userTags:state=>state.user.userTags,
     inCollection: state=>state.user.inCollection,
+    ava_url:state=>state.user.ava_url,
     //comment
     commentList:state=>state.comment.commentList
 

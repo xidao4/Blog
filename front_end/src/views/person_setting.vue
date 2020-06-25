@@ -58,7 +58,7 @@
                       <div class="static_font">上传头像</div>
                   </a-col>
                   <a-col :span="18">
-                      <a-button shape="round" type="dashed" icon="upload" :size="size" @click="modifyAvatar">
+                      <a-button shape="round" type="dashed" icon="upload" @click="modifyAvatar">
                           上传头像
                       </a-button>
                   </a-col>
@@ -102,13 +102,13 @@
                   <a-col :span="3">
                   </a-col>
                   <a-col :span="14">
-                      <a-button shape="round" type="primary" icon="upload" :size="size" @click="submit">
+                      <a-button shape="round" type="primary" icon="upload"  @click="submit">
                           提交修改
                       </a-button>
                   </a-col>
               </a-row>
           </a-col>
-          <a-col :span="7"class="wrapper">
+          <a-col :span="7" class="wrapper">
               <a-row :style="{height: '80px'}" type="flex" align="middle">
                   <a-col :span="3">
                   </a-col>
@@ -306,12 +306,8 @@ computed: {
 
         async handleSubmit(e){
                 e.preventDefault();
-                /* const data={
-                    user_id:this.userId,
-                    avatar_url:this.myUrl
-                } */
+               
                 console.log('myurl',this.myUrl)
-                //await this.set_modifyAvatarModal(data)
                 this.modifyAvatarVisible=false;
                 await this.uploadAvatar(this.myUrl)
 
@@ -320,24 +316,12 @@ computed: {
                 this.previewVisible = false;
                 this.modifyAvatarVisible=false;
             },
-            /* async handlePreview(file) {
-                if (!file.url && !file.preview) {
-                    file.preview = await getBase64(file.originFileObj);
-                    this.myUrl=file.thumbUrl;
-
-                }
-                this.myUrl=file.thumbUrl;
-                this.previewImage = file.url || file.preview;
-                this.previewVisible = true;
-            }, */
+            
             async handleChange1(info) {
                 info.file.status='done'
                 this.uploaded=true;
                 this.previewImage=await getBase64(info.file.originFileObj);
                 console.log('info',info,this.uploaded,this.previewImage)
-                //this.fileList = fileList;
-                //this.myUrl=fileList[0].thumbUrl;
-
             },
 
 
@@ -364,7 +348,6 @@ computed: {
                 _this.file = file
                 _this.filename = filename
                 _this.ossUpload(filename, file.file)
-                //await _this.handlePreview(file.file)
                 },
 
 

@@ -103,6 +103,7 @@
             }
             this.isInCollection(collect)
             await this.getPassageTags(this.passageDetail.id)
+            await getUserInfo()
         },
         methods:{
             ...mapActions([
@@ -113,7 +114,8 @@
                 'isInCollection',
                 'getPassageTags',
                 'delPassage',
-                'deleteComment'
+                'deleteComment',
+                'getUserInfo',
             ]),
             addtoCollection(id){
                 this.addCollection(id)

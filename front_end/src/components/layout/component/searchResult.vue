@@ -45,12 +45,16 @@
                 'userId'
             ])
         },
+        async mounted() {
+            await this.getUserInfo() 
+        },
         methods:{
             ...mapActions([
                 'addCollection',
                 'getPassage',
                 'getCommentList',
-                'updateInCollection'
+                'updateInCollection',
+                'getUserInfo',
             ]),
             jumpToDetails(id,userid){
                 this.getCommentList(id)

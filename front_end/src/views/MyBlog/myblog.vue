@@ -62,6 +62,7 @@
         async mounted() {
            //await this.getUserBlogs(this.userId)
            await this.getCollected()
+           await this.getUserInfo()
         },
         computed:{
             ...mapGetters([
@@ -78,7 +79,8 @@
                 'deleteCollection',
                 'isInCollection',
                 'addCollection',
-                'updatePassage'
+                'updatePassage',
+                'getUserInfo',
             ]),
             jumpToDetails(id){
                 this.getPassage(id)

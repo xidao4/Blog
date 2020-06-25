@@ -69,8 +69,8 @@ public class AccountController {
         else return ResponseVO.buildSuccess(urls);
     }
 
-    @PostMapping("/{id}/{url}/setUrl")
-    public ResponseVO setUrl(@PathVariable Integer id,@PathVariable String url){
+    @PostMapping("/{id}/setUrl")
+    public ResponseVO setUrl(@PathVariable Integer id,@RequestParam String url){
         return accountService.setUrl(id,url);
     }
 

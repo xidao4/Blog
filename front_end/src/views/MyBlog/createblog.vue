@@ -7,7 +7,7 @@
                 />
             </div>
             <div class="personal_info">
-                <a-avatar size="large" icon="user" />
+                <a-avatar size="large" :src="ava_url" />
                 <p>
                     {{userName}}
                 </p>
@@ -173,6 +173,7 @@ export default {
                 'userTags',
                 'userName',
                 'friendURL',
+                'ava_url',
             ])
     },
     async mounted() {
@@ -182,6 +183,7 @@ export default {
         await this.setpopuplar();
         await this.listCreateTime(this.userId);
         await this.getFriendUrl(this.userId)
+        await this.getUserInfo()
         //console.log(this.friendURL)
     },  
     methods: {
@@ -193,6 +195,7 @@ export default {
             'getMostPopularPassages',
             'listCreateTime',
             'getFriendUrl',
+            'getUserInfo'
       ]),
         async onThisImage(Url) {
           this.myUrl = Url;
