@@ -6,6 +6,15 @@ public class User {
     private String password;
     private String userName;
     private String description;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getDescription() {
         return description;

@@ -25,6 +25,10 @@
         select * from tb_passage where id=#{id}
     </select>
 
+    <select id="getAllBlogsOrderById" resultMap="Passage">
+        select * from tb_passage order by id desc
+    </select>
+
 
     <select id="selectByKey" resultMap="Passage">
         select *
