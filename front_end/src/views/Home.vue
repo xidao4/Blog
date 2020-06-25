@@ -79,7 +79,7 @@
                                 src="https://pinru.oss-cn-shanghai.aliyuncs.com/slide/slide5.jpg"
                                 style="border-radius: 5px 5px 0 0"
                         />
-                        <a-card-meta title="Card title" description="This is the description">
+                        <a-card-meta :title="this.list[0].title" :description="this.list[0].content">
                         </a-card-meta>
                     </a-card>
                 </a-col>
@@ -91,7 +91,7 @@
                                 src="https://pinru.oss-cn-shanghai.aliyuncs.com/slide/slide4.jpg"
                                 style="border-radius: 5px 5px 0 0"
                         />
-                        <a-card-meta title="Card title" description="This is the description">
+                        <a-card-meta :title="this.list[1].title" :description="this.list[1].content">
                         </a-card-meta>
                     </a-card>
                 </a-col>
@@ -103,7 +103,7 @@
                                 src="https://pinru.oss-cn-shanghai.aliyuncs.com/slide/slide1.jpg"
                                 style="border-radius: 5px 5px 0 0"
                         />
-                        <a-card-meta title="Card title" description="This is the description">
+                        <a-card-meta :title="this.list[2].title" :description="this.list[2].content">
                         </a-card-meta>
                     </a-card>
                 </a-col>
@@ -122,19 +122,40 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Home',
-  created() {
-    
-  },
+    data(){
+      return{
+          list:[],
+      }
+    },
+    created() {
+
+    },
+    computed: {
+        ...mapGetters([
+            'passageList'
+        ])
+    },
     mounted(){
         this.getRandomPassages();
+        this.list=this.passageList;
+        let i = 0;
+        for (i = 0; i < this.list.length; i++) {
+            if(this.list[i].content.length>50){
+                this.list[i].content=this.list[i].content.substring(0,50);
+            }
+            if(this.list[i].title.length>10){
+                this.list[i].title=this.list[i].title.substring(0,10);
+            }
+        }
+        console.log(this.list)
     },
     methods: {
         ...mapActions([
             'getRandomPassages'
         ]),
     },
-  components: {
-  }
+    components: {
+    }
 }
 </script>
 

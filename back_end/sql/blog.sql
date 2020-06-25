@@ -24,6 +24,10 @@ CREATE TABLE `tb_passage` (
 /*Data for the table `tb_passage` */
 insert into `tb_passage`(`id`,`userId`,`title`,`content`,`createTime`,`recentEditTime`,`status`,`url`) values (2,0,'震惊！某高校寒假居然长达八个月！原因竟然是。。','寒假是指冬季1-2月份期间的假期。
 在中国，学校通常将每个学年分为上、下两个学期。上学期从秋季九月份开始，到农历腊月初十左右，各学校开始放假，至元宵节后寒假结束。而这个时候正处于中国寒冷的冬季，交‘九’之际，被称为寒假。假期一般1个月左右。但在寒冷的中国东北地区及其他高纬度地区，有时多达45天左右，多者甚至会两个月左右。','2017-03-12 00:31:15','2018-11-12 00:31:15',1,'https://supernatural.oss-cn-beijing.aliyuncs.com/1881bb12-3f09-459a-b288-59e724cb7c94.jpeg');
+insert into `tb_passage`(`id`,`userId`,`title`,`content`,`createTime`,`recentEditTime`,`status`,`url`) values (3,0,'震惊！某高校寒假居然长达八个月！原因竟然是。。','寒假是指冬季1-2月份期间的假期。
+在中国，学校通常将每个学年分为上、下两个学期。上学期从秋季九月份开始，到农历腊月初十左右，各学校开始放假，至元宵节后寒假结束。而这个时候正处于中国寒冷的冬季，交‘九’之际，被称为寒假。假期一般1个月左右。但在寒冷的中国东北地区及其他高纬度地区，有时多达45天左右，多者甚至会两个月左右。','2017-03-12 00:31:15','2018-11-12 00:31:15',1,'https://supernatural.oss-cn-beijing.aliyuncs.com/1881bb12-3f09-459a-b288-59e724cb7c94.jpeg');
+insert into `tb_passage`(`id`,`userId`,`title`,`content`,`createTime`,`recentEditTime`,`status`,`url`) values (4,0,'震惊！某高校寒假居然长达八个月！原因竟然是。。','寒假是指冬季1-2月份期间的假期。
+在中国，学校通常将每个学年分为上、下两个学期。上学期从秋季九月份开始，到农历腊月初十左右，各学校开始放假，至元宵节后寒假结束。而这个时候正处于中国寒冷的冬季，交‘九’之际，被称为寒假。假期一般1个月左右。但在寒冷的中国东北地区及其他高纬度地区，有时多达45天左右，多者甚至会两个月左右。','2017-03-12 00:31:15','2018-11-12 00:31:15',1,'https://supernatural.oss-cn-beijing.aliyuncs.com/1881bb12-3f09-459a-b288-59e724cb7c94.jpeg');
 
 DROP TABLE IF EXISTS `tb_tag`;
 CREATE TABLE `tb_tag`(
@@ -48,6 +52,7 @@ CREATE TABLE `tb_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 insert into `tb_comment`(`id`,`passageId`,`userId`,`content`,`commentTime`,`userName`) values(1,2,1,'天哪！你说的是真的嘛！这头也太大了吧！','2018-11-12 00:31:15','userName');
+
 
 DROP TABLE IF EXISTS `tb_User`;
 
