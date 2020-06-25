@@ -68,5 +68,15 @@ public class AccountController {
         if(urls.size()==0) return ResponseVO.buildFailure("FriendUrl not exist!");
         else return ResponseVO.buildSuccess(urls);
     }
+
+    @PostMapping("/{id}/setUrl")
+    public ResponseVO setUrl(@PathVariable Integer id,@RequestParam String url){
+        return accountService.setUrl(id,url);
+    }
+
+    @GetMapping("{id}/getUrl")
+    public ResponseVO getUrl(@PathVariable Integer id){
+        return ResponseVO.buildSuccess(accountService.getUrl(id));
+    }
 }
 

@@ -130,4 +130,9 @@ public class PassageController {
         return ResponseVO.buildSuccess(collectionService.getMostPopularPassages(userId));
     }
 
+    @GetMapping("/getRandomPassages")
+    public ResponseVO getRandomPassages(){
+        return ResponseVO.buildSuccess(passageService.getRandomPassages());
+    }
+
 }

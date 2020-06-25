@@ -65,5 +65,7 @@ public interface PassageService {
      */
     List<PassageVO> searchPassages(String key);
 
+    List<PassageVO> getRandomPassages();
+
 
 }

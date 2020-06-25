@@ -58,3 +58,11 @@ export function getUserNameAPI(id) {
         method: 'GET'
     })
 }
+
+export function uploadAvatarAPI(id,data){
+    return axios({
+        url: `${api.userPre}/${id}/setUrl`,
+        method: 'POST',
+        params:{url: data},
+    })
+}

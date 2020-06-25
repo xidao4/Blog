@@ -11,6 +11,7 @@ import {
     addFriendUrlAPI,
     deleteFriendUrlAPI,
     getFriendUrlAPI,
+    uploadAvatarAPI,
 } from '../../api/user.js'
 import {addCollectionAPI, deleteCollectionAPI, getCollectionAPI,isInCollectionAPI,} from "../../api/passages";
 import{
@@ -30,6 +31,7 @@ const user={
             url:''
         },
         userTags:[],
+        ava_url:'',
     },
     mutations:{
         set_userId: (state, data) => {
@@ -100,6 +102,7 @@ const user={
                     }
                     //commit('set_userInfo', data.membership)
                     //commit('set_userId', data.id)
+                    state.ava_url=data.url
                     resolve(data)
                 }).catch(error => {
                     reject(error)
@@ -197,12 +200,20 @@ const user={
             return res
         },
         saveTag:async({dispatch,commit},data)=>{
-            console.log('here',data);
+            //console.log('here',data);
             const res=await saveTagAPI(data);
             if(res){
                 await dispatch('getTagsByUser');
             }
-        }
+        },
+        uploadAvatar:async({state},url)=>{
+            //console.log(state.user_id,url)
+            const res=await uploadAvatarAPI(state.user_id,url);
+            if(res){
+                state.ava_url=url;
+                message.success("上传成功")
+            }
+        },
     }
 }
 export default user;

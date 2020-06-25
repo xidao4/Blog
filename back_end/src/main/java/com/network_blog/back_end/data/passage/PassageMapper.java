@@ -20,4 +20,5 @@ public interface PassageMapper {
     int addCollection(@Param("id") Integer id);
     int deleteCollection(@Param("id") Integer id);
     List<Passage> getAllBlogsOrderByCollectionNum(@Param("userId") int userId);
+    List<Passage> getAllBlogsOrderById();
 }

@@ -3,6 +3,7 @@ import com.network_blog.back_end.po.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Mapper
@@ -33,4 +34,6 @@ public interface AccountMapper {
      * @return
      */
      int updateAccount(@Param("id") int id, @Param("password") String password, @Param("userName") String username,@Param("description") String description);
+
+     int setUrl(@Param("id") Integer id, @Param("url") String url);
 }

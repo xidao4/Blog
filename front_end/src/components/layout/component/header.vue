@@ -25,7 +25,7 @@
           </a-sub-menu>
           <a-sub-menu>
         <span slot="title" class="submenu-title-wrapper"
-        >                <a-avatar size="large" >User</a-avatar>
+        >                <a-avatar size="large" :src="ava_url" ></a-avatar>
         </span>
             <a-menu-item key="person">
             <a-icon type="setting" />
@@ -60,12 +60,17 @@
     data() {
       return {
         current: ['main'],
+        //ava_url:'https://pinru.oss-cn-shanghai.aliyuncs.com/network_blog/post-bg-swift2.jpg',
       };
     },
     computed:{
       ...mapGetters([
-              'searchResult'
+              'searchResult',
+              'ava_url'
+              
       ])
+    },
+    async mounted() {
     },
     methods: {
       ...mapMutations([
@@ -73,6 +78,7 @@
       ...mapActions([
         'logout',
         'searchPassage',
+        'getUserInfo',
       ]),
       onSearch(value) {
         this.searchPassage(value)
@@ -82,7 +88,6 @@
             await this.$store.dispatch('logout')
             this.$router.push(`/login?redirect=${this.$route.fullPath}`)
         },
-      
     },
   };
 </script>

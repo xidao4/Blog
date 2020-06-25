@@ -46,6 +46,7 @@
         },
         async created() {
            await this.getCollection()
+           await this.getUserInfo()
         },
         computed:{
             ...mapGetters([
@@ -57,7 +58,8 @@
                 'getCollection',
                 'getPassage',
                 'getCommentList',
-                'deleteCollection'
+                'deleteCollection',
+                'getUserInfo'
             ]),
             jumpToDetails(id){
                 this.getPassage(id)
