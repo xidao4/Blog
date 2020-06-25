@@ -50,4 +50,8 @@ public interface AccountService {
 
     ResponseVO deleteFriendUrl(FriendUrlVO friendUrlVO);
 
+    ResponseVO setUrl(Integer id,String url);
+
+    String getUrl(Integer id);
+
 }

@@ -15,6 +15,9 @@
         update tb_user set password=#{password},username=#{userName},description=#{description}
         where id=#{id}
     </update>
+    <update id="setUrl">
+        update tb_user set url=#{url} where id=#{id}
+    </update>
 
 
     <resultMap id="User" type="com.network_blog.back_end.po.User">
@@ -23,5 +26,6 @@
         <result column="password" property="password"></result>
         <result column="username" property="userName"></result>
         <result column="description" property="description"></result>
+        <result column="url" property="url"></result>
     </resultMap>
 </mapper>

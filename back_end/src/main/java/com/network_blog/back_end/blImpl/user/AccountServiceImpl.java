@@ -104,5 +104,16 @@ public class AccountServiceImpl implements AccountService {
         }
         return ResponseVO.buildFailure("Friendurl not exist!");
     }
+
+    @Override
+    public ResponseVO setUrl(Integer id,String url){
+        accountMapper.setUrl(id,url);
+        return ResponseVO.buildSuccess(true);
+    }
+
+    @Override
+    public String getUrl(Integer id){
+        return accountMapper.getAccountById(id).getUrl();
+    }
 }
 

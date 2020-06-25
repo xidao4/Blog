@@ -205,5 +205,24 @@ public class PassageServiceImpl implements PassageService {
         return passageVOS;
     }
 
+    @Override
+    public List<PassageVO> getRandomPassages(){
+        List<Passage> passages=blogMapper.getAllBlogsOrderById();
+        if(passages.size()>=6) passages=passages.subList(0,6);
+        List<PassageVO> passageVOS=passages.stream().map(p -> {
+            PassageVO passageVO = new PassageVO();
+            passageVO.setId(p.getId());
+            passageVO.setContent(p.getContent());
+            passageVO.setCreateTime(p.getCreateTime());
+            passageVO.setRecentEditTime(p.getRecentEditTime());
+            passageVO.setTitle(p.getTitle());
+            passageVO.setUserId(p.getUserId());
+            passageVO.setCollectionNum(p.getCollectionNum());
+            passageVO.setStatus(p.getStatus());
+            passageVO.setUrl(p.getUrl());
+            return passageVO;
+        }).collect(Collectors.toList());
+        return passageVOS;
+    }
 
 }
