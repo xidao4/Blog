@@ -135,7 +135,7 @@
                                       size="large"
                                       slot="avatar"
                                       style="color: white;background-color: #E4E6E9;font-size: 25px;margin-right: 30px">
-                                  {{Url.substring(12,16)}}
+                                  {{Url.substring(11,16)}}
                               </a-avatar>
                           </a-card-meta>
                       </a-card>
@@ -246,7 +246,7 @@ computed: {
         //console.log("info:",userInfo);
         this.userName=userInfo.userName;
         this.email=userInfo.email;
-        this.description="hello world";
+        this.description=userInfo.description;
         //this.password=userInfo.password;
       },
       async submit(){

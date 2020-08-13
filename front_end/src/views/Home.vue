@@ -136,6 +136,7 @@ export default {
         ])
     },
     async mounted() {
+        await this.getUserInfo();
         await this.getRandomPassages();
         this.list = this.passageList;
         let i = 0;
@@ -154,7 +155,8 @@ export default {
         ...mapActions([
             'getRandomPassages',
             'getPassage',
-            'getCommentList'
+            'getCommentList',
+            'getUserInfo'
         ]),
         async jumpToDetails2() {
             await this.getPassage(this.list[1].id)

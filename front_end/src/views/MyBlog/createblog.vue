@@ -3,9 +3,17 @@
         <a-row >
           <a-col :span="4">
               <div :style="{ borderRadius: '4px' }" class="calendar">
-                <a-calendar :fullscreen="false" @panelChange="onPanelChange"
+                <a-calendar :fullscreen="false" @panelChange="onPanelChange" @select="onSelect"
                 />
             </div>
+            <a-modal :visible="recordVisible" @ok="closeCal" >
+                <p>
+                    标题：router
+                </p>
+                <p>
+                    标题：administrative diatance
+                </p>    
+            </a-modal>
             <div class="personal_info">
                 <a-avatar size="large" :src="ava_url" />
                 <p>
@@ -155,13 +163,13 @@ export default {
             uploaded:false,
             popular:[],
             state:0,
+            recordVisible:false,
         }
     },
     created() {
             this.client = new OSS({
             region: 'oss-cn-shanghai',
-            accessKeyId: 'LTAI4G8SS461QJNzW59evna6',
-            accessKeySecret: '0rNlfgSesE8YCB1jqqRYZYxrr1ZMh5',
+            
             bucket: 'pinru',
             secure: false
             })
@@ -393,6 +401,13 @@ export default {
         },
         closePic(){
             this.picVisible=false;
+        },
+        onSelect(){
+            //if(date=='2020-06-25')
+            this.recordVisible=true;
+        },
+        closeCal(){
+            this.recordVisible=false;
         }
     },
 }

@@ -24,7 +24,7 @@
                     </a-row>
                     <a-row>
                         <a-col style="color: darkgray;text-align: left" :span="12"><br>创建于 {{item.createTime.substring(0,10)}}</a-col>
-                        <a-col style="color: darkgray;text-align: right;padding-right:10px;margin-top: 10px" :span="6">
+                        <a-col style="color: darkgray;text-align: right;padding-right:10px;margin-top: 10px" :span="4">
                             <a-button v-if="item.status==0" @click="showEdit(item)" style="color: #192c3e"><a-icon type="edit"></a-icon>编辑</a-button>
                             <a-modal v-model="editVisible" title="继续编辑" @ok="save(tempItem)">
                                 <a-input placeholder="标题" allow-clear v-model="tempItem.title">
@@ -32,9 +32,19 @@
                                 </a-input>
                                 <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="tempItem.content"/>
                             </a-modal>
-
                         </a-col>
-                        <a-col  style="color: darkgray;text-align: right;padding-right:10px;margin-top: 10px" :span="6"  >
+
+                        <a-col style="color: darkgray;text-align: right;padding-right:10px;margin-top: 10px" :span="4">
+                            <a-button v-if="item.status==0" @click="showEdit(item)" style="color: #192c3e"><a-icon type="delete"></a-icon>删除</a-button>
+                            <a-modal v-model="editVisible" title="继续编辑" @ok="save(tempItem)">
+                                <a-input placeholder="标题" allow-clear v-model="tempItem.title">
+                                    <a-icon slot="prefix" type="edit" />
+                                </a-input>
+                                <a-textarea placeholder="内容" :autosize="{minRows: 9, maxRows: 11}" v-model="tempItem.content"/>
+                            </a-modal>
+                        </a-col>
+
+                        <a-col  style="color: darkgray;text-align: right;padding-right:10px;margin-top: 10px" :span="4"  >
                             <a-button v-if="!inCollections[item.id]"  @click="addtoCollection(item.id) " style="color: #192c3e"><a-icon type="star"></a-icon>收藏</a-button>
                             <a-button v-else @click="delCollection(item.id)" style="color: #192c3e"><a-icon type="star"></a-icon>取消收藏</a-button>
                         </a-col>

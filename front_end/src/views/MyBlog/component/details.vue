@@ -4,7 +4,7 @@
             <div class="details" style="margin-bottom: 40px">
                 <a-row class="information" style="text-align: left;margin-left: 250px;margin-right: 100px;margin-top: 50px">
                     <a-col class="'userLogo'" :span="2" >
-                        <img src="../../../assets/icon.jpg" height="70" width="70" />
+                        <img :src="ava_url" height="70" width="70" />
                     </a-col>
                     <a-col class="'userName'" style="text-align:left;margin-left: 20px;;margin-top: 5px">
                         <span class="'name'" style="font-size: large;color: darkgray" >{{passageDetail.userName}}</span><br>
@@ -48,7 +48,7 @@
                         <row style="text-align: left;margin-left: 100px;margin-right: 200px">
                             <a-row class="information" style="text-align: left">
                                 <a-col class="'userName'" style="text-align:left;" span="9">
-                                    <span><a-icon type="user" style="font-size:250%;margin-right: 5px"></a-icon></span>
+                                    <span><a-avatar size="large" :src="ava_url" ></a-avatar></span>
                                     <span class="'name'" style="font-size: medium;color: darkgray" >{{item.userName}}</span>
                                     <span class="'time'" style="font-size: medium;color: darkgray;margin-left: 20px">{{item.commentTime.substring(0,10)}}  {{item.commentTime.substring(11,19)}}</span>
                                 </a-col>
@@ -93,7 +93,8 @@
               'userId',
               'inCollection',
               'userName',
-              'tags'
+              'tags',
+              'ava_url'
           ])
         },
         async mounted() {

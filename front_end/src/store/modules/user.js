@@ -76,7 +76,7 @@ const user={
                 dispatch('getUserInfo')*/
                 commit('set_userId', res.id)
                 commit('set_userName',res.userName)
-                router.push('/createblog')
+                router.push('/')
                 //console.log('success',state.user_id,res)
             }
         },

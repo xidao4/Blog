@@ -65,7 +65,8 @@ public class AccountController {
     @GetMapping("/{id}/getFriendUrl")
     public ResponseVO getFriendUrl(@PathVariable Integer id){
         List<String> urls=accountService.getFriendUrl(id);
-        if(urls.size()==0) return ResponseVO.buildFailure("FriendUrl not exist!");
+        if(urls.size()==0) return ResponseVO.buildSuccess(true);
+            //return ResponseVO.buildFailure("FriendUrl not exist!");
         else return ResponseVO.buildSuccess(urls);
     }
 

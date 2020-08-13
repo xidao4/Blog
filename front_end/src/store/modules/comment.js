@@ -17,7 +17,8 @@ const comment={
     },
     actions:{
         getCommentList:async ({commit,state},id)=>{
-            let res=await getCommentByPassageIdAPI(id)
+            const res=await getCommentByPassageIdAPI(id)
+            console.log(res)
             if(res){
                 commit('set_commentList',res)
             }
