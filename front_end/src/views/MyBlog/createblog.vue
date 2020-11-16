@@ -169,8 +169,7 @@ export default {
     created() {
             this.client = new OSS({
             region: 'oss-cn-shanghai',
-            accessKeyId: 'LTAI4G8SS461QJNzW59evna6',
-            accessKeySecret: '0rNlfgSesE8YCB1jqqRYZYxrr1ZMh5',
+            
             bucket: 'pinru',
             secure: false
             })
