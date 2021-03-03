@@ -14,10 +14,10 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/passages")
+@RestController//****
+@RequestMapping("/api/passages")//映射路径
 public class PassageController {
-    @Autowired
+    @Autowired//注入
     private PassageService passageService;
     @Autowired
     private CollectionService collectionService;
@@ -27,7 +27,7 @@ public class PassageController {
      * @param userId
      * @return PassageVO
      */
-    @GetMapping("/{userId}/list")
+    @GetMapping("/{userId}/list")//get请求
     public ResponseVO retrieveUserBlogs(@PathVariable int userId){
         try{
             return ResponseVO.buildSuccess(passageService.getAllBlogsByUserId(userId));

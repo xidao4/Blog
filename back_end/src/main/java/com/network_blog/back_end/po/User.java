@@ -1,5 +1,10 @@
 package com.network_blog.back_end.po;
 
+//import lombok.Data;
+//在编译阶段会根据注解自动生成对应的方法，data包含get/set/hashCode/equals/toString等方法
+//使得实体类很简洁（可以在bean上直接使用这些方法），不用写一堆方法
+//@Data
+//@Slf4j
 public class User {
     private Integer id;
     private String email;

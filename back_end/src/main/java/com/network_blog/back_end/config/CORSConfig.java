@@ -6,6 +6,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+//该注解表明这是一个配置类
 @Configuration
 public class CORSConfig {
     private static String[] originsVal = new String[]{
